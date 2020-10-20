@@ -54,11 +54,9 @@
                         @if($product->product_cat)
                         <tr class="productrow">
                             <td >
-                                @if (empty($product->image)||(Auth::check() && Auth::user()->isAdmin()))
-                                    &nbsp;<img src="/img/cesta.png" width="16px" height="16px" id="product_image" class="img-fluid">
-                                @else
-                                    <img src="data:image/png;base64,{{$product->image}}" class="img-fluid" id="product_image"> </td>
-                            @endif
+
+                                    <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image"> </td>
+
                             <td class=""><b>{{$product->name}}</b></td>
                             <td class="nowrapcol"><b>@money($product->pricesell *1.1)</b></td>
                             <td>

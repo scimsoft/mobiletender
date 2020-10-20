@@ -6,16 +6,17 @@ use App\UnicentaModels\SharedTicket;
 use App\UnicentaModels\SharedTicketLines;
 use App\UnicentaModels\SharedTicketProduct;
 use App\UnicentaModels\SharedTicketUser;
-use App\UnicentaModels\TicketLines;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Traits\SharedTicketTrait;
 use function json_decode;
 use function PHPUnit\Framework\isEmpty;
 
 class UnicentaSharedTicketController extends Controller
 {
     //
+    use SharedTicketTrait;
 
     public function hasTicket($table_number)
     {
@@ -44,34 +45,10 @@ class UnicentaSharedTicketController extends Controller
         return $sharedTicket;
     }
     //TODO move object creacion from json to constructor
-    public function getTicket($table_number)
-    {
-        $existingticketlines = DB::select('Select content from sharedtickets where id =' . $table_number);
-        $ticketlinenumber = 0;
-        $sharedTicket = new SharedTicket();
-        $muser = new SharedTicketUser();
-        $sharedTicket->m_User = $muser;
-        $activeCash = DB::select('Select money FROM closedcash where dateend is null')[0];
-        $sharedTicket->m_sActiveCash = $activeCash->money;
-        $productLists = json_decode($existingticketlines[0]->content)->m_aLines;
-        foreach ($productLists as $productList) {
-            $categoryid = $productList->attributes->{'product.categoryid'};
-            $code = $productList->attributes->{'product.code'};
-            $name = $productList->attributes->{'product.name'};
-            $reference = $productList->attributes->{'product.reference'};
-            $printto = $productList->attributes->{'product.printer'};
-            $pricesell = $productList->price;
-            $id = $productList->productid;
-            $sharedTicketProduct = new SharedTicketProduct($reference, $name, $code, $categoryid, $printto, $pricesell, $id);
-            $sharedTicket->m_aLines[] = ((new SharedTicketLines($sharedTicket, $sharedTicketProduct, $ticketlinenumber, $productList->{'updated'})));
-            $ticketlinenumber = $ticketlinenumber + 1;
-        }
-        return $sharedTicket;
-    }
+
 
     public function createEmptyTicket(SharedTicket $sharedTicket, $table_number)
     {
-
         //INSERT empty sharedticket
         $SQLString = "INSERT into sharedtickets VALUES ($table_number,'Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
         Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);

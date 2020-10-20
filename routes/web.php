@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/order/{id?}', 'OrderController@order')->name('order');
+Route::get('/order/{id?}', [OrderController::class, 'order']);
+Route::get('/dbimage/{id}',[ProductImageController::class, 'getImage']);
 
 Auth::routes();
 
