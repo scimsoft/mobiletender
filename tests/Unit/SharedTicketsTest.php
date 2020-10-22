@@ -21,7 +21,7 @@ class SharedTicketsTest extends TestCase
     public function testInsertSharedTicket(){
         $sharedTicket = new SharedTicket();
         $sharedTicketController = new UnicentaSharedTicketController();
-        $sharedTicketController->createEmptyTicket($sharedTicket,self::TABLENUMBER);
+        $sharedTicketController->saveEmptyTicket($sharedTicket,self::TABLENUMBER);
         self::assertNotEmpty($sharedTicketController->getTicket(self::TABLENUMBER));
     }
 

@@ -18,7 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/order/category/{id}',[OrderController::class, 'showProductsFromCategory']);
+
 Route::get('/order/{id?}', [OrderController::class, 'order']);
+Route::get('/order/addproduct/{id}',[OrderController::class,'addProduct']);
+
+
 Route::get('/dbimage/{id}',[ProductImageController::class, 'getImage']);
 
 Auth::routes();

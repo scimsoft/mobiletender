@@ -20,7 +20,7 @@ class UnicentaSharedTicketController extends Controller
 
     public function hasTicket($table_number)
     {
-        if (isEmpty(DB::select('Select content from sharedtickets where id =' . $table_number))) {
+        if (isEmpty(DB::select('Select content from sharedtickets where id ="' . $table_number.'"'))) {
             return false;
         } else {
             return true;
@@ -39,6 +39,10 @@ class UnicentaSharedTicketController extends Controller
 
     }
 
+
+
+
+
     public function getTicket2($table_number){
         $existingticketlines = DB::select('Select content from sharedtickets where id =' . $table_number);
         $sharedTicket = json_decode($existingticketlines[0]->content);
@@ -47,42 +51,21 @@ class UnicentaSharedTicketController extends Controller
     //TODO move object creacion from json to constructor
 
 
-    public function createEmptyTicket(SharedTicket $sharedTicket, $table_number)
+    public function saveEmptyTicket(SharedTicket $sharedTicket, $table_number)
     {
         //INSERT empty sharedticket
-        $SQLString = "INSERT into sharedtickets VALUES ($table_number,'Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
+        $SQLString = "INSERT into sharedtickets VALUES ('$table_number','Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
         Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);
         DB::insert($SQLString);
     }
 
-    public function addProductsToTicket($products, $table_number)
-    {
-        $sharedTicket = $this->getTicket($table_number);
-        $numberLines = count($sharedTicket->m_aLines);
-        foreach ($products as $product) {
-            $numberLines += 1;
-            $sharedTicket->m_aLines[] = new SharedTicketLines($sharedTicket, $product, $numberLines);
-        }
-        $this->updateOpenTable($sharedTicket, $table_number);
 
 
-    }
 
-    private function updateOpenTable(SharedTicket $sharedTicket, $table_number)
-    {
-        $UpdateSharedTicketSQLString = "UPDATE sharedtickets SET content ='" . json_encode($sharedTicket) . "'WHERE id = $table_number";
-        //echo($UpdateSharedTicketSQLString);
-        DB::update($UpdateSharedTicketSQLString);
-
-        $UpdatePlacesSQLString = "UPDATE places SET waiter = 'app', ticketid = '" . $sharedTicket->m_sId . "', occupied = '" . Carbon::create($sharedTicket->m_dDate) . "' WHERE (id = " . $table_number . ")";
-        //Log::debug('SQLSTRING UPDATE places : '. $SQLString);
-        DB::update($UpdatePlacesSQLString);
-
-    }
 
     public function clearOpenTableTicket($table_number)
     {
-        $SQLString = "DELETE from sharedtickets WHERE id = " . $table_number;
+        $SQLString = "DELETE from sharedtickets WHERE id = '$table_number'";
         DB::delete($SQLString);
     }
 

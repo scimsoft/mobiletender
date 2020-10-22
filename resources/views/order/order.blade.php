@@ -14,25 +14,25 @@
                         </div>
                     @endif
 
-                        <a id="drinks-button" href="/products/category/DRINKS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="drinks-button" href="/order/category/DRINKS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Bebidas</a>
 
-                        <a id="food-button" href="/products/category/FOOD" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="food-button" href="/order/category/FOOD" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbsp; Comidas</a>
 
-                        <a id="coffee-button" href="/products/category/COFFEE" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="coffee-button" href="/order/category/COFFEE" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-coffee"></i></span>&nbsp; Cafes</a>
 
-                        <a id="coffee-button" href="/products/category/COCTELES" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="coffee-button" href="/order/category/COCTELES" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-glass"></i></span>&nbsp; Cocteles</a>
 
-                        <a id="coffee-button" href="/products/category/COPAS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="coffee-button" href="/order/category/COPAS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-bolt"></i></span>&nbsp; Copas</a>
 
-                        <a id="coffee-button" href="/products/category/VINOS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="coffee-button" href="/order/category/VINOS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Vinos</a>
 
-                        <a id="coffee-button" href="/products/category/OTROS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
+                        <a id="coffee-button" href="/order/category/OTROS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
 
                 </div>
@@ -50,39 +50,25 @@
                     </thead>
                     <tbody>
                                        
-                    @foreach($controllerproducts as $product)
+                    @foreach($products as $product)
                         @if($product->product_cat)
                         <tr class="productrow">
-                            <td >
-
-                                    <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image"> </td>
+                            <td>
+                                <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image"></td>
 
                             <td class=""><b>{{$product->name}}</b></td>
                             <td class="nowrapcol"><b>@money($product->pricesell *1.1)</b></td>
                             <td>
-
-
-                                <button  class="btn btn-primary add-to-cart btn-add" onclick="addProduct('{{$product->id}}')" type="submit">+</button>
-
+                                <button  class="btn btn-primary add-to-cart btn-add" onclick="window.addProduct('{{$product->id}}')" type="submit">Añadir</button>
                             </td>
-
-                        </tr>
-                    @endif
-                       {{-- <tr>
-                            <td COLSPAN="3">{{$product->DESCRIPTION}</td>
-
-
-
-
-
-
-                        </tr>--}}
+                        </>
+                        @endif
                     @endforeach
 
                     </tbody>
                 </table>
 
-                {{ $controllerproducts->links() }}
+                {{ $products->links() }}
 
             </div>
 
@@ -92,96 +78,46 @@
 @endsection
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <script>
-        $(document).ready(function() {
-            $("#drinks-button").click(function(){
+        jQuery(document).ready(function () {
 
-                loadProducts('DRINKS');
-            });
+            $('.add-to-cart').on('click', function () {
 
-        $(document).ready(function() {
-            $("#food-button").click(function(){
+                var cart = $('.fa-shopping-cart');
+                var imgtodrag = $(this).closest('.productrow').find('.img-fluid');
+                if (imgtodrag) {
+                    var imgclone = imgtodrag.clone()
+                        .offset({
+                            top: imgtodrag.offset().top,
+                            left: imgtodrag.offset().left
+                        })
+                        .css({
+                            'opacity': '0.5',
+                            'position': 'absolute',
+                            'height': '150px',
+                            'width': '150px',
+                            'z-index': '100'
+                        })
+                        .appendTo($('body'))
+                        .animate({
+                            'top': cart.offset().top + 10,
+                            'left': cart.offset().left + 10,
+                            'width': 75,
+                            'height': 75
+                        }, 1000);
 
-                loadProducts('FOOD');
-            });
-        });
-        $(document).ready(function() {
-            $("#coffee-button").click(function(){
 
-            });
-        });
-
-        function loadProducts(category){
-            jQuery.ajax({
-                url: '/products/ajax/' + category,
-                type: "GET",
-                dataType: "json",
-                success: function (data) {
-                newRowContent="";
-
-
-                    $("#products-table tbody").append(newRowContent);
+                    imgclone.animate({
+                        'width': 0,
+                        'height': 0
+                    }, function () {
+                        $(this).detach()
+                    });
                 }
             });
+        })
 
-
-        }
-
-
-
-
-
-
-
-
-
-        });
-        function addProduct(productID){
-            jQuery.ajax({
-                url: '/orderline/add/' + productID,
-                type: "GET",
-                dataType: "json",
-                success: function (data) {
-
-                    setOrderTotal();
-                }
-            });
-        }
-        $('.add-to-cart').on('click', function () {
-            var cart = $('.fa-shopping-cart');
-            var imgtodrag =  $(this).closest('.productrow').find('.img-fluid');
-            if (imgtodrag) {
-                var imgclone = imgtodrag.clone()
-                    .offset({
-                        top: imgtodrag.offset().top,
-                        left: imgtodrag.offset().left
-                    })
-                    .css({
-                        'opacity': '0.5',
-                        'position': 'absolute',
-                        'height': '150px',
-                        'width': '150px',
-                        'z-index': '100'
-                    })
-                    .appendTo($('body'))
-                    .animate({
-                        'top': cart.offset().top + 10,
-                        'left': cart.offset().left + 10,
-                        'width': 75,
-                        'height': 75
-                    }, 1000);
-
-
-
-                imgclone.animate({
-                    'width': 0,
-                    'height': 0
-                }, function () {
-                    $(this).detach()
-                });
-            }
-        });
 
     </script>
 

@@ -24,6 +24,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -34,6 +35,14 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
+                </a>
+                <a id="basketLink" href="/basket"  >
+
+
+                    <button type="button" class="btn btn-labeled btn-success" id="ordertotal">
+                        <span class="btn-label"><i class="fa fa-shopping-cart shopping-cart"></i></span>  @money($totalBasketPrice*1.1)
+                    </button>
+
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -86,4 +95,5 @@
         </main>
     </div>
 </body>
+@yield('scripts');
 </html>
