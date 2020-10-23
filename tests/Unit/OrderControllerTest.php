@@ -35,6 +35,12 @@ class OrderControllerTest extends TestCase
 
 }
 
+public function testCreateSession(){
+    $orderController = new OrderController();
+    $orderController->checkForSessionTicketId();
+
+}
+
 
 
 

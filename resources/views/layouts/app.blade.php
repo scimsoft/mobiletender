@@ -20,6 +20,8 @@
             });
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,20 +32,30 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+<div id="overlay" class="overlay">
+    <img src="/img/loader.gif" alt="Loading" /><br/>
+    Loading....
+</div>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <a id="basketLink" href="/basket"  >
+                <div class="navbar-text">
+                @if(Session::get('tableNumber'))
+                    <a id="basketLink" href="/basket" class="" >
+                        <div class="btn btn-labeled btn-success "><i class="fa "></i> Mesa:  {{Session::get('tableNumber')}}</div>
+                    </a>
 
-
-                    <button type="button" class="btn btn-labeled btn-success" id="ordertotal">
+                @endif
+                <a id="basketLink" href="/basket" class="" >
+                    <button type="button" class="btn btn-labeled btn-success r" id="ordertotal">
                         <span class="btn-label"><i class="fa fa-shopping-cart shopping-cart"></i></span>  @money($totalBasketPrice*1.1)
                     </button>
-
                 </a>
+                </div>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -96,4 +108,10 @@
     </div>
 </body>
 @yield('scripts');
+<script>
+jQuery(document).ready(function () {
+    jQuery('#overlay').fadeOut();
+
+    })
+</script>
 </html>

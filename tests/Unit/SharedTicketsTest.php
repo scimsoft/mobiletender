@@ -30,6 +30,16 @@ class SharedTicketsTest extends TestCase
 
     }
 
+    public function testMoveTable(){
+        $new_table_nr=222;
+        $sharedTicketController = new UnicentaSharedTicketController();
+
+        $sharedTicketController->moveTable(self::TABLENUMBER,$new_table_nr);
+        self::assertNotEmpty($sharedTicketController->getTicket($new_table_nr));
+        self::assertFalse($sharedTicketController->hasTicket(self::TABLENUMBER));
+        $sharedTicketController->clearOpenTableTicket($new_table_nr);
+        self::assertFalse($sharedTicketController->hasTicket($new_table_nr));
+    }
     public function testClearSharedTicket(){
         $sharedTicketController = new UnicentaSharedTicketController();
         $sharedTicketController->clearOpenTableTicket(self::TABLENUMBER);

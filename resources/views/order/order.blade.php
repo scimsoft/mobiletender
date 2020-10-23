@@ -35,14 +35,14 @@
                         <a id="coffee-button" href="/order/category/OTROS" type="button" class="btn btn-labeled btn-primary mr-1 mb-1">
                             <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
 
-                </div>
+
                 <table id="products-table" class="table table-striped middleTable">
                     <thead>
                     <tr>
-                        <td></td>
-                        <td>Nombre</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
 
-                        <td>Precio</td>
+                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
 
 
@@ -54,14 +54,18 @@
                         @if($product->product_cat)
                         <tr class="productrow">
                             <td>
-                                <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image"></td>
+                                <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image" onclick="window.addProduct('{{$product->id}}')"></td>
 
                             <td class=""><b>{{$product->name}}</b></td>
+
                             <td class="nowrapcol"><b>@money($product->pricesell *1.1)</b></td>
                             <td>
                                 <button  class="btn btn-primary add-to-cart btn-add" onclick="window.addProduct('{{$product->id}}')" type="submit">Añadir</button>
                             </td>
-                        </>
+
+                        </tr>
+
+
                         @endif
                     @endforeach
 
@@ -71,51 +75,39 @@
                 {{ $products->links() }}
 
             </div>
-
+            </div>
 
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+
     <script>
         jQuery(document).ready(function () {
-
             $('.add-to-cart').on('click', function () {
-
+                jQuery('#overlay').show();
                 var cart = $('.fa-shopping-cart');
                 var imgtodrag = $(this).closest('.productrow').find('.img-fluid');
                 if (imgtodrag) {
-                    var imgclone = imgtodrag.clone()
-                        .offset({
-                            top: imgtodrag.offset().top,
-                            left: imgtodrag.offset().left
-                        })
-                        .css({
-                            'opacity': '0.5',
-                            'position': 'absolute',
-                            'height': '150px',
-                            'width': '150px',
-                            'z-index': '100'
-                        })
-                        .appendTo($('body'))
-                        .animate({
-                            'top': cart.offset().top + 10,
-                            'left': cart.offset().left + 10,
-                            'width': 75,
-                            'height': 75
-                        }, 1000);
-
-
-                    imgclone.animate({
-                        'width': 0,
-                        'height': 0
-                    }, function () {
-                        $(this).detach()
-                    });
+                    moveImage(imgtodrag,cart);
+                    jQuery('#overlay').fadeOut();
                 }
+
             });
+
+            $('.img-fluid').on('click', function () {
+                jQuery('#overlay').show();
+                var cart = $('.fa-shopping-cart');
+                var imgtodrag = $(this).closest('.productrow').find('.img-fluid');
+                if (imgtodrag) {
+                    moveImage(imgtodrag,cart);
+                    jQuery('#overlay').fadeOut();
+                }
+
+            });
+
+
+
         })
 
 

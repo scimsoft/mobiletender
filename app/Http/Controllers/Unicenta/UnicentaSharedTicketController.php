@@ -18,26 +18,9 @@ class UnicentaSharedTicketController extends Controller
     //
     use SharedTicketTrait;
 
-    public function hasTicket($table_number)
-    {
-        if (isEmpty(DB::select('Select content from sharedtickets where id ="' . $table_number.'"'))) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    public function getTicketLines($table_number)
-    {
 
-        $sharedTicket = $this->getTicket($table_number);
-        $ticketLines = [];
-        foreach ($sharedTicket->m_aLines as $ticketLine) {
-            $ticketLines[] = json_encode($ticketLine);
-        }
-        return $ticketLines;
 
-    }
 
 
 
@@ -69,18 +52,7 @@ class UnicentaSharedTicketController extends Controller
         DB::delete($SQLString);
     }
 
-    public function removeTicketLine($table_number, $ticketLineNumber)
-    {
-        $sharedTicket = ($this->getTicket($table_number));
-        if ($sharedTicket->m_aLines[$ticketLineNumber]->updated) {
-            array_splice($sharedTicket->m_aLines, $ticketLineNumber, 1);
-            $this->updateOpenTable($sharedTicket, $table_number);
-            return true;
-        } else {
-            return false;
-        }
 
-    }
 
     public function setTicketLinePrinted($TABLENUMBER, $ticketLineNumber)
     {
@@ -90,5 +62,7 @@ class UnicentaSharedTicketController extends Controller
         $this->updateOpenTable($sharedTicket, $TABLENUMBER);
 
     }
+
+
 
 }

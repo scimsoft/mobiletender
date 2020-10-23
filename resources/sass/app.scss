@@ -6,3 +6,61 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.overlay {
+  background-color: rgba(255, 255, 255, 0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+}
+
+.btn-round {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+}
+
+.btn-mobilepos:hover {
+  color: #212529;
+  background-color: #f6993f;
+  border-color: #ffc107;
+}
+
+.btn-mobilepos {
+  color: #ffffff;
+  background-color: #e9c062;
+  border-color: #d39e00;
+}
+
+.btn-mobilepos:focus, .btn-warning.focus {
+  color: #212529;
+  background-color: #e0a800;
+  border-color: #d39e00;
+  box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);
+}
+
+.btn-mobilepos.disabled, .btn-warning:disabled {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.btn-mobilepos:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
+.show > .btn-warning.dropdown-toggle {
+  color: #212529;
+  background-color: #d39e00;
+  border-color: #c69500;
+}
+
+.btn-mobilepos:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,
+.show > .btn-warning.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);
+}
+

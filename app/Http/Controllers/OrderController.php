@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Traits\ProductTrait;
 use Illuminate\Support\Str;
-
+use function json_decode;
 
 
 class OrderController extends Controller
@@ -37,12 +37,38 @@ class OrderController extends Controller
         $this->addProductsToTicket($product,Session::get('ticketID'));
         return $this->getTotalBasketValue();
     }
+    public function cancelProduct($ticketLine){
+        $this->removeTicketLine(Session::get('ticketID'),$ticketLine);
+        return redirect()->route('basket');
+    }
+
+
+
+    public function showBasket(){
+        $ticketLines=$this->getTicketLines(Session::get('ticketID'));
+        //dd($ticketLines);
+
+        foreach ($ticketLines as $ticketLine){
+            $products[]=Product::all()->find(json_decode($ticketLine)->productid);
+            $lines[]=json_decode($ticketLine);
+        }
+        $totalBasketPrice = $this->getTotalBasketValue();
+        if(isset($lines)){
+            return view('order.basket',compact(['lines','totalBasketPrice']));
+        } else{
+            return redirect()->route('order');
+        }
+
+
+    }
 
     private function checkForSessionTicketId()
     {
         $ticketID = Session::get('ticketID');
         Log::debug('checkForSessionTicketId: Session TicketID: '.$ticketID);
-        if (is_null($ticketID)){
+        Log::debug('checkForSessionTicketId: is_null: '.is_null($ticketID));
+        Log::debug('checkForSessionTicketId: hasTicket: '.$this->hasTicket($ticketID));
+        if (is_null($ticketID) or ($this->hasTicket($ticketID)<1)){
             $ticket = $this->createEmptyTicket();
             $newTicketID = Str::uuid()->toString();
             $this->saveEmptyTicket($ticket, $newTicketID);

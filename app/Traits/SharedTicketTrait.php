@@ -14,11 +14,23 @@ use App\UnicentaModels\SharedTicketLines;
 use App\UnicentaModels\SharedTicketProduct;
 use App\UnicentaModels\SharedTicketUser;
 use Carbon\Carbon;
+use function count;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+
+
 trait SharedTicketTrait
 {
+    public function hasTicket($table_number)
+    {
+        $sharedTicket = DB::select('Select content from sharedtickets where id ="' . $table_number.'"');
+        if (count($sharedTicket)>0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function getTicket($table_number)
     {
         $existingticketlines = DB::select("Select content from sharedtickets where id ='$table_number'");
@@ -84,6 +96,31 @@ trait SharedTicketTrait
         $this->updateOpenTable($sharedTicket, $table_number);
     }
 
+    public function removeTicketLine($table_number, $ticketLineNumber)
+    {
+        $sharedTicket = ($this->getTicket($table_number));
+        if ($sharedTicket->m_aLines[$ticketLineNumber]->updated) {
+            array_splice($sharedTicket->m_aLines, $ticketLineNumber, 1);
+            $this->updateOpenTable($sharedTicket, $table_number);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function getTicketLines($table_number)
+    {
+
+        $sharedTicket = $this->getTicket($table_number);
+        $ticketLines = [];
+        foreach ($sharedTicket->m_aLines as $ticketLine) {
+            $ticketLines[] = json_encode($ticketLine);
+        }
+        return $ticketLines;
+
+    }
+
     private function updateOpenTable(SharedTicket $sharedTicket, $table_number)
     {
         $UpdateSharedTicketSQLString = "UPDATE sharedtickets SET content ='" . json_encode($sharedTicket) . "'WHERE id = '$table_number'";
@@ -95,4 +132,11 @@ trait SharedTicketTrait
         DB::update($UpdatePlacesSQLString);
 
     }
+    public function moveTable($TABLENUMBER, $new_table_nr)
+    {
+        $updateSQL = "update sharedtickets set id = '$new_table_nr' where id ='$TABLENUMBER' ";
+        Log::debug('SQL: '.$updateSQL);
+        DB::update($updateSQL);
+    }
+
 }

@@ -32,6 +32,7 @@ const app = new Vue({
 });
 
 
+
 window.addProduct=function(productID){
     jQuery.ajax({
         url: '/order/addproduct/' + productID,
@@ -42,5 +43,50 @@ window.addProduct=function(productID){
             orderTotalBasket= (data * 1.1).toFixed(2) + "€";
             $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;'+ orderTotalBasket);
         }
+    });
+}
+
+window.cancelProduct=function(productID){
+    jQuery.ajax({
+        url: '/order/cancelproduct/' + productID,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+
+            orderTotalBasket= (data * 1.1).toFixed(2) + "€";
+            $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;'+ orderTotalBasket);
+
+        }
+    });
+}
+
+window.moveImage = function(imgtodrag,cart){
+
+    var imgclone = imgtodrag.clone()
+        .offset({
+            top: imgtodrag.offset().top,
+            left: imgtodrag.offset().left
+        })
+        .css({
+            'opacity': '0.5',
+            'position': 'absolute',
+            'height': '150px',
+            'width': '150px',
+            'z-index': '100'
+        })
+        .appendTo($('body'))
+        .animate({
+            'top': cart.offset().top + 10,
+            'left': cart.offset().left + 10,
+            'width': 75,
+            'height': 75
+        }, 1000);
+
+
+    imgclone.animate({
+        'width': 0,
+        'height': 0
+    }, function () {
+        $(this).detach()
     });
 }
