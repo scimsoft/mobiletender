@@ -90,3 +90,5 @@ window.moveImage = function(imgtodrag,cart){
         $(this).detach()
     });
 }
+
+

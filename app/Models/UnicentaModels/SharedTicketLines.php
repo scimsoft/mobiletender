@@ -9,7 +9,9 @@
 namespace App\UnicentaModels;
 
 
+use Illuminate\Support\Facades\Log;
 use JsonSerializable;
+use const LOCK_UN;
 
 class SharedTicketLines
 {
@@ -24,23 +26,24 @@ class SharedTicketLines
     public $newprice;
 
 
-    public function __construct($ticket,$product,$count,$updated=true)
+    public function __construct($ticketid,$product,$count,$updated=true)
     {
-        $this->m_sTicket = $ticket->m_sId;
+        $this->m_sTicket = $ticketid;
         $this->m_iLine = $count;
         $this->multiply = 1.0;
         $this->price = $product->pricesell;
         $this->tax=new TaxCat();
-        $this->attributes = new ProductAttributes($product);
+        $this->attributes = new ProductAttributes($product,$updated);
         $this->productid = $product->id;
-        $this ->updated = $updated;
+        $this ->updated = 'false';
         $this->newprice=0;
     }
-    public function setPrinted(){
-        $this->attributes->setPrinted();
-    }
+
     public function setLineNumber($count){
         $this->m_iLine = $count;
+    }
+    public function setPrinted(){
+        $this->attributes->updated=false;
     }
 
 
@@ -65,22 +68,18 @@ class TaxCat
 class ProductAttributes implements JsonSerializable
 {
     public $taxcategoryid = '001';
-    protected $product;
-    protected $updated = true;
+    public $product;
+    public $updated;
 
-    public function __construct($product)
+    public function __construct($product,$updated)
     {
         $this->product = $product;
-
+        $this->updated = $updated;
     }
 
-    public function setPrinted(){
-        $this->updated=false;
-    }
 
-    public function getPrinted(){
-        return $this->updated;
-    }
+
+
 
 
     /**
@@ -92,6 +91,7 @@ class ProductAttributes implements JsonSerializable
      */
     function jsonSerialize()
     {
+
         // TODO: Implement jsonSerialize() method.
         return [
 
@@ -112,5 +112,6 @@ class ProductAttributes implements JsonSerializable
 
 
             ];
+
     }
 }

@@ -8,7 +8,10 @@
 
 namespace App\UnicentaModels;
 
-class SharedTicketProduct
+use Illuminate\Support\Facades\Log;
+use JsonSerializable;
+
+class SharedTicketProduct implements JsonSerializable
 {
 
 public $reference;
@@ -18,7 +21,7 @@ public $category;
 public $printto;
 public $pricesell;
 public $id;
-public $updated = "false";
+public $ticket;
 
     /**
      * SharedTicketProduct constructor.
@@ -37,12 +40,18 @@ public $updated = "false";
         $this->printto = $printto;
         $this->pricesell = $pricesell;
         $this->id = $id;
+        $this->ticket = new ticket();
 
+    }
+
+    public function setPrinted(){
+        $this->ticket->updated = 'false';
     }
 
 
     function jsonSerialize()
     {
+        Log::debug('SharedTicketProduct Serialize updated:'.$this->ticket->updated);
         // TODO: Implement jsonSerialize() method.
         return [
 
@@ -55,7 +64,7 @@ public $updated = "false";
             "product.com" => "false",
             "product.code" => $this->code,
             "product.constant" => "false",
-            "ticket.updated" => $this->updated,
+            "ticket.updated" => $this->ticket->updated,
             "product.category" => $this->category,
             "product.printer" => $this->printto,
             "product.vprice" => "false",
@@ -65,5 +74,16 @@ public $updated = "false";
         ];
     }
 
+
+
+
+}
+class ticket{
+
+    public $updated = 'true';
+    public function __construct()
+    {
+
+    }
 
 }

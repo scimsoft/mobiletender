@@ -29,7 +29,8 @@ Route::get('/order/cancelproduct/{id}',[OrderController::class,'cancelProduct'])
 
 
 Route::get('/checkout/',[CheckOutController::class,'checkout']);
-Route::get('/checkout/setTableNumber/{id}',[CheckOutController::class,'setTableNumber']);
+Route::get('/checkout/confirmForTable/{id}',[CheckOutController::class,'confirmForTable']);
+Route::get('/checkout/printOrder/{id}',[CheckOutController::class,'printOrder']);
 
 
 

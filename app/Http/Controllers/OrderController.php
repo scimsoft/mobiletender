@@ -14,7 +14,6 @@ use function json_decode;
 
 class OrderController extends Controller
 {
-    //
     use SharedTicketTrait;
     use ProductTrait;
 
@@ -35,25 +34,24 @@ class OrderController extends Controller
     public function addProduct($productID){
         $product[] = Product::all()->find($productID);
         $this->addProductsToTicket($product,Session::get('ticketID'));
-        return $this->getTotalBasketValue();
+        $totalBasketValue = $this->getTotalBasketValue();
+        return json_encode($totalBasketValue);
     }
+
     public function cancelProduct($ticketLine){
         $this->removeTicketLine(Session::get('ticketID'),$ticketLine);
         return redirect()->route('basket');
     }
 
-
-
     public function showBasket(){
-        $ticketLines=$this->getTicketLines(Session::get('ticketID'));
-        //dd($ticketLines);
-
+        $ticketLines=$this->getTicket(Session::get('ticketID'))->m_aLines;
         foreach ($ticketLines as $ticketLine){
-            $products[]=Product::all()->find(json_decode($ticketLine)->productid);
-            $lines[]=json_decode($ticketLine);
+            $products[]=Product::all()->find($ticketLine->productid);
+            $lines[]=$ticketLine;
         }
         $totalBasketPrice = $this->getTotalBasketValue();
         if(isset($lines)){
+
             return view('order.basket',compact(['lines','totalBasketPrice']));
         } else{
             return redirect()->route('order');
@@ -73,6 +71,7 @@ class OrderController extends Controller
             $newTicketID = Str::uuid()->toString();
             $this->saveEmptyTicket($ticket, $newTicketID);
             Session::put('ticketID',$newTicketID);
+            Session::forget('tableNumber');
         }
     }
 
@@ -82,8 +81,6 @@ class OrderController extends Controller
     {
         $totalBasket = $this->getSumTicketLines(Session::get('ticketID'));
         return $totalBasket;
-
-
     }
 
 

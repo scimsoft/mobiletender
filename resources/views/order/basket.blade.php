@@ -20,7 +20,7 @@
                     <thead class="position-sticky">
                     <tr>
                     <td colspan="2"><a href="/order/" class="btn btn-warning m-1">Seguir comprando</a></td>
-                    <td colspan="2"><a href="/checkout/" class="btn btn-success m-1">Tramitar Pedido</a></td>
+                    <td colspan="2"><button disabled="true" class="btn btn-success m-1" id="doCheckout">Tramitar Pedido</button></td>
                     </tr>
                     <tr>
                        <td colspan="2">&nbsp;</td>
@@ -46,10 +46,18 @@
                             <td>
                                 <img src="/dbimage/{{$line->productid}}.png" class="img-fluid" id="product_image" style="max-width: 32px"></td>
 
-                            <td class="" >{{$line->attributes->{'product.name'} }}</td>
+                            <td class="" >{{$line->attributes->product->name }}</td>
                             <td class="nowrapcol"><b>@money($line->price *1.1)</b></td>
                             <td>
-                                <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-primary add-to-cart btn-add" type="submit">Cancelar</a>
+
+
+
+                                @if($line->attributes->updated)
+                                    <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-primary add-to-cart btn-add" type="submit">Cancelar</a>
+                                    <script>$('#doCheckout').prop("disabled",false);</script>
+                                @else
+                                    <button disabled="true" class="btn btn-primary add-to-cart btn-add " type="submit">Cancelar</button>
+                                @endif
                             </td>
                         </tr>
 
@@ -79,9 +87,8 @@
 @section('scripts')
     <script>
         jQuery(document).ready(function () {
-
-            $('.add-to-cart').on('click', function () {
-                jQuery('#overlay').show();
+            $('#doCheckout').on('click', function () {
+                window.location.href ="/checkout/";
 
             });
         })

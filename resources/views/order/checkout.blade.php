@@ -25,15 +25,27 @@
                     <tbody>
                                        
                    <tr>
-                       <td colspan="4">&nbsp;</td>
+                       <td colspan="5">&nbsp;</td>
                    </tr>
                    <tr>
+                       <td colspan="">&nbsp;</td>
                        <td colspan="">Base</td>
                        <td colspan="">IVA</td>
                        <td colspan=""></td>
                        <td colspan="">Total</td>
                    </tr>
+                   <tr>
+                       <td colspan=""><b>Añadir</b></td>
+                       <td>@money($newLinesPrice)</td>
+                       <td>@money($newLinesPrice*0.1)</td>
+
+                       <td></td>
+                       <td>&nbsp;<b>@money($newLinesPrice*1.1)</b></td>
+
+
+                   </tr>
                     <tr>
+                        <td colspan=""><b>TOTAL</b></td>
                         <td>@money($totalBasketPrice)</td>
                         <td>@money($totalBasketPrice*0.1)</td>
 
@@ -43,19 +55,19 @@
 
                     </tr>
                    <tr>
-                       <td colspan="4">&nbsp;</td>
+                       <td colspan="5">&nbsp;</td>
                    </tr>
                    @if(!Session::get('tableNumber'))
                     <tr>
-                        <td colspan="4"><a href="" class="btn btn-mobilepos btn-block">Para llevar</a> </td>
+                        <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar</a> </td>
                     </tr>
 
                    <tr>
-                       <td colspan="4"><button class="btn btn-mobilepos btn-block eatInButton" >Para tomar aqui</button> </td>
+                       <td colspan="5"><button class="btn btn-mobilepos btn-block eatInButton" >Para tomar aqui</button> </td>
                    </tr>
                    <tr>
 
-                       <td colspan="4" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
+                       <td colspan="5" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
                            <input type="text" id="table_number" size="3"><br><br>
                            <a  class="btn btn-primary btn-block" id="sendTableNumber">send</a>
                        </td>
@@ -63,11 +75,11 @@
                    </tr>
 
                    <tr>
-                       <td colspan="4"><a href="" class="btn btn-mobilepos btn-block">Para llevar a su domicilio</a> </td>
+                       <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar a su domicilio</a> </td>
                    </tr>
                        @else
                        <tr>
-                           <td colspan="4"><a href="" class="btn btn-mobilepos btn-block">Añadir</a> </td>
+                           <td colspan="5"><a href="/checkout/printOrder/{{Session::get('ticketID')}}" class="btn btn-mobilepos btn-block" id="addToTable">Añadir</a> </td>
                        </tr>
                        @endif
 
@@ -95,8 +107,9 @@
                 jQuery('#eatinrow').slideToggle('slow');
             })
             $('#table_number').on("change paste keyup", function() {
-                $('#sendTableNumber').attr('href', "/checkout/setTableNumber/"+$('#table_number').val());
+                $('#sendTableNumber').attr('href', "/checkout/confirmForTable/"+$('#table_number').val());
             })
+
 
 
 
