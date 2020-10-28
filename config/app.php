@@ -123,6 +123,14 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+
+    /*
+     * Add Printer IP and Port
+     *
+     * */
+    'printer-ip' => env('PRINTER_IP'),
+    'printer-port' => env('PRINTER_PORT'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -133,6 +141,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
 
     'providers' => [
 

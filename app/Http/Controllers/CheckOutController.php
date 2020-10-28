@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\PrinterTrait;
 use App\Traits\SharedTicketTrait;
 use App\UnicentaModels\SharedTicket;
-use App\UnicentaModels\SharedTicketLines;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use function redirect;
 
 
 class CheckOutController extends Controller
 {
     use SharedTicketTrait;
+    use PrinterTrait;
     public function checkout(){
         $sharedTicketID = Session::get('ticketID');
         $totalBasketPrice= $this->getSumTicketLines($sharedTicketID);
@@ -33,12 +35,13 @@ class CheckOutController extends Controller
 
         $ticket= $this->getTicket($ticketID);
         $lines_to_print = $this->setUnprintedTicketLinesAsPrinted($ticket,$ticketID);
-        $this->sendToPrinter($lines_to_print);
+        $header="Mesa: ".$ticketID;
+        $this->printTicket($header,$lines_to_print);
+        Log::debug('return from printOrder');
+        return redirect()->route('basket');
     }
 
-    private function sendToPrinter($lines_to_print)
-    {
-    }
+
 
     /**
      * @param $ticket_lines
@@ -48,7 +51,7 @@ class CheckOutController extends Controller
     {
         $lines_to_print = null;
         foreach ($ticket->m_aLines as $ticket_line) {
-            if ($ticket_line->attributes->product->updated ='true') {
+            if ($ticket_line->attributes->updated) {
                 $lines_to_print[] = $ticket_line;
                 $ticket_line->setPrinted();
             }
