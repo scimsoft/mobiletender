@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [OrderController::class, 'order']);
 Route::get('/basket/',[OrderController::class, 'showBasket'])->name('basket');
 Route::get('/order/', [OrderController::class, 'order'])->name('order');
 Route::get('/order/category/{id}',[OrderController::class, 'showProductsFromCategory']);
