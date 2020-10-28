@@ -112,6 +112,12 @@
 jQuery(document).ready(function () {
     jQuery('#overlay').fadeOut();
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     })
 </script>
 </html>
