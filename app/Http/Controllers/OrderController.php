@@ -31,7 +31,7 @@ class OrderController extends Controller
         Log::debug('checkForSessionTicketId: Session TicketID: ' . $ticketID);
         Log::debug('checkForSessionTicketId: is_null: ' . is_null($ticketID));
         Log::debug('checkForSessionTicketId: hasTicket: ' . $this->hasTicket($ticketID));
-        if (is_null($ticketID) and ($this->hasTicket($tablenumber) < 1)) {
+        if (($this->hasTicket($tablenumber) < 1)) {
             $this->saveEmptyTicket($this->createEmptyTicket(), $tablenumber);
         }
             Session::put('ticketID',$tablenumber);
