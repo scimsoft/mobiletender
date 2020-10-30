@@ -56,7 +56,7 @@
                                     <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-primary add-to-cart btn-add" type="submit">Cancelar</a>
                                     <script>$('#doCheckout').prop("disabled",false);</script>
                                 @else
-                                    <button disabled="true" class="btn btn-primary add-to-cart btn-add " type="submit">No Cancelable</button>
+                                    <button disabled="true" class="btn btn-primary add-to-cart btn-add " type="submit">Enviado</button>
                                 @endif
                             </td>
                         </tr>

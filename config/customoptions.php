@@ -17,7 +17,12 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'eatin' => env('EATIN',true),
     'takeaway' => env('TAKE_AWAY', false),
-    'delivery' => env('DELIVERY',false)
+    'delivery' => env('DELIVERY',false),
+
+    'eatin_prepay'=> env('EATIN_PREPAY',false),
+    'takeaway_prepay'=> env('TAKEAWAY_PREPAY',true),
+    'delivery_prepay'=> env('DELIVERY_PREPAY',true),
+
     ];

@@ -35,7 +35,15 @@
                        <td colspan="">Total</td>
                    </tr>
                    <tr>
-                       <td colspan=""><b>Añadir</b></td>
+                       <td colspan="">TOTAL</td>
+                       <td>@money($totalBasketPrice)</td>
+                       <td>@money($totalBasketPrice*0.1)</td>
+
+                       <td></td>
+                       <td>@money($totalBasketPrice*1.1)</td>
+                   </tr>
+                   <tr>
+                       <td colspan=""><b>A Pedir</b></td>
                        <td>@money($newLinesPrice)</td>
                        <td>@money($newLinesPrice*0.1)</td>
 
@@ -44,16 +52,7 @@
 
 
                    </tr>
-                    <tr>
-                        <td colspan=""><b>TOTAL</b></td>
-                        <td>@money($totalBasketPrice)</td>
-                        <td>@money($totalBasketPrice*0.1)</td>
 
-                        <td></td>
-                        <td>&nbsp;<b>@money($totalBasketPrice*1.1)</b></td>
-
-
-                    </tr>
                    <tr>
                        <td colspan="5">&nbsp;</td>
                    </tr>
@@ -88,7 +87,7 @@
                         @endif
                        @else
                        <tr>
-                           <td colspan="5"><a href="/checkout/printOrder/{{Session::get('ticketID')}}" class="btn btn-mobilepos btn-block" id="addToTable">Añadir</a> </td>
+                           <td colspan="5"><button href="" class="btn btn-mobilepos btn-block" id="addToTable">Añadir</button> </td>
                        </tr>
                        @endif
 
@@ -96,7 +95,9 @@
                 </table>
 
 
+
                         <div id="paypal-button-container"></div>
+
             </div>
 
             </div>
@@ -118,9 +119,28 @@
                 jQuery('#eatinrow').slideToggle('slow');
             })
             $('#table_number').on("change paste keyup", function() {
-                $('#sendTableNumber').attr('href', "/checkout/confirmForTable/"+$('#table_number').val());
+                    @if(!config('customoptions.eatin_prepay'))
+                    $('#sendTableNumber').attr('href', "/checkout/confirmForTable/" + $('#table_number').val());
+
+                @endif
+            })
+            $('#sendTableNumber').on('click',function (){
+                @if(config('customoptions.eatin_prepay'))
+                    $('#paypal-button-container').slideDown();
+                    @else
+                        window.location.href="/checkout/printOrder/{{Session::get('ticketID')}}";
+                @endif
+
+
+            })
+            $('#addToTable').on('click',function(){
+                @if(config('customoptions.eatin_prepay'))
+                    $('#paypal-button-container').slideDown();
+                @endif
             })
 
+
+                $('#paypal-button-container').hide();
 
 
 
@@ -128,6 +148,7 @@
         })
         paypal.Buttons({
             createOrder: function(data, actions) {
+                jQuery('#overlay').show();
                 // This function sets up the details of the transaction, including the amount and line item details.
                 return actions.order.create({
                     purchase_units: [{
@@ -141,7 +162,12 @@
                 // This function captures the funds from the transaction.
                 return actions.order.capture().then(function(details) {
                     // This function shows a transaction success message to your buyer.
-                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    jQuery('#overlay').fadeOut();
+                    @if(Session::get('tableNumber'))
+                    window.location.href="/checkout/printOrder/{{Session::get('ticketID')}}";
+                    @else
+                    window.location.href="/checkout/confirmForTable/"+$('#table_number').val();
+                    @endif
                 });
             }
         }).render('#paypal-button-container');
