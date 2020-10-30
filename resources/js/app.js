@@ -46,6 +46,7 @@ window.addProduct=function(productID){
     });
 }
 
+
 window.cancelProduct=function(productID){
     jQuery.ajax({
         url: '/order/cancelproduct/' + productID,

@@ -19,8 +19,8 @@
                 <table id="products-table" class="table table-striped middleTable">
                     <thead class="position-sticky">
                     <tr>
-                    <td colspan="2"><a href="/order/" class="btn btn-warning m-1">Seguir comprando</a></td>
-                    <td colspan="2"><button disabled="true" class="btn btn-success m-1" id="doCheckout">Tramitar Pedido</button></td>
+                    <td colspan="2"><a href="/order/" class="btn btn-normal m-1">Seguir comprando</a></td>
+                    <td colspan="2"><button disabled="true" class="btn btn-tab m-1" id="doCheckout">Tramitar Pedido</button></td>
                     </tr>
                     <tr>
                        <td colspan="2">&nbsp;</td>
@@ -53,10 +53,10 @@
 
 
                                 @if($line->attributes->updated)
-                                    <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-primary add-to-cart btn-add" type="submit">Cancelar</a>
+                                    <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-tab add-to-cart btn-add" type="submit">Cancelar</a>
                                     <script>$('#doCheckout').prop("disabled",false);</script>
                                 @else
-                                    <button disabled="true" class="btn btn-primary add-to-cart btn-add " type="submit">Enviado</button>
+                                    <button disabled="true" class="btn btn-primary add-to-cart btn-tab " type="submit">Enviado</button>
                                 @endif
                             </td>
                         </tr>

@@ -76,7 +76,7 @@
                                    @endforeach
 
                            </select>
-                           <a  class="btn btn-primary btn-block" id="sendTableNumber">send</a>
+                           <a  class="btn btn-mobilepos btn-block" id="sendTableNumber">send</a>
                        </td>
 
                    </tr>
