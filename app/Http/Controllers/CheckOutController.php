@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Traits\PrinterTrait;
 use App\Traits\SharedTicketTrait;
 use App\UnicentaModels\SharedTicket;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use function redirect;
@@ -18,7 +19,8 @@ class CheckOutController extends Controller
         $sharedTicketID = Session::get('ticketID');
         $totalBasketPrice= $this->getSumTicketLines($sharedTicketID);
         $newLinesPrice = $this->getSumNewTicketLines($sharedTicketID);
-       return view('order.checkout',compact(['totalBasketPrice','newLinesPrice']));
+        $tablenames= DB::select('select id,name from places order by id');
+       return view('order.checkout',compact(['totalBasketPrice','newLinesPrice','tablenames']));
     }
 
     public function confirmForTable($table_number){
@@ -26,7 +28,7 @@ class CheckOutController extends Controller
         $this->moveTable($ticketID,$table_number);
        Session::put('tableNumber',$table_number);
        Session::put('ticketID',$table_number);
-       $this->printOrder($table_number);
+       return $this->printOrder($table_number);
 
     }
 

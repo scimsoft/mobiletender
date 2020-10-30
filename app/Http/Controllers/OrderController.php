@@ -25,6 +25,22 @@ class OrderController extends Controller
         return view('order.order', compact(['products','totalBasketPrice']));
     }
 
+    public function orderForTableNr($tablenumber)
+    {
+        $ticketID = Session::get('ticketID');
+        Log::debug('checkForSessionTicketId: Session TicketID: ' . $ticketID);
+        Log::debug('checkForSessionTicketId: is_null: ' . is_null($ticketID));
+        Log::debug('checkForSessionTicketId: hasTicket: ' . $this->hasTicket($ticketID));
+        if (is_null($ticketID) and ($this->hasTicket($tablenumber) < 1)) {
+            $this->saveEmptyTicket($this->createEmptyTicket(), $tablenumber);
+        }
+            Session::put('ticketID',$tablenumber);
+            Session::put('tableNumber',$tablenumber);
+            return $this->order();
+
+    }
+
+
     public function showProductsFromCategory($category){
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
@@ -74,6 +90,8 @@ class OrderController extends Controller
             Session::forget('tableNumber');
         }
     }
+
+
 
 
 

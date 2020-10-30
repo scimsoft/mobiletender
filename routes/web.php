@@ -5,6 +5,7 @@ use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductImageController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [OrderController::class, 'order']);
 Route::get('/basket/',[OrderController::class, 'showBasket'])->name('basket');
+
+Route::get('/order/table/{id}',[OrderController::class,'orderForTableNr']);
 Route::get('/order/', [OrderController::class, 'order'])->name('order');
 Route::get('/order/category/{id}',[OrderController::class, 'showProductsFromCategory']);
 Route::get('/order/addproduct/{id}',[OrderController::class,'addProduct']);

@@ -58,9 +58,11 @@
                        <td colspan="5">&nbsp;</td>
                    </tr>
                    @if(!Session::get('tableNumber'))
+                       @if(config('customoptions.take_away'))
                     <tr>
                         <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar</a> </td>
                     </tr>
+                    @endif
 
                    <tr>
                        <td colspan="5"><button class="btn btn-mobilepos btn-block eatInButton" >Para tomar aqui</button> </td>
@@ -68,15 +70,22 @@
                    <tr>
 
                        <td colspan="5" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
-                           <input type="text" id="table_number" size="3"><br><br>
+                           <select  class="form-control" id="table_number">
+                               @foreach($tablenames as $table)
+                                   <option value="{{$table->id}}">{{$table->name}}</option>
+
+                                   @endforeach
+
+                           </select>
                            <a  class="btn btn-primary btn-block" id="sendTableNumber">send</a>
                        </td>
 
                    </tr>
-
+                    @if(config('customoptions.delivery'))
                    <tr>
                        <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar a su domicilio</a> </td>
                    </tr>
+                        @endif
                        @else
                        <tr>
                            <td colspan="5"><a href="/checkout/printOrder/{{Session::get('ticketID')}}" class="btn btn-mobilepos btn-block" id="addToTable">Añadir</a> </td>
