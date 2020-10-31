@@ -66,33 +66,37 @@
 
                             <tr>
                                 <td colspan="5">
-                                    <button class="btn btn-mobilepos btn-block eatInButton">Para tomar aqui</button>
+                                    <button class="btn btn-tab btn-block eatInButton">Para tomar aqui</button>
                                 </td>
                             </tr>
                             <tr>
 
                                 <td colspan="5" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
                                     <select class="form-control" id="table_number">
+                                        <option value="0">Tu numero de mesa</option>
                                         @foreach($tablenames as $table)
                                             <option value="{{$table->id}}">{{$table->name}}</option>
 
                                         @endforeach
 
                                     </select>
-                                    <a class="btn btn-mobilepos btn-block" id="sendTableNumber">send</a>
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-tab btn-block" id="sendTableNumber">send</a>
                                 </td>
 
                             </tr>
                             @if(config('customoptions.delivery'))
                                 <tr>
-                                    <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar a su
+                                    <td colspan="5"><a href="" class="btn btn-tab btn-block">Para llevar a su
                                             domicilio</a></td>
                                 </tr>
                             @endif
                         @else
                             <tr>
                                 <td colspan="5">
-                                    <button class="btn btn-mobilepos btn-block" id="addToTable">
+                                    <button class="btn btn-tab btn-block" id="addToTable">
                                         @if(config('customoptions.eatin_prepay'))
                                             Pagar
                                         @else
