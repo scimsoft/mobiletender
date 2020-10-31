@@ -64,11 +64,7 @@
                                 </tr>
                             @endif
 
-                            <tr>
-                                <td colspan="5">
-                                    <button class="btn btn-tab btn-block eatInButton">Para tomar aqui</button>
-                                </td>
-                            </tr>
+
                             <tr>
 
                                 <td colspan="5" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
@@ -101,7 +97,7 @@
                                         @if(config('customoptions.eatin_prepay'))
                                             Pagar
                                         @else
-                                            Pedir
+                                            Confirmar
                                         @endif
                                     </button>
                                 </td>
