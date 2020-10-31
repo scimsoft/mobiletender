@@ -87,7 +87,13 @@
                         @endif
                        @else
                        <tr>
-                           <td colspan="5"><button href="" class="btn btn-mobilepos btn-block" id="addToTable">Añadir</button> </td>
+                           <td colspan="5"><button href="" class="btn btn-mobilepos btn-block" id="addToTable">
+                                   @if(config('customoptions.eatin_prepay'))
+                                       Pagar
+                                       @else
+                                       Pedir
+                               @endif
+                               </button> </td>
                        </tr>
                        @endif
 
@@ -105,7 +111,7 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.client_id') }}"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.client_id') }}&currency=EUR"></script>
 
     <script>
         jQuery(document).ready(function () {
@@ -148,7 +154,7 @@
         })
         paypal.Buttons({
             createOrder: function(data, actions) {
-                jQuery('#overlay').show();
+
                 // This function sets up the details of the transaction, including the amount and line item details.
                 return actions.order.create({
                     purchase_units: [{
@@ -169,7 +175,11 @@
                     window.location.href="/checkout/confirmForTable/"+$('#table_number').val();
                     @endif
                 });
+            },
+            onCancel: function(data,actions){
+                jQuery('#overlay').fadeOut();
             }
+
         }).render('#paypal-button-container');
 
 

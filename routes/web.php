@@ -3,6 +3,7 @@
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', [OrderController::class, 'order']);
 Route::get('/basket/',[OrderController::class, 'showBasket'])->name('basket');
 
@@ -34,10 +35,16 @@ Route::get('/checkout/confirmForTable/{id}',[CheckOutController::class,'confirmF
 Route::get('/checkout/printOrder/{id}',[CheckOutController::class,'printOrder']);
 
 
+Route::resource('/products', ProductController::class);
+Route::get('/products/index/{id?}',[ProductController::class,'index']);
+Route::get('/crop-image/{id}', [ProductController::class,'editImage']);
+Route::post('crop-image', [ProductController::class,'imageCrop']);
+Route::post('/products/catalog',[ProductController::class,'toggleCatalog']);
+
 
 Route::get('/dbimage/{id}',[ProductImageController::class, 'getImage']);
 
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

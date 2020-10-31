@@ -19,8 +19,8 @@
                 <table id="products-table" class="table table-striped middleTable">
                     <thead class="position-sticky">
                     <tr>
-                    <td colspan="2"><a href="/order/" class="btn btn-normal m-1">Seguir comprando</a></td>
-                    <td colspan="2"><button disabled="true" class="btn btn-tab m-1" id="doCheckout">Tramitar Pedido</button></td>
+                    <td colspan="2"><a href="/order/" class="btn btn-normal m-1">Añadir</a></td>
+                    <td colspan="2"><button disabled="true" class="btn btn-tab m-1" id="doCheckout">Pedir</button></td>
                     </tr>
                     <tr>
                        <td colspan="2">&nbsp;</td>
