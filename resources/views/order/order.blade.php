@@ -36,7 +36,7 @@
                             <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
 
 
-                <table id="products-table" class="table table-striped middleTable">
+                <table id="products-table" class="table middleTable">
                     <thead>
                     <tr>
                         <td>&nbsp;</td>
@@ -52,16 +52,20 @@
                                        
                     @foreach($products as $product)
                         @if($product->product_cat)
-                        <tr class="productrow">
-                            <td>
+
+                        <tr class="productrow" >
+                            <td rowspan="2">
                                 <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image" onclick="window.addProduct('{{$product->id}}')"></td>
 
-                            <td class=""><b>{{$product->name}}</b></td>
+                            <td class="align-middle" colspan="2"><h3>{{$product->name}}</h3></td>
 
-                            <td class="nowrapcol"><b>@money($product->pricesell *1.1)</b></td>
-                            <td>
+                        <tr class="no-line">
+                            <td class="nowrapcol align-middle"><b>@money($product->pricesell *1.1)</b></td>
+
+                            <td class="align-middle">
                                 <button  class="btn btn-tab add-to-cart btn-add" onclick="window.addProduct('{{$product->id}}')" type="submit">Añadir</button>
                             </td>
+                        </tr>
 
                         </tr>
 
@@ -87,7 +91,7 @@
             $('.add-to-cart').on('click', function () {
                 jQuery('#overlay').show();
                 var cart = $('.fa-shopping-cart');
-                var imgtodrag = $(this).closest('.productrow').find('.img-fluid');
+                var imgtodrag = $(this).closest('tr').prev().find('.img-fluid');
                 if (imgtodrag) {
                     moveImage(imgtodrag,cart);
                     jQuery('#overlay').fadeOut();
@@ -99,6 +103,7 @@
                 jQuery('#overlay').show();
                 var cart = $('.fa-shopping-cart');
                 var imgtodrag = $(this).closest('.productrow').find('.img-fluid');
+
                 if (imgtodrag) {
                     moveImage(imgtodrag,cart);
                     jQuery('#overlay').fadeOut();
