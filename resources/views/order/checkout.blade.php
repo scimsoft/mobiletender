@@ -80,13 +80,14 @@
                                         @endforeach
 
                                     </select>
+                                    <br>
+                                    <a class="btn btn-tab btn-block" id="sendTableNumber">Confirmar</a>
 
                                 </td>
-                                <td>
-                                    <a class="btn btn-tab btn-block" id="sendTableNumber">send</a>
-                                </td>
+
 
                             </tr>
+
                             @if(config('customoptions.delivery'))
                                 <tr>
                                     <td colspan="5"><a href="" class="btn btn-tab btn-block">Para llevar a su

@@ -57,7 +57,7 @@
                             <td rowspan="2">
                                 <img src="/dbimage/{{$product->id}}.png" class="img-fluid" id="product_image" onclick="window.addProduct('{{$product->id}}')"></td>
 
-                            <td class="align-middle" colspan="2"><h3>{{$product->name}}</h3></td>
+                            <td class="align-middle" colspan="2"><h5>{{$product->name}}</h5></td>
 
                         <tr class="no-line">
                             <td class="nowrapcol align-middle"><b>@money($product->pricesell *1.1)</b></td>
