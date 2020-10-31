@@ -121,7 +121,7 @@
 
     <script>
         jQuery(document).ready(function () {
-            jQuery('#eatinrow').hide();
+
 
             $('.add-to-cart').on('click', function () {
                 jQuery('#overlay').show();
