@@ -6,9 +6,7 @@
             <div class="pull-left">
                 <h2>&nbsp;</h2>
             </div>
-            <div class="float-right">
-                <a class="btn btn-mobilepos" href="{{ route('products.create') }}"> Create New Product</a>
-            </div>
+
         </div>
     </div>
     <div class="card-body text-center">
@@ -38,6 +36,9 @@
 
     <a id="coffee-button" href="/products/index/OTROS" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
         <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
+        <div class="float-right">
+            <a class="btn btn-tab" href="{{ route('products.create') }}"> Create New Product</a>
+        </div>
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -56,9 +57,8 @@
                 <td>
                     <form action="{{ route('products.destroy',$product->id) }}" method="POST">
 
-                        <a class="btn btn-mobilepos" href="{{ route('products.show',$product->id) }}">Show</a>
 
-                        <a class="btn btn-mobilepos" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                        <a class="btn btn-tab" href="{{ route('products.edit',$product->id) }}">Edit</a>
 
                         @csrf
                         @method('DELETE')

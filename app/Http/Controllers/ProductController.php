@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Models\ProductAdOn;
 use App\Traits\ProductTrait;
 use App\UnicentaModels\Product;
@@ -84,11 +85,14 @@ class ProductController extends Controller
     {
         //
         $product=Product::findOrFail($id);
+        $allproducts = Product::all();
         if (!empty($product->image)) {
             $product->image = base64_encode($product->image);
         }
-        $product_addons = ProductAdOn::find($id)->get();
-        return view('admin.products.edit',compact('product','product_addons'));
+        $product_addons = ProductAdOn::find($id);
+        $categories = Category::all();
+
+        return view('admin.products.edit',compact('product','allproducts','product_addons','categories'));
     }
 
     /**
@@ -101,10 +105,11 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $product=Product::findOrFail($id);
+        Log::debug('product update id:'.$id);
+        $product=Product::find($id);
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            'pricebuy' => 'required',
         ]);
 
         $product->update($request->all());

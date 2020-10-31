@@ -16,7 +16,9 @@ class Product extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
 
-
+    protected $fillable = [
+        'name', 'pricebuy','pricesell','code','reference','taxcat','category', 'detail'
+    ];
 
     public function category()
     {

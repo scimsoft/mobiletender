@@ -108,7 +108,7 @@
 
 .btn-tab {
   box-shadow: 0px 1px 0px 0px #faeea3;
-  background:linear-gradient(to top, #fcf7d6 5%, #ffffff 50%);
+  background:linear-gradient(to bottom, #fcf7d6 5%, #ffffff 20%);
   background-color:#ffffff;
   border-radius:3px;
   border:1px solid #ffeccf;
@@ -132,13 +132,7 @@
   top:1px;
 }
 
-.btn-tab:focus,
-.btn-tab.focus {
-  color: #000;
-  background-color: #fcddd2;
-  border-color: #fff2ed;
-  box-shadow: 0 0 0 0.2rem rgba(231, 111, 81, 0.5);
-}
+
 
 .btn-tab.disabled,
 .btn-tab:disabled {
