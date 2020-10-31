@@ -3,6 +3,8 @@
 namespace App\UnicentaModels;
 
 
+use App\Models\ProductAdOn;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -23,6 +25,10 @@ class Product extends Model
 
     public function product_cat(){
         return $this->hasOne(Products_Cat::class,'product','id');
+    }
+
+    public function product_addons(){
+        return $this->hasMany(ProductAdOn::class,'product_id','id');
     }
 
 }

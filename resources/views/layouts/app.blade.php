@@ -45,12 +45,12 @@
                 <div class="navbar-text">
                 @if(Session::get('tableNumber'))
                     <a id="basketLink" href="/basket" class="" >
-                        <div class="btn btn-labeled btn-normal "><i class="fa "></i> Mesa:  {{Session::get('tableNumber')}}</div>
+                        <div class="btn btn-labeled btn-tab "><i class="fa "></i> Mesa:  {{Session::get('tableNumber')}}</div>
                     </a>
 
                 @endif
                 <a id="basketLink" href="/basket" class="" >
-                    <button type="button" class="btn btn-labeled btn-normal r" id="ordertotal">
+                    <button type="button" class="btn btn-labeled btn-tab r" id="ordertotal">
                         <span class="btn-label"><i class="fa fa-shopping-cart shopping-cart"></i></span>  @money($totalBasketPrice*1.1)
                     </button>
                 </a>

@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\BasketController;
+
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\ProductImageController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+
 use Illuminate\Support\Facades\Route;
 
 /*

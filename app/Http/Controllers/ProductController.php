@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductAdOn;
 use App\Traits\ProductTrait;
 use App\UnicentaModels\Product;
 use App\UnicentaModels\Products_Cat;
@@ -86,7 +87,8 @@ class ProductController extends Controller
         if (!empty($product->image)) {
             $product->image = base64_encode($product->image);
         }
-        return view('admin.products.edit',compact('product'));
+        $product_addons = ProductAdOn::find($id)->get();
+        return view('admin.products.edit',compact('product','product_addons'));
     }
 
     /**

@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use App\Product;
 
+
+use App\UnicentaModels\Product;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 
