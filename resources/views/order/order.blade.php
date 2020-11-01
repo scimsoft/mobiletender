@@ -188,7 +188,7 @@
         // Tengo que mandar el producto y el precio
         function addOnProduct(addOnProductID,price) {
             jQuery.ajax({
-                url: '/order/addAddonProduct/',
+                url: '/order/addAddonProduct',
                 type: "POST",
                 data: {product_id: addOnProductID, price: price},
                 dataType: "json",

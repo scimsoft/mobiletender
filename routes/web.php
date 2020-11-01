@@ -30,7 +30,7 @@ Route::get('/order/category/{id}',[OrderController::class, 'showProductsFromCate
 Route::get('/order/addproduct/{id}',[OrderController::class,'addProduct']);
 Route::get('/order/cancelproduct/{id}',[OrderController::class,'cancelProduct']);
 
-Route::post('/order/addAddonProduct/',[OrderController::class,'addAddOnProduct']);
+Route::post('/order/addAddonProduct',[OrderController::class,'addAddOnProduct']);
 
 
 Route::get('/checkout/',[CheckOutController::class,'checkout']);
