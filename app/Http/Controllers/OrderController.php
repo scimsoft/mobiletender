@@ -44,6 +44,7 @@ class OrderController extends Controller
 
 
     public function showProductsFromCategory($category){
+        $this->checkForSessionTicketId();
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
         return view('order.order', compact(['products','totalBasketPrice']));
