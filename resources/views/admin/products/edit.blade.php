@@ -165,7 +165,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function () {
-            $('#products_list').on('click',function(){
+            $('#products_list').on('change',function(){
                 var selected_product = $(this).val();
                 var price = prompt("Precio?", "0");
                 var productID = $(this).find(":selected").val();
@@ -173,7 +173,7 @@
                 $("#addon_products_list").append($('<option>', {value: productID, text: addOnProductID}));
                 addOnProduct(productID,price)
             })
-            $('#addon_products_list').on('click',function(){
+            $('#addon_products_list').on('change',function(){
                 var selected_product = $(this).val();
                 var productID = $(this).find(":selected").val();
                 var addOnProductID = $(this).find(":selected").text();
