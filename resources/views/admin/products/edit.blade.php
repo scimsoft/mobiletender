@@ -185,7 +185,7 @@
 
         function addOnProduct(addOnProductID,price){
             jQuery.ajax({
-                url: '/addOnProduct/add/',
+                url: '/addOnProduct/add',
                 type: "POST",
                 data: { product_id:'{{$product->id}}', adon_product_id:addOnProductID ,price:price},
                 dataType: "json",
@@ -198,7 +198,7 @@
 
         function removeaddOnProduct(addOnProductID){
             jQuery.ajax({
-                url: '/addOnProduct/remove/',
+                url: '/addOnProduct/remove',
                 type: "POST",
                 data: { product_id:'{{$product->id}}', adon_product_id:addOnProductID },
                 dataType: "json",
