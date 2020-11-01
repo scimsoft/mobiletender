@@ -37,7 +37,10 @@ trait ProductTrait{
             case 'COPAS':
             case '9b4abf09-14e8-45db-97fa-1062c4c24574':
                 $products = Product::where('category', '9b4abf09-14e8-45db-97fa-1062c4c24574')->orderBy('name')->paginate(200);
+
                 break;
+                // ->pluck('id', 'reference','code','name','pricebuy','pricesell','category','taxcat','printto','description')
+
 
             case 'VINOS':
             case 'f91c6698-c108-4cb7-a691-216e587fd8a8':

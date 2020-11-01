@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductAdOn;
 use App\Traits\SharedTicketTrait;
 
 use App\UnicentaModels\Product;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use App\Traits\ProductTrait;
 use Illuminate\Support\Str;
 use function json_decode;
+use function json_encode;
 
 
 class OrderController extends Controller
@@ -49,6 +51,23 @@ class OrderController extends Controller
 
     public function addProduct($productID){
         $product[] = Product::all()->find($productID);
+        $this->addProductsToTicket($product,Session::get('ticketID'));
+        $totalBasketValue = $this->getTotalBasketValue();
+        $addOnProducts=ProductAdOn::where('product_id',$productID)->get();
+        $addOnProductsName=[];
+        foreach ($addOnProducts as $addOnProduct){
+            $addOnProductsName[]=[$addOnProduct->adon_product_id,Product::find($addOnProduct->adon_product_id)->name,$addOnProduct->price];
+        }
+
+
+        return [json_encode($totalBasketValue),json_encode($addOnProductsName)];
+    }
+
+    public function addAddOnProduct(){
+        $productID = request()->get('product_id');
+        $price = request()->get('price');
+        $product[] = Product::all()->find($productID);
+        $product[0]->pricesell=$price/1.1;
         $this->addProductsToTicket($product,Session::get('ticketID'));
         $totalBasketValue = $this->getTotalBasketValue();
         return json_encode($totalBasketValue);

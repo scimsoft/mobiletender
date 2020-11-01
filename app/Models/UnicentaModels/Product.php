@@ -5,11 +5,14 @@ namespace App\UnicentaModels;
 
 use App\Models\ProductAdOn;
 
+
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     //
+    use Uuids;
 
     protected $table = 'products';
     public $timestamps = false;

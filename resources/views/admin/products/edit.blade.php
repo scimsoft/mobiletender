@@ -106,6 +106,28 @@
                             </tr>
                             <tr><td>en Euros</td><td>con IVA = @money($product->pricesell *1.1)</td></tr>
                             <tr>
+                                <td colspan="1">
+                                    <select multiple="multiple" id="products_list">
+                                        @foreach($alldrinks as $drink)
+                                            <option value="{{$drink->id}}">{{$drink->name}}</option>
+
+                                            @endforeach
+
+                                    </select>
+
+                                </td>
+                                <td colspan="1">
+                                    <select multiple="multiple" id="addon_products_list">
+                                        @foreach($all_adons as $all_adon)
+
+                                            <option value="{{$all_adon->id}}">{{$all_adon->name}}</option>
+                                            @endforeach
+
+                                    </select>
+
+                                </td>
+                            </tr>
+                            <tr>
                                 <td colspan="2">
                                     <label for="description" class="form-label"><b>Dicripcion</b></label>
                                     <textarea name="description" class="form-control"
@@ -113,6 +135,7 @@
 
                                 </td>
                             </tr>
+
 
                             <tr>
                                 <td colspan="2">
@@ -141,7 +164,50 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        jQuery(document).ready(function () {
+            $('#products_list').on('click',function(){
+                var selected_product = $(this).val();
+                var price = prompt("Precio?", "0");
+                var productID = $(this).find(":selected").val();
+                var addOnProductID = $(this).find(":selected").text();
+                $("#addon_products_list").append($('<option>', {value: productID, text: addOnProductID}));
+                addOnProduct(productID,price)
+            })
+            $('#addon_products_list').on('click',function(){
+                var selected_product = $(this).val();
+                var productID = $(this).find(":selected").val();
+                var addOnProductID = $(this).find(":selected").text();
+                $(this).find(":selected").remove();
+                removeaddOnProduct(productID)
+            })
 
+        })
+
+        function addOnProduct(addOnProductID,price){
+            jQuery.ajax({
+                url: '/addOnProduct/add/',
+                type: "POST",
+                data: { product_id:'{{$product->id}}', adon_product_id:addOnProductID ,price:price},
+                dataType: "json",
+                success: function (data) {
+
+
+                }
+            });
+        }
+
+        function removeaddOnProduct(addOnProductID){
+            jQuery.ajax({
+                url: '/addOnProduct/remove/',
+                type: "POST",
+                data: { product_id:'{{$product->id}}', adon_product_id:addOnProductID },
+                dataType: "json",
+                success: function (data) {
+
+
+                }
+            });
+        }
 
     </script>
 

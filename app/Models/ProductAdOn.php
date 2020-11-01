@@ -11,4 +11,8 @@ class ProductAdOn extends Model
     public $timestamps = false;
     protected $primaryKey = 'product_id';
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'product_id', 'adon_product_id','price'
+    ];
 }

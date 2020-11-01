@@ -8,6 +8,7 @@ use App\Traits\ProductTrait;
 use App\UnicentaModels\Product;
 use App\UnicentaModels\Products_Cat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use function view;
 
@@ -40,7 +41,8 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('products.create');
+        $categories = Category::all();
+        return view('admin.products.create',compact('categories'));
     }
 
     /**
@@ -53,13 +55,20 @@ class ProductController extends Controller
     {
         //
         $request->validate([
+            'code'=> 'required',
+            'reference'=> 'required',
+            'category'=> 'required',
+            'pricebuy'=> 'required',
+            'pricesell'=> 'required',
             'name' => 'required',
-            'detail' => 'required',
+
         ]);
 
-        Product::create($request->all());
 
-        return redirect()->route('products.index')
+        Product::create($request->all());
+        $product_id = DB::getPdo()->lastInsertId();
+
+        return redirect()->route('products.edit',$product_id )
             ->with('success','Product created successfully.');
     }
 
@@ -85,14 +94,21 @@ class ProductController extends Controller
     {
         //
         $product=Product::findOrFail($id);
-        $allproducts = Product::all();
+        $alldrinks = $this->getCategoryProducts('DRINKS');
         if (!empty($product->image)) {
             $product->image = base64_encode($product->image);
         }
-        $product_addons = ProductAdOn::find($id);
+
+        $product_addons = ProductAdOn::where('product_id','=',$product->id)->get();
+       // dd($product_addons);
+        $all_adons=[];
+        foreach ($product_addons as $product_addon) {
+            $all_adons[]= Product::find($product_addon->adon_product_id);
+        }
+
         $categories = Category::all();
 
-        return view('admin.products.edit',compact('product','allproducts','product_addons','categories'));
+        return view('admin.products.edit',compact('product','alldrinks','all_adons','categories'));
     }
 
     /**
@@ -105,6 +121,15 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'code'=> 'required',
+            'reference'=> 'required',
+            'category'=> 'required',
+            'pricebuy'=> 'required',
+            'pricesell'=> 'required',
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
         Log::debug('product update id:'.$id);
         $product=Product::find($id);
         $request->validate([
@@ -171,4 +196,19 @@ class ProductController extends Controller
         return "SUCCES";
 
     }
+
+    public function addOnProductAdd(){
+        ProductAdOn::create(request()->all());
+        return true;
+    }
+    public function removeAddOnProductAdd(){
+        $productID = request()->get('product_id');
+        $addonProductID = request()->get('adon_product_id');
+        $product = ProductAdOn::where('product_id',$productID)->where('adon_product_id',$addonProductID)->first();
+        $product->delete();
+        return true;
+    }
+
+
+
 }

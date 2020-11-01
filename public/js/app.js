@@ -37292,18 +37292,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //window.
 // });
 
 
-window.addProduct = function (productID) {
-  jQuery.ajax({
-    url: '/order/addproduct/' + productID,
-    type: "GET",
-    dataType: "json",
-    success: function success(data) {
-      orderTotalBasket = (data * 1.1).toFixed(2) + "€";
-      $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;' + orderTotalBasket);
-    }
-  });
-};
-
 window.cancelProduct = function (productID) {
   jQuery.ajax({
     url: '/order/cancelproduct/' + productID,
