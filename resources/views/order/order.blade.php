@@ -169,6 +169,10 @@
 
                     if (adonnproducts.length > 0) {
                         $('#selectAddOnModal').modal("show");
+                        $("#addOnProductSelect").find('option')
+                            .remove()
+                            .end()
+
 
                         $.each(adonnproducts, function (index, value) {
                             var optionvalue =  Math.round(value[2],2)+ '€'+" __    "+value[1] ;
