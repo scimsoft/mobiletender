@@ -44,8 +44,8 @@ Route::get('/crop-image/{id}', [ProductController::class,'editImage']);
 Route::post('crop-image', [ProductController::class,'imageCrop']);
 Route::post('/products/catalog',[ProductController::class,'toggleCatalog']);
 
-Route::post('/addOnProduct/add/',[ProductController::class,'addOnProductAdd']);
-Route::post('/addOnProduct/remove/',[ProductController::class,'removeAddOnProductAdd']);
+Route::post('/addOnProduct/add',[ProductController::class,'addOnProductAdd']);
+Route::post('/addOnProduct/remove',[ProductController::class,'removeAddOnProductAdd']);
 
 Route::get('/dbimage/{id}',[ProductImageController::class, 'getImage']);
 
