@@ -66,7 +66,12 @@ class ProductController extends Controller
 
 
         Product::create($request->all());
-        $product_id = DB::getPdo()->lastInsertId();
+        $code = request()->get('code');
+
+        $createdProduct = Product::where('code', $code)->first();
+
+        $product_id = $createdProduct->id;
+
 
         return redirect()->route('products.edit',$product_id )
             ->with('success','Product created successfully.');
