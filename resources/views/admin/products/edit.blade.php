@@ -107,7 +107,7 @@
                             <tr><td>en Euros</td><td>con IVA = @money($product->pricesell *1.1)</td></tr>
                             <tr>
                                 <td colspan="1">
-                                    <select multiple="multiple" id="products_list">
+                                    <select class="custom-select" size="8" multiple="multiple" id="products_list">
                                         @foreach($alldrinks as $drink)
                                             <option value="{{$drink->id}}">{{$drink->name}}</option>
 
@@ -117,7 +117,7 @@
 
                                 </td>
                                 <td colspan="1">
-                                    <select multiple="multiple" id="addon_products_list">
+                                    <select class="custom-select" size="8" id="addon_products_list">
                                         @foreach($all_adons as $all_adon)
 
                                             <option value="{{$all_adon->id}}">{{$all_adon->name}}</option>
