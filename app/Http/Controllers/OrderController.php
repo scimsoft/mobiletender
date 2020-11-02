@@ -99,9 +99,9 @@ class OrderController extends Controller
     private function checkForSessionTicketId()
     {
         $ticketID = Session::get('ticketID');
-        Log::debug('checkForSessionTicketId: Session TicketID: '.$ticketID);
-        Log::debug('checkForSessionTicketId: is_null: '.is_null($ticketID));
-        Log::debug('checkForSessionTicketId: hasTicket: '.$this->hasTicket($ticketID));
+//        Log::debug('checkForSessionTicketId: Session TicketID: '.$ticketID);
+//        Log::debug('checkForSessionTicketId: is_null: '.is_null($ticketID));
+//        Log::debug('checkForSessionTicketId: hasTicket: '.$this->hasTicket($ticketID));
         if (is_null($ticketID) or ($this->hasTicket($ticketID)<1)){
             $ticket = $this->createEmptyTicket();
             $newTicketID = Str::uuid()->toString();

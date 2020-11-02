@@ -106,10 +106,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select name="addOnProduct" id="addOnProductSelect" class="custom-select">
-
-                    </select>
-
+                    <div class="table-responsive">
+                    <table id="addOnProductsTable" class="table table-borderless">
+                        <tr><td>Image</td><td>Name</td><td>Price</td></tr>
+                    </table>
+                    <div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-tab" data-dismiss="modal">Nada</button>
@@ -123,6 +124,16 @@
 
     <script>
         jQuery(document).ready(function () {
+
+
+            $('#addOnProductsTable').on('click','.productAddonRow',function(){
+               var id = $(this).find('td:eq(0)').attr('id');
+               var price = $(this).find('td:eq(2)').attr('id');
+               console.log('id:'+id);
+                addOnProduct(id,price);
+
+            });
+
             $('.add-to-cart').on('click', function () {
                 jQuery('#overlay').show();
                 var cart = $('.fa-shopping-cart');
@@ -176,7 +187,12 @@
 
                         $.each(adonnproducts, function (index, value) {
                             var optionvalue =  Math.round(value[2],2)+ '€'+" __    "+value[1] ;
-
+                            $('#addOnProductsTable tr:last').after(
+                                '<tr class="productAddonRow">' +
+                                '<td id="'+value[0]+'"><img src="/dbimage/'+value[0]+'.png" width="32px"></td>'+
+                                '<td id="'+value[1]+'">'+value[1]+'</td>' +
+                                '<td id="'+value[2]+'">'+value[2].toFixed(2)+'€</td></tr>'
+                            );
                             $("#addOnProductSelect").append($('<option>', {
                                 value: value[0]+"|" + value[2],
                                  text: optionvalue
@@ -191,6 +207,7 @@
         //TODO TODO
         // Tengo que mandar el producto y el precio
         function addOnProduct(addOnProductID,price) {
+            console.log('id: '+addOnProductID+ ' price:'+ price);
             jQuery.ajax({
                 url: '/order/addAddonProduct',
                 type: "POST",
