@@ -216,6 +216,9 @@
                 success: function (data) {
 
                     $('#selectAddOnModal').modal("hide");
+                    orderTotalBasket = (data * 1.1).toFixed(2) + "€";
+
+                    $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;' + orderTotalBasket);
                 }
             });
         }

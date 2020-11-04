@@ -5,7 +5,9 @@
         <div class="row justify-content-center">
 
             <div class="card">
-                <div class="card-header"><b>Pedido</b></div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div class="card-header text-center"><h4>Cuenta</h4></div>
 
                 <div class="card-body text-center">
                     @if (session('status'))
@@ -13,19 +15,21 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
 
 
                 <table id="products-table" class="table table-striped middleTable">
                     <thead class="position-sticky">
                     <tr>
-                    <td colspan="2"><a href="/order/" class="btn btn-tab m-1">Comprar</a></td>
+                    <td colspan="2"><a href="/order/" class="btn btn-tab m-1">Volver</a></td>
                     <td colspan="2"><button disabled="true" class="btn btn-tab m-1" id="doCheckout">Pedir</button></td>
                     </tr>
-                    <tr>
-                       <td colspan="2">&nbsp;</td>
-                        <td colspan="2">&nbsp;</td>
-                    </tr>
+
 
                     </thead>
                     <tbody class="t-5">
@@ -91,6 +95,7 @@
                 window.location.href ="/checkout/";
 
             });
+
         })
 
 

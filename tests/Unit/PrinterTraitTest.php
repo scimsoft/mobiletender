@@ -9,19 +9,26 @@
 namespace Tests;
 
 
-
 use App\Traits\PrinterTrait;
 
 class PrinterTraitTest extends TestCase
 {
     use PrinterTrait;
 
-    public function testPrinterConnection(){
+    public function testPrinterConnection()
+    {
         $printer = $this->connectToPrinter();
         self::assertNotEmpty($printer);
+        $printer->close();
+    }
 
-
-
-}
+    public function testPrintLine()
+    {
+        $printer = $this->connectToPrinter();
+        $printer->text("\n \n");
+        $printer->text("Test");
+        $printer->cut();
+        $printer->close();
+    }
 
 }

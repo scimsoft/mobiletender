@@ -8,6 +8,7 @@ use App\UnicentaModels\SharedTicket;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Mockery\Exception;
 use function redirect;
 
 
@@ -36,9 +37,20 @@ class CheckOutController extends Controller
     {
 
         $ticket= $this->getTicket($ticketID);
-        $lines_to_print = $this->setUnprintedTicketLinesAsPrinted($ticket,$ticketID);
         $header="Mesa: ".$ticketID;
-        $this->printTicket($header,$lines_to_print);
+        try{
+            $this->printTicket($header,$this->getUnprintedTicetLines($ticket));
+            $this->setUnprintedTicketLinesAsPrinted($ticket,$ticketID);
+
+        }catch (\Exception $e){
+            Session::flash('error','No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
+            Log::error("Error Printing printerbridge error msg:" .$e);
+
+        }
+
+
+
+
         Log::debug('return from printOrder');
         return redirect()->route('basket');
     }
@@ -59,6 +71,18 @@ class CheckOutController extends Controller
             }
         }
         $this->updateOpenTable($ticket,$ticketID);
+        return $lines_to_print;
+    }
+
+    private function getUnprintedTicetLines(SharedTicket $ticket){
+        $lines_to_print = null;
+        foreach ($ticket->m_aLines as $ticket_line) {
+            if ($ticket_line->attributes->updated) {
+                $lines_to_print[] = $ticket_line;
+
+            }
+        }
+
         return $lines_to_print;
     }
 
