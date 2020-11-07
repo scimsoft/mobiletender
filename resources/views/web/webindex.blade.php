@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="">
-                <div class="card">
+                <div class="card text-center">
                     <div class="card-header">
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
@@ -14,7 +14,7 @@
 
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <div class="row">
                             <div class="col-md-12">
                                 <img src="img/web/app_screen_shot_colage.png" class="img-fluid">
