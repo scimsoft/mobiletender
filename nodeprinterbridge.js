@@ -74,11 +74,11 @@ var appserver = net.createServer(function(appsocket) {
 
 
 // Remove disconnected client from sockets array
-function removeSocket(printers,socket) {
+function removeSocket(arraydesockets,socket) {
     console.log(socket.name + " ended the connection");
 
-    printers.splice(printers.indexOf(socket), 1);
-    console.log('there are: '+printers.length+' connections');
+    arraydesockets.splice(arraydesockets.indexOf(socket), 1);
+    console.log('there are: '+arraydesockets.length+' connections');
 };
 
 // Broadcast to others, excluding the sender

@@ -11031,6 +11031,23 @@ a.text-dark:focus {
   border-color: #EEEEEE;
 }
 
+.btn-tab-outline {
+  color: #fff6b2;
+  border-color: #fff6b2;
+}
+
+.btn-tab-solid {
+  color: #000;
+  background-color: #fff6b2;
+  border-color: #fff6b2;
+}
+
+.btn-tab-outline:hover {
+  color: #000;
+  background-color: #fff6b2;
+  border-color: #fff6b2;
+}
+
 .productAddonRow:hover {
   background-color: #fff6b2;
   border: 1px solid #ffeccf;

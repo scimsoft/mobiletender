@@ -27,15 +27,16 @@ trait PrinterTrait
 
             $printer = $this->connectToPrinter();
 
-            $printer->text("\n \n");
+            $printer->text("\n");
             $printer->setTextSize(2, 2);
-            $printer->text($header);
-            $printer->text("\n \n");
-            $printer->setTextSize(1, 1);
+            $printer->text($header."\n");
+            $printer->setTextSize(1.5, 1.5);
+
             foreach ($lines as $line) {
-                $printer->text($line->attributes->product->name);
-                $printer->text("\n");
+                $printer->text($line->attributes->product->name."\n");
+
             }
+            $printer->text("\n\n\n");
 
 
             $printer->cut();
