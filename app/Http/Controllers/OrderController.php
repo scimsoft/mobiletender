@@ -96,7 +96,7 @@ class OrderController extends Controller
 
     }
 
-    private function checkForSessionTicketId()
+    public function checkForSessionTicketId()
     {
         $ticketID = Session::get('ticketID');
 //        Log::debug('checkForSessionTicketId: Session TicketID: '.$ticketID);

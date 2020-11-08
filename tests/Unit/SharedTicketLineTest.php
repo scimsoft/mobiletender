@@ -28,19 +28,13 @@ class SharedTicketLineTest extends TestCase
     public function testCreateSharedTicketWith2Products()
     {
 
-        $this->sharedTicket = new SharedTicket();
-        $this->sharedTicket->m_User = ['m_sId' => '0', 'm_sName' => 'Administrator'];
-        $activeCash = DB::select('Select money FROM closedcash where dateend is null')[0];
-        $this->sharedTicket->m_sActiveCash = $activeCash->money;
-        $sharedTicketController = new UnicentaSharedTicketController();
+        $this->sharedTicket = $this->createEmptyTicket();
+        $this->saveEmptyTicket($this->sharedTicket,self::TABLENUMBER);
 
-        $product = Product::all()->first();
-        $ticketLine = new SharedTicketLines($this->sharedTicket, $product, 1);
-        $ticketLine2 = new SharedTicketLines($this->sharedTicket, $product, 2);
-        $this->sharedTicket->m_aLines[] = $ticketLine;
-        $this->sharedTicket->m_aLines[] = $ticketLine2;
-        $sharedTicketController->saveEmptyTicket($this->sharedTicket, self::TABLENUMBER);
-        self::assertNotEmpty($this->sharedTicket->m_sId);
+        $products[] = Product::all()->first();
+        $products[] = Product::all()->get(2);
+        $this->addProductsToTicket($products,self::TABLENUMBER);
+       self::assertNotEmpty($this->sharedTicket->m_sId);
 
 
     }
@@ -56,7 +50,7 @@ class SharedTicketLineTest extends TestCase
     public function testGetTicketLinesSum(){
         $sharedTicketController = new UnicentaSharedTicketController();
         $sumTicketLines = $sharedTicketController->getSumTicketLines(self::TABLENUMBER);
-        self::assertEquals(2, $sumTicketLines*1.1);
+        self::assertEquals(12, round($sumTicketLines*1.1,2));
     }
 
     public function testAddOneTicketLine()
@@ -99,7 +93,7 @@ class SharedTicketLineTest extends TestCase
         $sharedTicketController = new UnicentaSharedTicketController();
         $sharedTicketController->setTicketLinePrinted(self::TABLENUMBER, $ticketLineNumber);
         $sharedTicket = $sharedTicketController->getTicket(self::TABLENUMBER);
-        self::assertEquals(false,$sharedTicket->m_aLines[$ticketLineNumber]->updated);
+        self::assertEquals('false',$sharedTicket->m_aLines[$ticketLineNumber]->updated);
     }
 
     public function NOtestGetSharedTicket2(){

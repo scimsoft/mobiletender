@@ -24,19 +24,16 @@
 
                         <div class="text-center mt-4">
                             <h5>
-                                Deja que sus clientes toman nota de sus conumiciones.
+                                Que los clientes piden desde la mesa.
                             </h5>
                         </div>
-                        <div class="text-left">
-                            <h6>
-                                <div>1. Ahorra tiempo</div>
-                                <div>2. Evitar confusiones</div>
-                                <div>3. Pagar antes de servir</div>
-                                <div>4. Evitar contacto COVID</div>
-                            </h6>
+                        <div class="text-center mt-4">
+                            <h4>
+                                <a href="/web/products/beginner" class="text-center">¿Como?</a>
+                            </h4>
                         </div>
 
-                        <div class=" row ">
+                        <div class="card-footer">
                             <div class="col-md-12">
                                 <img src="img/web/123banner.gif" class="img-fluid">
                             </div>

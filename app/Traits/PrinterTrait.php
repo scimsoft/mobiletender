@@ -9,10 +9,10 @@
 namespace App\Traits;
 
 
+use function config;
 use function e;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
-use function lcfirst;
+use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
 use function PHPUnit\Framework\isEmpty;
@@ -24,13 +24,20 @@ trait PrinterTrait
 
     public function printTicket($header, $lines)
     {
+        $printer = $this->connectToPrinter();
 
-            $printer = $this->connectToPrinter();
 
-            $printer->text("\n");
+            $logo = EscposImage::load(config('app.logo'));
+            $printer->bitImageColumnFormat($logo);
+
+
+
+
+
             $printer->setTextSize(2, 2);
-            $printer->text($header."\n");
-            $printer->setTextSize(1.5, 1.5);
+
+            $printer->text($header."\n\n");
+
 
             foreach ($lines as $line) {
                 $printer->text($line->attributes->product->name."\n");

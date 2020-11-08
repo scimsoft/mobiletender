@@ -34,13 +34,7 @@ class UnicentaSharedTicketController extends Controller
     //TODO move object creacion from json to constructor
 
 
-    public function saveEmptyTicket(SharedTicket $sharedTicket, $table_number)
-    {
-        //INSERT empty sharedticket
-        $SQLString = "INSERT into sharedtickets VALUES ('$table_number','Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
-        Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);
-        DB::insert($SQLString);
-    }
+
 
 
 

@@ -17,7 +17,8 @@ use Carbon\Carbon;
 use function count;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use function json_encode;
+use function json_last_error;
 
 
 trait SharedTicketTrait
@@ -33,11 +34,13 @@ trait SharedTicketTrait
     }
     public function getTicket($table_number)
     {
+
         $existingticketlines = DB::select("Select content from sharedtickets where id ='$table_number'");
         $ticketlinenumber = 0;
         $sharedTicket = $this->createEmptyTicket();
         if(count($existingticketlines)>0) {
             $productLists = json_decode($existingticketlines[0]->content)->m_aLines;
+            //dd($existingticketlines[0]);
             foreach ($productLists as $productList) {
                 $categoryid = $productList->attributes->{'product.categoryid'};
                 $code = $productList->attributes->{'product.code'};
@@ -72,6 +75,7 @@ trait SharedTicketTrait
 
     public function saveEmptyTicket(SharedTicket $sharedTicket, $table_number)
     {
+
         //INSERT empty sharedticket
         $SQLString = "INSERT into sharedtickets VALUES ('".$table_number."','Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
         //Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);

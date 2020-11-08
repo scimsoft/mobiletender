@@ -22,4 +22,8 @@ class WebController extends Controller
     {
         return view('web.webproducts');
     }
+    public function beginner()
+    {
+        return view('web.webbeginner');
+    }
 }

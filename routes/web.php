@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/web', [WebController::class, 'web']);
 Route::get('/web/products', [WebController::class, 'products']);
+Route::get('/web/products/beginner', [WebController::class, 'beginner']);
 
 Auth::routes();
 Route::get('/', [OrderController::class, 'order']);
