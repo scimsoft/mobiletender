@@ -45,7 +45,7 @@
 
                     <div>
                         <div>
-                            <div class="h5 strong">BENEFICIOS ESTABLECIMIENTO</div>
+                            <div class="h5 strong">BENEFICIOS para el ESTABLECIMIENTO</div>
 
                         </div>
                         <div>
@@ -68,7 +68,7 @@
                             </div>
                             <div>&nbsp;</div>
                             <div>&nbsp;</div>
-                            <div class="h5 strong">BENEFICIOS CLIENTES</div>
+                            <div class="h5 strong">BENEFICIOS para los CLIENTES</div>
                             <div>
                                 <b>REDUCE LOS TIEMPOS DE ESPERA<br></b>
                                 Consulta el menú digital con los productos, imágenes e ingredientes al llegar al
