@@ -19,7 +19,7 @@
                         <h6>El cliente mediante la carta digital puede hacer su pedido, y recogerlo en su local. </h6>
 
                         <a href="/web/products/standard" class="h5">Paquete Estandard</a>
-                        <h6>El cliente escanea el codigo QR inteligente, que le abre directamente la carta digital con su mesa configurado. Hace una seleccion desde la carta digital y cursa el pedido. En la barra y/o cocina salen los tickets de los pedidos para que los camareros lo sirven.</h6>
+                        <h6>El cliente escanea el codigo QR inteligente, que le abre directamente la carta digital con su mesa configurada. Hace una seleccion desde la carta digital y cursa el pedido. En la barra y/o cocina salen los tickets de los pedidos para que los camareros lo sirven.</h6>
 
                         <a href="/web/products/premium" class="h5">Paquete Premium</a>
                         <h6>100% integrado en nuestro POS, con sus modulos de stock, reservas, informes. Haz que los clientes piden que se integra con el POS a 100%. Haz que sus camaeras pueden usar cualquier dispositivo con interet para tomar nota, corregir pedidos de los clientes.</h6>
