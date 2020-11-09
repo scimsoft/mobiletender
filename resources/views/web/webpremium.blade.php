@@ -17,9 +17,9 @@
                                 <div>&nbsp;</div>
                                 <div class="text-center">
                                     <h4 class="text-center">Nuestro paquete Premium</h4>
-                                    <h6 class="text-justify">Permite ofrecer a sus clientes que piden desde la mesa, en su casa para recoger o para que se lo llevan.</h6>
-                                    <h6 class="text-justify">Ademas 100% integrado en nuestro POS, con sus modulos de stock, reservas, informes. Haz que los clientes piden que se integra con el POS a 100%. Haz que sus camaeras pueden usar cualquier dispositivo con interet para tomar nota, corregir pedidos de los clientes.</h6>
-                                    <h6 class="text-justify">Haz que cada persona en la mesa puede añadir sus propias gustas, comentarias y ver y pedir la cuenta todo desde su movil.</h6>
+                                    <h6 class="text-justify">Permite ofrecer a sus clientes que piden desde la mesa, en su casa para recoger o para que se  lleven.</h6>
+                                    <h6 class="text-justify">Ademas 100% integrado en nuestro POS, con sus modulos de stock, reservas, informes. Haz que los clientes piden que se integra con el POS a 100%. Haz que sus camareras pueden usar cualquier dispositivo con internet para tomar nota, corregir pedidos de los clientes.</h6>
+                                    <h6 class="text-justify">Haz que cada persona en la mesa puede añadir sus propios gustos, comentarios y ver y pedir la cuenta; todo desde su movil.</h6>
                                 </div>
                             </div>
                             <div class="card-body">

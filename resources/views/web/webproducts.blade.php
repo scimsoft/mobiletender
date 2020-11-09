@@ -64,7 +64,7 @@
                                 <br><br>
                                 <b>REDUCCIÓN DE TIEMPOS Y COSTES<br></b>
                                 Optimiza tus recursos e impulsa tu negocio. Gestiona toda tu carta, pedidos y avisos
-                                con Wappiter al momento y aumenta tus márgenes.
+                                con los pedidos online al momento y aumenta tus márgenes.
                             </div>
                             <div>&nbsp;</div>
                             <div>&nbsp;</div>
