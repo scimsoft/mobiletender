@@ -64,7 +64,7 @@
                         <a href="/web/products" class="nav-link">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/web/products" class="nav-link">Precios</a>
+                        <a href="/web/prices" class="nav-link">Precios</a>
                     </li>
                     <li class="nav-item">
                         <a href="/order" class="nav-link "><div class="font-weight-bold">Probar</div></a>

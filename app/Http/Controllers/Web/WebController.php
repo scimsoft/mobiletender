@@ -22,8 +22,25 @@ class WebController extends Controller
     {
         return view('web.webproducts');
     }
-    public function beginner()
+
+    public function prices()
     {
-        return view('web.webbeginner');
+        return view('web.webprices');
+    }
+    public function simple()
+    {
+        return view('web.websimple');
+    }
+    public function standard()
+    {
+        return view('web.webstandard');
+    }
+    public function premium()
+    {
+        return view('web.webpremium');
+    }
+    public function printer()
+    {
+        return view('web.webprinter');
     }
 }

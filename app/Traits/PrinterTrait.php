@@ -12,6 +12,7 @@ namespace App\Traits;
 use function config;
 use function e;
 use Illuminate\Support\Facades\Log;
+use Mike42\Escpos\CapabilityProfile;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
@@ -61,13 +62,14 @@ trait PrinterTrait
         try {
             Log::debug('ip:' . config('app.printer-ip'));
             $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
+
             $printer = new Printer($connector);
 
 
         } catch (Throwable $e) {
-
-            Session('status','No se puede imprimir el pedido, avisa a la camarera por favor');
-            return abort('503', 'No se puede imprimir el pedido, avisa a la camarera por favor');
+    dd($e);
+            Session('status','No se puede imprimir el pedido, avisa a la camarera por favor'.$e);
+            return abort('503', 'No se puede imprimir el pedido, avisa a la camarera por favor'.$e);
         }
         return $printer;
     }

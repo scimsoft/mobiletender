@@ -24,12 +24,12 @@
 
                         <div class="text-center mt-4">
                             <h5>
-                                Que los clientes piden desde la mesa.
+                                Nuestra webapp para pedir desde el movil, aporta múltiples beneficios tanto a los establecimientos como a los clientes. En una nueva normalidad en la que el distanciamiento social, las medidas higiénicas y la capacidad de adaptación a este entorno son claves, nuestra plataforma ofrece una solución con múltiples beneficios.
                             </h5>
                         </div>
                         <div class="text-center mt-4">
                             <h4>
-                                <a href="/web/products/beginner" class="text-center">¿Como?</a>
+                                <a href="/web/products/simple" class="text-center">¿Como?</a>
                             </h4>
                         </div>
 
