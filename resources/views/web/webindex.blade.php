@@ -29,7 +29,7 @@
                         </div>
                         <div class="text-center mt-4">
                             <h4>
-                                <a href="/web/products/simple" class="text-center">¿Como?</a>
+                                <a href="/web/products" class="text-center">¿Como?</a>
                             </h4>
                         </div>
 

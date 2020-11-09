@@ -164,6 +164,11 @@ body {
   cursor: pointer;
 }
 
+.diagonal-label-text {
+  transform: rotate(80deg);
+  transform-origin: left top 0;
+}
+
 
 
 
