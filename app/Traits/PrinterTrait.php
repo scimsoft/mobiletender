@@ -62,8 +62,10 @@ trait PrinterTrait
         try {
             Log::debug('ip:' . config('app.printer-ip'));
             $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
+            $profile = CapabilityProfile::load('TM-T88II');
 
-            $printer = new Printer($connector);
+            $printer = new Printer($connector,$profile);
+            $printer->selectCharacterTable(2);
 
 
         } catch (Throwable $e) {

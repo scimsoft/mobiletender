@@ -146,7 +146,7 @@ trait SharedTicketTrait
 
     private function updateOpenTable(SharedTicket $sharedTicket, $table_number)
     {
-        $UpdateSharedTicketSQLString = "UPDATE sharedtickets SET content ='" . json_encode($sharedTicket) . "' WHERE id = '$table_number'";
+        $UpdateSharedTicketSQLString = "UPDATE sharedtickets SET content ='" . json_encode($sharedTicket,JSON_UNESCAPED_UNICODE) . "' WHERE id = '$table_number'";
        // Log::debug('SQLSTRING UPDATE places : '. $UpdateSharedTicketSQLString);
         DB::update($UpdateSharedTicketSQLString);
 
