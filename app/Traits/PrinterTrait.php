@@ -40,6 +40,7 @@ trait PrinterTrait
 
 
             foreach ($lines as $line) {
+                Log::debug('primtline: '.$line->attributes->product->name);
                 $printer->text($line->attributes->product->name."\n");
 
             }

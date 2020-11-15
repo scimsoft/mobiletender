@@ -25,4 +25,6 @@ return [
     'takeaway_prepay'=> env('TAKEAWAY_PREPAY',true),
     'delivery_prepay'=> env('DELIVERY_PREPAY',true),
 
+    'clean_table_after_order' => env('CLEAN_TABLE_AFTER_ORDER',false)
+
     ];

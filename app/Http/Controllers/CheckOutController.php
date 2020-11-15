@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Traits\PrinterTrait;
 use App\Traits\SharedTicketTrait;
 use App\UnicentaModels\SharedTicket;
+use function config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -41,6 +42,9 @@ class CheckOutController extends Controller
         try{
             $this->printTicket($header,$this->getUnprintedTicetLines($ticket));
             $this->setUnprintedTicketLinesAsPrinted($ticket,$ticketID);
+            if(config('customoptions.clean_table_after_order')){
+                $this->updateOpenTable($this->createEmptyTicket(),Session::get('ticketID'));
+            }
 
         }catch (\Exception $e){
             Session::flash('error','No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
