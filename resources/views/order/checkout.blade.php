@@ -90,7 +90,7 @@
                             @endif
 
 
-                            <tr>
+                            {{--<tr>
 
                                 <td colspan="5" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
                                     <select class="form-control" id="table_number">
@@ -107,6 +107,11 @@
                                 </td>
 
 
+                            </tr>--}}
+                            <tr>
+                                <td>
+                                    Para hacer su pedido, por favor escanea el codigo qr que se encuentra en su mesa.
+                                </td>
                             </tr>
 
                             @if(config('customoptions.delivery'))
@@ -138,7 +143,6 @@
 
             $('.add-to-cart').on('click', function () {
                 jQuery('#overlay').show();
-
             });
             $('.eatInButton').on('click', function () {
                 jQuery('#eatinrow').slideToggle('slow');

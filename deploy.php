@@ -22,11 +22,11 @@ add('writable_dirs', []);
 
 // Hosts
 
-host(demo)
+host('demo')
     ->hostname('demo.playaalta.com')
     ->set('deploy_path', '/var/www/mobiletender');
 
-host(bar)
+host('bar')
     ->hostname('bar.playaalta.com')
     ->set('deploy_path', '/var/www/bar');
     
