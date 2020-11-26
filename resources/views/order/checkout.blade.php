@@ -58,8 +58,32 @@
                         <tr>
                             <td colspan="5">&nbsp;</td>
                         </tr>
-                        @if(!Session::get('tableNumber'))
-                            @if(config('customoptions.take_away'))
+                        {{--
+                        Si tiene numero de mesa puede ser:
+                        1. de prepago
+                        2. a cuenta
+                        --}}
+                        @if(Session::get('tableNumber'))
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="addToTable">
+                                        @if(config('customoptions.eatin_prepay'))
+                                            Pagar
+                                        @else
+                                            Confirmar
+                                        @endif
+                                    </button>
+                                </td>
+                            </tr>
+
+                        @else
+                            {{--
+                        Si NO tiene numero de mesa puede ser:
+                        1. para llevar
+                        2. Para elegir mesa
+                        3. O para domicilars
+                        --}}
+                            @if(config('customoptions.takeaway'))
                                 <tr>
                                     <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar</a></td>
                                 </tr>
@@ -91,18 +115,6 @@
                                             domicilio</a></td>
                                 </tr>
                             @endif
-                        @else
-                            <tr>
-                                <td colspan="5">
-                                    <button class="btn btn-tab btn-block" id="addToTable">
-                                        @if(config('customoptions.eatin_prepay'))
-                                            Pagar
-                                        @else
-                                            Confirmar
-                                        @endif
-                                    </button>
-                                </td>
-                            </tr>
                         @endif
 
                         </tbody>
