@@ -8,7 +8,8 @@ Wifi setup tools
 http://www.hi-flying.com/download-center-1/applications-1/download-item-wifi-config-tools-v1-0
 
 use el APP Android
-AP+NET
+AP+NETP=TCP,CLIENT,ip,port
+
 
 Manual
 http://www.image.micros.com.pl/_dane_techniczne_auto/rf%20hf-lpt230-1.pdf

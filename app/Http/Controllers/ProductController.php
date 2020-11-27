@@ -66,12 +66,13 @@ class ProductController extends Controller
 
 
         Product::create($request->all());
+
         $code = request()->get('code');
 
         $createdProduct = Product::where('code', $code)->first();
 
         $product_id = $createdProduct->id;
-
+        $this->addOrDeleteFromCatalog($product_id);
 
         return redirect()->route('products.edit',$product_id )
             ->with('success','Product created successfully.');
@@ -133,7 +134,7 @@ class ProductController extends Controller
             'pricebuy'=> 'required',
             'pricesell'=> 'required',
             'name' => 'required',
-            'detail' => 'required',
+
         ]);
         Log::debug('product update id:'.$id);
         $product=Product::find($id);
@@ -158,6 +159,7 @@ class ProductController extends Controller
     {
         //
         $product=Product::findOrFail($id);
+        $product->product_cat()->delete();
         $product->delete();
 
         return redirect()->route('products.index')
@@ -187,16 +189,10 @@ class ProductController extends Controller
         return response()->json(['status' => true]);
     }
     public function toggleCatalog(Request $request){
-        Log::debug('product_id:'.$request->product_id);
-        $productcat = Products_Cat::find($request->product_id);
+        $product_id = $request->product_id;
+        Log::debug('product_id:'.$product_id);
 
-        if (empty($productcat)) {
-            $cat = new Products_Cat();
-            $cat->product = $request->product_id;
-            $cat->save();
-        } else {
-            $productcat->delete();
-        }
+        $this->addOrDeleteFromCatalog($product_id);
 
         return "SUCCES";
 
@@ -214,6 +210,21 @@ class ProductController extends Controller
         return true;
     }
 
+    /**
+     * @param $product_id
+     */
+    private function addOrDeleteFromCatalog($product_id): void
+    {
+        $productcat = Products_Cat::find($product_id);
+        if (empty($productcat)) {
+            $cat = new Products_Cat();
+
+            $cat->product = $product_id;
+            $cat->save();
+        } else {
+            $productcat->delete();
+        }
+    }
 
 
 }

@@ -28,7 +28,7 @@ trait PrinterTrait
 
 
             $logo = EscposImage::load(config('app.logo'));
-            $printer->bitImageColumnFormat($logo);
+            $printer->bitImage($logo);
 
 
 
