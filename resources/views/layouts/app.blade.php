@@ -30,6 +30,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @include('layouts.analytics');
 </head>
 <body>
 <div id="overlay" class="overlay">
