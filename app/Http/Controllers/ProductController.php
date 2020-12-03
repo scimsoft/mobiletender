@@ -67,10 +67,13 @@ class ProductController extends Controller
 
         Product::create($request->all());
 
+
         $code = request()->get('code');
 
         $createdProduct = Product::where('code', $code)->first();
 
+        $createdProduct->pricesell = ($request->pricesell/1.1);
+        $createdProduct->save();
         $product_id = $createdProduct->id;
         $this->addOrDeleteFromCatalog($product_id);
 
@@ -144,6 +147,8 @@ class ProductController extends Controller
         ]);
 
         $product->update($request->all());
+        $product->pricesell = ($request->pricesell/1.1);
+        $product->save();
 
         return redirect()->route('products.index')
             ->with('success','Product updated successfully');

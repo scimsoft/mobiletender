@@ -49,7 +49,7 @@
                             <tr>
 
                                 <td>
-                                    <label for="category" class="label label-default"><b>Reference</b> </label>
+                                    <label for="category" class="label label-default"><b>Categoria</b> </label>
                                     <select name="category" class="form-control">
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}" >
@@ -62,19 +62,19 @@
                                 <td>
                                     <label for="taxcat" class="form-label"><b>Tax</b></label>
                                     <input name="taxcat" class="form-control" type="text"
-                                           value="">
+                                           value="001">
 
                                 </td>
                             </tr>
                             <tr>
 
                                 <td>
-                                    <label for="reference" class="label label-default"><b>Reference</b> </label>
+                                    <label for="reference" class="label label-default"><b>Referencia</b> </label>
                                     <input name="reference" class="form-control" type="text"
                                            value="">
                                 </td>
                                 <td>
-                                    <label for="code" class="form-label"><b>Code</b></label>
+                                    <label for="code" class="form-label"><b>Codigo</b></label>
                                     <input name="code" class="form-control" type="text"
                                            value="">
 
@@ -83,13 +83,13 @@
                             <tr>
 
                                 <td>
-                                    <label for="pricebuy" class="form-label"><b>Compra</b> </label>
+                                    <label for="pricebuy" class="form-label"><b>Precio Compra</b> </label>
                                     <input name="pricebuy" class="form-control" type="text"
                                            value="">
 
                                 </td>
                                 <td>
-                                    <label for="pricesell" class="form-label"><b>Venta</b></label>
+                                    <label for="pricesell" class="form-label"><b>Precio Venta</b></label>
                                     <input name="pricesell" class="form-control" type="text"
                                            value="">
 
@@ -107,7 +107,7 @@
 
                             <tr>
                                 <td colspan="2">
-                                    <button type="submit" class="btn btn-tab btn-block">SAVE</button>
+                                    <button type="submit" class="btn btn-tab btn-block">Guardar</button>
                                 </td>
                             </tr>
 

@@ -58,7 +58,7 @@
                             <tr>
 
                                 <td>
-                                    <label for="category" class="label label-default"><b>Reference</b> </label>
+                                    <label for="category" class="label label-default"><b>Categoria</b> </label>
                                     <select name="category" class="form-control">
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}" {{ ( $category->id == $product->category) ? 'selected' : '' }}>
@@ -69,21 +69,21 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <label for="taxcat" class="form-label"><b>Tax</b></label>
+                                    <label for="taxcat" class="form-label"><b>Tipo de IVA</b></label>
                                     <input name="taxcat" class="form-control" type="text"
-                                           value="{{$product->taxcat}}">
+                                           value="{{$product->taxcat ?? '001'}} ">
 
                                 </td>
                             </tr>
                             <tr>
 
                                 <td>
-                                    <label for="reference" class="label label-default"><b>Reference</b> </label>
+                                    <label for="reference" class="label label-default"><b>Referencia</b> </label>
                                     <input name="reference" class="form-control" type="text"
                                            value="{{$product->reference}}">
                                 </td>
                                 <td>
-                                    <label for="code" class="form-label"><b>Code</b></label>
+                                    <label for="code" class="form-label"><b>Codigo</b></label>
                                     <input name="code" class="form-control" type="text"
                                            value="{{$product->code}}">
 
@@ -92,22 +92,25 @@
                             <tr>
 
                                 <td>
-                                    <label for="pricebuy" class="form-label"><b>Compra</b> </label>
+                                    <label for="pricebuy" class="form-label"><b>PrecioCompra</b> </label>
                                     <input name="pricebuy" class="form-control" type="text"
                                            value="{{$product->pricebuy}}">
 
                                 </td>
                                 <td>
-                                    <label for="pricesell" class="form-label"><b>Venta</b></label>
+                                    <label for="pricesell" class="form-label"><b>PrecioVenta</b></label>
                                     <input name="pricesell" class="form-control" type="text"
-                                           value="{{round($product->pricesell,2)}}">
+                                           value="{{($product->pricesell *1.1)}}">
 
                                 </td>
                             </tr>
-                            <tr><td>en Euros</td><td>con IVA = @money($product->pricesell *1.1)</td></tr>
+                            <tr><td colspan="2">
+                                    <b>Seleccion de sub-productos</b>
+                                </td></tr>
                             <tr>
                                 <td colspan="1">
-                                    <select class="custom-select" size="8" multiple="multiple" id="products_list">
+                                    <label for="products_list" class="form-label">Disponibles</label>
+                                    <select class="custom-select" size="8" multiple="multiple" name="products_list" id="products_list">
                                         @foreach($alldrinks as $drink)
                                             <option value="{{$drink->id}}">{{$drink->name}}</option>
 
@@ -117,7 +120,8 @@
 
                                 </td>
                                 <td colspan="1">
-                                    <select class="custom-select" size="8" id="addon_products_list">
+                                    <label for="addon_products_list" class="form-label">Selecionados</label>
+                                    <select class="custom-select" size="8" name="addon_products_list" id="addon_products_list">
                                         @foreach($all_adons as $all_adon)
 
                                             <option value="{{$all_adon->id}}">{{$all_adon->name}}</option>

@@ -10,9 +10,9 @@
                     <div id="upload-demo"></div>
                 </div>
                 <div class="col-md-4" style="padding:5%;">
-                    <strong>Choose image to crop:</strong>
+                    <strong>Selecionar imagen:</strong>
                     <input type="file" id="image_file">
-                    <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">Upload Image</button>
+                    <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">Guardar Imagen</button>
                     <div class="alert alert-success" id="upload-success" style="display: none;margin-top:10px;"></div>
 
                 </div>
