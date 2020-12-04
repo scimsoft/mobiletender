@@ -42,7 +42,7 @@ class CheckOutController extends Controller
         try{
             $this->printTicket($header,$this->getUnprintedTicetLines($ticket));
             $this->setUnprintedTicketLinesAsPrinted($ticket,$ticketID);
-            if(config('customoptions.clean_table_after_order')){
+            if(config('customoptions.clean_table_after_order')==true){
                 $this->updateOpenTable($this->createEmptyTicket(),Session::get('ticketID'));
             }
 

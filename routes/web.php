@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -48,13 +49,17 @@ Route::get('/checkout/confirmForTable/{id}',[CheckOutController::class,'confirmF
 Route::get('/checkout/printOrder/{id}',[CheckOutController::class,'printOrder']);
 
 
-Route::resource('/products', ProductController::class)->middleware('is_admin');;
-Route::get('/products/index/{id?}',[ProductController::class,'index'])->middleware('is_admin');;
-Route::get('/crop-image/{id}', [ProductController::class,'editImage'])->middleware('is_admin');;
-Route::post('crop-image', [ProductController::class,'imageCrop'])->middleware('is_admin');;
-Route::post('/products/catalog',[ProductController::class,'toggleCatalog'])->middleware('is_admin');;
-Route::post('/addOnProduct/add',[ProductController::class,'addOnProductAdd'])->middleware('is_admin');;
-Route::post('/addOnProduct/remove',[ProductController::class,'removeAddOnProductAdd'])->middleware('is_admin');;
+Route::get('/admin',[AdminHomeController::class,'index'])->name('admin')->middleware('is_manager');
+Route::get('/appconfig',[AdminHomeController::class,'appconfig'])->middleware('is_admin');
+Route::post('/appconfig',[AdminHomeController::class,'updateconfig'])->middleware('is_admin');
+
+Route::resource('/products', ProductController::class)->middleware('is_manager');;
+Route::get('/products/index/{id?}',[ProductController::class,'index'])->middleware('is_manager');;
+Route::get('/crop-image/{id}', [ProductController::class,'editImage'])->middleware('is_manager');;
+Route::post('crop-image', [ProductController::class,'imageCrop'])->middleware('is_manager');;
+Route::post('/products/catalog',[ProductController::class,'toggleCatalog'])->middleware('is_manager');;
+Route::post('/addOnProduct/add',[ProductController::class,'addOnProductAdd'])->middleware('is_manager');;
+Route::post('/addOnProduct/remove',[ProductController::class,'removeAddOnProductAdd'])->middleware('is_manager');;
 Route::get('/dbimage/{id}',[ProductImageController::class, 'getImage']);
 
 

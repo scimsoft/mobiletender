@@ -12,6 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     const ADMIN_TYPE = 'admin';
+    const MANAGER_TYPE = 'manager';
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +46,9 @@ class User extends Authenticatable
 
     public function isAdmin()    {
         return $this->type === self::ADMIN_TYPE;
+    }
+
+    public function isManager()    {
+        return $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
     }
 }
