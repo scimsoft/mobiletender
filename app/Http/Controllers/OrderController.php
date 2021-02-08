@@ -26,6 +26,13 @@ class OrderController extends Controller
         $products = $this->getCategoryProducts('DRINKS');
         return view('order.order', compact(['products','totalBasketPrice']));
     }
+    public function menu()
+    {
+        $this->checkForSessionTicketId();
+        $totalBasketPrice = $this->getTotalBasketValue();
+        $products = $this->getCategoryProducts('FOOD');
+        return view('order.menu', compact(['products','totalBasketPrice']));
+    }
 
     public function orderForTableNr($tablenumber)
     {
@@ -42,7 +49,11 @@ class OrderController extends Controller
 
     }
 
-
+    public function showProductsFromCategoryForMenu($category){
+        $products = $this->getCategoryProducts($category);
+        $totalBasketPrice = $this->getTotalBasketValue();
+        return view('order.menu', compact(['products','totalBasketPrice']));
+    }
     public function showProductsFromCategory($category){
         $this->checkForSessionTicketId();
         $products = $this->getCategoryProducts($category);

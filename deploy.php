@@ -29,6 +29,10 @@ host('demo')
 host('bar')
     ->hostname('bar.playaalta.com')
     ->set('deploy_path', '/var/www/bar');
+
+host('playaalta')
+    ->hostname('comer.playaalta.com')
+    ->set('deploy_path', '/var/www/mobilepos');
     
 // Tasks
 
