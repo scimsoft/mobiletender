@@ -30,7 +30,7 @@ use Mike42\Escpos\CapabilityProfile;
 
 // Enter connector and capability profile (to match your printer)
 $connector= new NetworkPrintConnector('92.222.79.72', '9101', 3);
-$profile = CapabilityProfile::load("simple");
+$profile = CapabilityProfile::load("default");
 $verbose = false; // Skip tables which iconv wont convert to (ie, only print characters available with UTF-8 input)
 
 /* Print a series of receipts containing i18n example strings - Code below shouldn't need changing */
@@ -39,7 +39,7 @@ $codePages = $profile -> getCodePages();
 $first = true; // Print larger table for first code-page.
 foreach ($codePages as $table => $page) {
     /* Change printer code page */
-    $printer -> selectCharacterTable(255);
+
     $printer -> selectCharacterTable($table);
     /* Select & print a label for it */
     $label = $page -> getId();

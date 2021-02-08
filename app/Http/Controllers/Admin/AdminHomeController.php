@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
@@ -69,7 +70,6 @@ class AdminHomeController extends Controller
     {
         $envFile = app()->environmentFilePath();
         $str = file_get_contents($envFile);
-
         $str .= "\n"; // In case the searched variable is in the last line without \n
         $keyPosition = strpos($str, "{$envKey}=");
         $endOfLinePosition = strpos($str, PHP_EOL, $keyPosition);

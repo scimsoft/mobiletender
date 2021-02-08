@@ -18,7 +18,6 @@
                     @endif
 
 
-
                     <table id="products-table" class="table ">
                         <thead>
 
@@ -85,7 +84,7 @@
                         --}}
                             @if(config('customoptions.takeaway'))
                                 <tr>
-                                    <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para llevar</a></td>
+                                    <td colspan="5"><a href="" class="btn btn-mobilepos btn-block" id="takeaway">Para llevar</a></td>
                                 </tr>
                             @endif
 
@@ -110,7 +109,8 @@
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    Para hacer su pedido,<br> por favor escanea el codigo QR que se encuentra en su mesa.
+                                    Para hacer su pedido,<br> por favor escanea el codigo QR que se encuentra en su
+                                    mesa.
                                 </td>
                             </tr>
 
@@ -149,8 +149,7 @@
             })
             $('#table_number').on("change paste keyup", function () {
                 @if(!config('customoptions.eatin_prepay'))
-$('#sendTableNumber').attr('href', "/checkout/confirmForTable/" + $('#table_number').val());
-
+                        $('#sendTableNumber').attr('href', "/checkout/confirmForTable/" + $('#table_number').val());
                 @endif
             })
             $('#sendTableNumber').on('click', function () {
@@ -168,6 +167,9 @@ $('#sendTableNumber').attr('href', "/checkout/confirmForTable/" + $('#table_numb
                 @else
                     window.location.href = "/checkout/printOrder/{{Session::get('ticketID')}}";
                 @endif
+            })
+            $('#takeaway').on('click', function(){
+
             })
 
 

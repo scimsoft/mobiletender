@@ -32,6 +32,12 @@ trait SharedTicketTrait
             return false;
         }
     }
+
+    public function getOpenOrders(){
+
+        return DB::select('Select * from sharedtickets order by length(id)');
+
+    }
     public function getTicket($table_number)
     {
 

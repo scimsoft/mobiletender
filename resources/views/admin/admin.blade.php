@@ -19,6 +19,7 @@
 
                         <div>&nbsp;</div>
                       <a href="/products" class="btn btn-primary"> Products</a>
+                        <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a>
                       @if(Auth::user()->isAdmin())
                             <a href="/appconfig" class="btn btn-primary"> Demo config</a>
                             {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}

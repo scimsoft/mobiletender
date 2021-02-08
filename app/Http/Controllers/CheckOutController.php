@@ -36,7 +36,6 @@ class CheckOutController extends Controller
 
     public function printOrder($ticketID)
     {
-
         $ticket= $this->getTicket($ticketID);
         $header="Mesa: ".$ticketID;
         try{
@@ -45,16 +44,10 @@ class CheckOutController extends Controller
             if(config('customoptions.clean_table_after_order')==true){
                 $this->updateOpenTable($this->createEmptyTicket(),Session::get('ticketID'));
             }
-
         }catch (\Exception $e){
             Session::flash('error','No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" .$e);
-
         }
-
-
-
-
         Log::debug('return from printOrder');
         return redirect()->route('basket');
     }

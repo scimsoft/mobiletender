@@ -10,15 +10,19 @@ namespace Tests;
 
 
 use App\Traits\PrinterTrait;
+use Illuminate\Support\Facades\Log;
 use function mb_convert_encoding;
 use Mike42\Escpos\CapabilityProfile;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
 
+
 class PrinterTraitTest extends TestCase
 {
     use PrinterTrait;
+    const ESC = "\x1b";
+
 
     public function testPrinterConnection()
     {
@@ -51,45 +55,7 @@ class PrinterTraitTest extends TestCase
         $printer->close();
     }
 
-    public function testcharcodes(){
-        include(dirname(__FILE__) . '/resources/character-encoding-test-strings.inc');
-        try {
-            // Enter connector and capability profile (to match your printer)
-           // $connector = new FilePrintConnector("php://stdout");
-            $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
 
-            $profile = CapabilityProfile::load("default");
-
-            /* Print a series of receipts containing i18n example strings */
-            $printer = new Printer($connector, $profile);
-            $printer -> selectPrintMode(Printer::MODE_DOUBLE_HEIGHT | Printer::MODE_EMPHASIZED | Printer::MODE_DOUBLE_WIDTH);
-            $printer -> text("Implemented languages\n");
-            $printer -> selectPrintMode();
-            foreach ($inputsOk as $label => $str) {
-                $printer -> setEmphasis(true);
-                $printer -> text($label . ":\n");
-                $printer -> setEmphasis(false);
-                $printer -> text($str);
-            }
-            $printer -> feed();
-
-            $printer -> selectPrintMode(Printer::MODE_DOUBLE_HEIGHT | Printer::MODE_EMPHASIZED | Printer::MODE_DOUBLE_WIDTH);
-            $printer -> text("Works in progress\n");
-            $printer -> selectPrintMode();
-            foreach ($inputsNotOk as $label => $str) {
-                $printer -> setEmphasis(true);
-                $printer -> text($label . ":\n");
-                $printer -> setEmphasis(false);
-                $printer -> text($str);
-            }
-            $printer -> cut();
-
-            /* Close printer */
-            $printer -> close();
-        } catch (Exception $e) {
-            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
-        }
-    }
 
     public function NotestPrintChars(){
         $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
@@ -131,5 +97,15 @@ class PrinterTraitTest extends TestCase
         $printer->close();
 
 }
-
+    public function testPrinterCodePages()
+    {
+        $printer = $this->connectToPrinter();
+        $printer->getPrintConnector()->write(PRINTER::ESC ."t"."2");
+        $printer->textRaw("test");
+        $printer->textRaw("ñ");
+        $printer->textRaw(iconv( 'utf8','cp850',"ñ"));
+        $printer->text("ñ");
+        $printer->text("\n");
+        $printer->close();
+    }
 }
