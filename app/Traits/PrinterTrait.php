@@ -66,9 +66,9 @@ trait PrinterTrait
         try {
             Log::debug('ip:' . config('app.printer-ip'));
             $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
-            $profile = CapabilityProfile::load('xp-n160ii');
-            $printer = new Printer($connector,$profile);
-            $printer->selectCharacterTable(6);
+         //   $profile = CapabilityProfile::load('xp-n160ii');
+            $printer = new Printer($connector);
+          //  $printer->selectCharacterTable(6);
 
 
         } catch (Throwable $e) {
