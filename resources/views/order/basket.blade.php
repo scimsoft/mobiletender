@@ -56,7 +56,7 @@
 
 
 
-                                @if($line->attributes->updated)
+                                @if($line->attributes->updated OR (Auth::user() and Auth::user()->isAdmin()))
                                     <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-tab add-to-cart btn-add" type="submit">Cancelar</a>
                                     <script>$('#doCheckout').prop("disabled",false);</script>
                                 @else

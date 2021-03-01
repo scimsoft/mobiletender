@@ -31,6 +31,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @include('layouts.analytics');
+    <style>
+        body {
+            background-color : transparent;
+        }
+    </style>
 </head>
 <body>
 <div id="overlay" class="overlay">

@@ -28,9 +28,10 @@ trait PrinterTrait
         $printer = $this->printHeader($header);
 
         foreach ($lines as $line) {
-            Log::debug('printline: ' . $line->attributes->product->name);
-
-            $printer->text($line->attributes->product->name . "\n");
+            //Log::debug('printline: ' . $line->attributes->product->name);
+            $printer->setTextSize(1, 1);
+            //$printer->text($line->attributes->product->name . "\n");
+            $printer->textRaw(mb_convert_encoding($line->attributes->product->name . "\n",  "CP1252"));
         }
         $this->printFooter($printer);
         return true;
@@ -90,7 +91,6 @@ trait PrinterTrait
         $printer->bitImage($logo);
         $printer->setTextSize(2, 2);
         $printer->text($header . "\n\n");
-
         return $printer;
     }
 
@@ -99,7 +99,7 @@ trait PrinterTrait
      */
     private function printFooter($printer): void
     {
-        $printer->text("\n\n\n");
+        $printer->text("\n\n");
         $printer->cut();
         $printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
         $printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
