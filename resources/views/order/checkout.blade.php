@@ -8,6 +8,7 @@
                 <div class="card-header"><b>&nbsp;</b></div>
                 <div class="card-header">
                     <center><b>Pedido</b></center>
+
                 </div>
 
                 <div class="card-body text-center">

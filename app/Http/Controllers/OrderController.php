@@ -37,21 +37,20 @@ class OrderController extends Controller
     public function orderForTableNr($tablenumber)
     {
         $ticketID = Session::get('ticketID');
-        Log::debug('checkForSessionTicketId: Session TicketID: ' . $ticketID);
-        Log::debug('checkForSessionTicketId: is_null: ' . is_null($ticketID));
-        Log::debug('checkForSessionTicketId: hasTicket: ' . $this->hasTicket($ticketID));
+       // Log::debug('checkForSessionTicketId: Session TicketID: ' . $ticketID);
+       // Log::debug('checkForSessionTicketId: is_null: ' . is_null($ticketID));
+       // Log::debug('checkForSessionTicketId: hasTicket: ' . $this->hasTicket($ticketID));
+        Session::put('ticketID',$tablenumber);
+        Session::put('tableNumber',$tablenumber);
         if (($this->hasTicket($tablenumber) < 1)) {
             if($this->hasTicket($ticketID)>0){
                 $this->moveTable($ticketID,$tablenumber);
-                Session::put('ticketID',$tablenumber);
-                Session::put('tableNumber',$tablenumber);
                 return redirect()->route('checkout');
             }else {
                 $this->saveEmptyTicket($this->createEmptyTicket(), $tablenumber);
-                Session::put('ticketID',$tablenumber);
-                Session::put('tableNumber',$tablenumber);
             }
         }
+
         return $this->order();
 
 

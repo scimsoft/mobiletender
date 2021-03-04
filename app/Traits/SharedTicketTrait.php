@@ -84,7 +84,7 @@ trait SharedTicketTrait
 
         //INSERT empty sharedticket
         $SQLString = "INSERT into sharedtickets VALUES ('".$table_number."','Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
-        Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);
+        //Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);
         DB::insert($SQLString);
     }
 
