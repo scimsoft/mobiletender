@@ -49,6 +49,8 @@ Route::post('/order/addAddonProduct',[OrderController::class,'addAddOnProduct'])
 
 
 Route::get('/checkout/',[CheckOutController::class,'checkout'])->name('checkout');
+Route::get('/checkout/pickup',[CheckOutController::class,'setPickUpId']);
+Route::get('/checkout/pay',[CheckOutController::class,'pay'])->name('pay');
 Route::get('/checkout/confirmForTable/{id}',[CheckOutController::class,'confirmForTable']);
 Route::get('/checkout/printOrder/{id}',[CheckOutController::class,'printOrder']);
 

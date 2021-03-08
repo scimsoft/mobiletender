@@ -26,12 +26,11 @@ class CheckOutController extends Controller
     }
 
     public function confirmForTable($table_number){
-        $ticketID = Session::get('ticketID');
-        $this->moveTable($ticketID,$table_number);
+       $ticketID = Session::get('ticketID');
+       $this->moveTable($ticketID,$table_number);
        Session::put('tableNumber',$table_number);
        Session::put('ticketID',$table_number);
        return $this->printOrder($table_number);
-
     }
 
     public function printOrder($ticketID)
@@ -52,6 +51,25 @@ class CheckOutController extends Controller
         return redirect()->route('basket');
     }
 
+    public function setPickUpId(){
+        $pickup_ID=  DB::table('pickup_number')->max('id');
+        $pickup_ID = $pickup_ID +1;
+        DB::statement("UPDATE pickup_number set id = ".$pickup_ID.";");
+        $this->moveTable(Session::get('ticketID'),"Pick UP:". $pickup_ID);
+
+        Session::put('tableNumber',$pickup_ID);
+        Session::put('ticketID',$pickup_ID);
+        return redirect()->route('pay');
+    }
+
+    public function pay(){
+        $sharedTicketID = 'Pick UP:'.Session::get('ticketID');
+        //dd($sharedTicketID);
+        $totalBasketPrice= $this->getSumTicketLines($sharedTicketID);
+        $newLinesPrice = $this->getSumNewTicketLines($sharedTicketID);
+        $tablenames= DB::select('select id,name from places order by id');
+        return view('order.pay',compact(['totalBasketPrice','newLinesPrice','tablenames']));
+    }
 
 
     /**

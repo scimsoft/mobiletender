@@ -196,6 +196,7 @@
             })
             $('#takeaway').on('click', function(){
                 $('#div-takeaway').slideToggle('slow');
+                window.location.href = "/checkout/pickup";
             })
 
 

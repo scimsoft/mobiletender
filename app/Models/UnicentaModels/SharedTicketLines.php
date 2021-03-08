@@ -43,7 +43,7 @@ class SharedTicketLines
         $this->m_iLine = $count;
     }
     public function setPrinted(){
-        $this->attributes->updated=false;
+        $this->attributes->updated="false";
     }
 
 

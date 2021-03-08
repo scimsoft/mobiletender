@@ -6,6 +6,7 @@ use App\Models\ProductAdOn;
 use App\Traits\SharedTicketTrait;
 
 use App\UnicentaModels\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Traits\ProductTrait;
@@ -42,8 +43,11 @@ class OrderController extends Controller
        // Log::debug('checkForSessionTicketId: hasTicket: ' . $this->hasTicket($ticketID));
         Session::put('ticketID',$tablenumber);
         Session::put('tableNumber',$tablenumber);
+        $webadmin = Auth::check() && Auth::user()->isAdmin();
+        //dd($webadmin);
+        //TODO posible ver si mesa no esta vacio pero no tiene productos
         if (($this->hasTicket($tablenumber) < 1)) {
-            if($this->hasTicket($ticketID)>0){
+            if($this->hasTicket($ticketID)>0 && !$webadmin ){
                 $this->moveTable($ticketID,$tablenumber);
                 return redirect()->route('checkout');
             }else {
@@ -105,13 +109,10 @@ class OrderController extends Controller
         }
         $totalBasketPrice = $this->getTotalBasketValue();
         if(isset($lines)){
-
             return view('order.basket',compact(['lines','totalBasketPrice']));
         } else{
             return redirect()->route('order');
         }
-
-
     }
 
     public function checkForSessionTicketId()
