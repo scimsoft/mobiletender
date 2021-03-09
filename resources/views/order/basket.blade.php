@@ -54,7 +54,6 @@
                             <td class="nowrapcol"><b>@money($line->price *1.1)</b></td>
                             <td>
 
-{{$line->attributes->updated}}
 
                                 @if($line->attributes->updated == "true" OR (Auth::user() and Auth::user()->isAdmin()))
                                     <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-tab add-to-cart btn-add" type="submit">Cancelar</a>
