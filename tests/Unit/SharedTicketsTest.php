@@ -1,7 +1,7 @@
 <?php
 namespace Tests;
 use App\Http\Controllers\UnicentaSharedTicketController;
-use App\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicket;
 
 
 class SharedTicketsTest extends TestCase

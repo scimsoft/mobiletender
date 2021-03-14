@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\PrinterTrait;
 use App\Traits\SharedTicketTrait;
-use App\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicket;
 use function config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;

@@ -1,7 +1,7 @@
 <?php
 namespace App\Traits;
 
-use App\UnicentaModels\Product;
+use App\Models\UnicentaModels\Product;
 use Illuminate\Support\Facades\Log;
 
 trait ProductTrait{

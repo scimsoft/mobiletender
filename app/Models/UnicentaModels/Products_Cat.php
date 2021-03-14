@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UnicentaModels;
+namespace App\Models\UnicentaModels;
 
 
 use Illuminate\Database\Eloquent\Model;

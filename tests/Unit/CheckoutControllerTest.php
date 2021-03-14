@@ -12,7 +12,7 @@ namespace Tests;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\UnicentaSharedTicketController;
 use App\Traits\SharedTicketTrait;
-use App\UnicentaModels\Product;
+use App\Models\UnicentaModels\Product;
 use function assert;
 use Illuminate\Support\Facades\Log;
 use function json_encode;

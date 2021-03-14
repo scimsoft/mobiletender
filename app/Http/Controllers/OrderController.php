@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\ProductAdOn;
 use App\Traits\SharedTicketTrait;
 
-use App\UnicentaModels\Product;
+use App\Models\UnicentaModels\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Traits\ProductTrait;
 use Illuminate\Support\Str;
-use function json_decode;
 use function json_encode;
 
 

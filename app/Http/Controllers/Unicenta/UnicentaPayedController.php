@@ -6,7 +6,7 @@
  * Time: 15:06
  */
 use App\Http\Controllers\Controller;
-use App\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicket;
 use Carbon\Traits\Date;
 
 

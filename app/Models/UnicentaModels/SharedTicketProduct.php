@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 
-namespace App\UnicentaModels;
+namespace App\Models\UnicentaModels;
 
 use Illuminate\Support\Facades\Log;
 use JsonSerializable;

@@ -9,14 +9,13 @@
 namespace App\Traits;
 
 
-use App\UnicentaModels\SharedTicket;
-use App\UnicentaModels\SharedTicketLines;
-use App\UnicentaModels\SharedTicketProduct;
-use App\UnicentaModels\SharedTicketUser;
+use App\Models\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicketLines;
+use App\Models\UnicentaModels\SharedTicketProduct;
+use App\Models\UnicentaModels\SharedTicketUser;
 use Carbon\Carbon;
 use function count;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use function json_encode;
 use function json_last_error;
 

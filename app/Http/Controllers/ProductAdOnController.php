@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductAdOn;
-use App\UnicentaModels\Product;
+use App\Models\UnicentaModels\Product;
 use Illuminate\Http\Request;
 
 class ProductAdOnController extends Controller

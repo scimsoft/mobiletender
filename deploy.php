@@ -18,12 +18,13 @@ add('shared_dirs', []);
 
 // Writable dirs by Web server 
 add('writable_dirs', []);
+set('writable_use_sudo', true); // Using sudo in writable commandsset('writable_use_sudo', false); // Using sudo in writable commands
 
 
 // Hosts
 
 host('demo')
-    ->hostname('demo.playaalta.com')
+    ->hostname('comer.playaalta.com')
     ->set('deploy_path', '/var/www/mobiletender');
 
 host('bar')

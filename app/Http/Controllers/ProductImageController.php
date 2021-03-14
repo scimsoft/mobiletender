@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 
-use App\UnicentaModels\Product;
+use App\Models\UnicentaModels\Product;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 

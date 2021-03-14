@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UnicentaModels;
+namespace App\Models\UnicentaModels;
 
 use Carbon\Carbon;
 use function GuzzleHttp\Psr7\copy_to_string;

@@ -6,7 +6,7 @@
  * Time: 11:18
  */
 
-namespace App\UnicentaModels;
+namespace App\Models\UnicentaModels;
 
 
 class SharedTicketUser

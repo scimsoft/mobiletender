@@ -6,7 +6,7 @@
  * Time: 18:31
  */
 
-namespace App\UnicentaModels;
+namespace App\Models\UnicentaModels;
 
 
 use Illuminate\Support\Facades\Log;

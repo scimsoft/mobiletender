@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\UnicentaModels\SharedTicket;
-use App\UnicentaModels\SharedTicketLines;
-use App\UnicentaModels\SharedTicketProduct;
-use App\UnicentaModels\SharedTicketUser;
+use App\Models\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicketLines;
+use App\Models\UnicentaModels\SharedTicketProduct;
+use App\Models\UnicentaModels\SharedTicketUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;

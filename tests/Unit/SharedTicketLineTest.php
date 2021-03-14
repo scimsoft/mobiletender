@@ -11,10 +11,10 @@ namespace Tests;
 use function anInstanceOf;
 use App\Http\Controllers\UnicentaSharedTicketController;
 use App\Traits\SharedTicketTrait;
-use App\UnicentaModels\Product;
-use App\UnicentaModels\SharedTicket;
-use App\UnicentaModels\SharedTicketLines;
-use App\UnicentaModels\TicketLines;
+use App\Models\UnicentaModels\Product;
+use App\Models\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicketLines;
+use App\Models\UnicentaModels\TicketLines;
 use Illuminate\Support\Facades\DB;
 use function json_encode;
 

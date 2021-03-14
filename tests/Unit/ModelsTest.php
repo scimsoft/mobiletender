@@ -7,10 +7,10 @@
  */
 namespace Tests;
 use App\Category;
-use App\UnicentaModels\Product;
-use App\UnicentaModels\Products_Cat;
-use App\UnicentaModels\SharedTicket;
-use App\UnicentaModels\SharedTicketUser;
+use App\Models\UnicentaModels\Product;
+use App\Models\UnicentaModels\Products_Cat;
+use App\Models\UnicentaModels\SharedTicket;
+use App\Models\UnicentaModels\SharedTicketUser;
 use Illuminate\Support\Str;
 use Symfony\Component\Translation\Dumper\PoFileDumper;
 
