@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\UnicentaModels\Category;
 use App\Models\ProductAdOn;
 use App\Traits\ProductTrait;
 use App\Models\UnicentaModels\Product;

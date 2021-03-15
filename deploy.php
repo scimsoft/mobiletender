@@ -24,8 +24,8 @@ set('writable_use_sudo', true); // Using sudo in writable commandsset('writable_
 // Hosts
 
 host('demo')
-    ->hostname('comer.playaalta.com')
-    ->set('deploy_path', '/var/www/mobiletender');
+    ->hostname('demo.playaalta.com')
+    ->set('deploy_path', '/var/www/demo');
 
 host('bar')
     ->hostname('bar.playaalta.com')
@@ -33,7 +33,7 @@ host('bar')
 
 host('playaalta')
     ->hostname('comer.playaalta.com')
-    ->set('deploy_path', '/var/www/mobilepos');
+    ->set('deploy_path', '/var/www/comer');
     
 // Tasks
 
