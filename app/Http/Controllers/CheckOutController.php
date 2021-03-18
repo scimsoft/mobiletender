@@ -92,7 +92,8 @@ class CheckOutController extends Controller
     private function getUnprintedTicetLines(SharedTicket $ticket){
         $lines_to_print = null;
         foreach ($ticket->m_aLines as $ticket_line) {
-            if ($ticket_line->attributes->updated) {
+           // Log::debug('line updated:'.$ticket_line->attributes->updated);
+            if ($ticket_line->attributes->updated == 1) {
                 $lines_to_print[] = $ticket_line;
 
             }
