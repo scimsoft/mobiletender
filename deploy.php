@@ -34,6 +34,10 @@ host('bar')
 host('playaalta')
     ->hostname('comer.playaalta.com')
     ->set('deploy_path', '/var/www/comer');
+
+host('copas')
+    ->hostname('copas.playaalta.com')
+    ->set('deploy_path', '/var/www/copas');
     
 // Tasks
 

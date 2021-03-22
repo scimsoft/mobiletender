@@ -74,6 +74,13 @@
                                            value="{{$product->taxcat ?? '001'}} ">
 
                                 </td>
+                            </tr><tr>
+                                <td colspan="2">
+                                    <label for="taxcat" class="form-label"><b>Printer</b></label>
+                                    <input name="taxcat" class="form-control" type="text"
+                                           value="{{$product->printto ?? '1'}} ">
+
+                                </td>
                             </tr>
                             <tr>
 

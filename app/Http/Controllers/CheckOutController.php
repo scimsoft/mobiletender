@@ -17,6 +17,7 @@ class CheckOutController extends Controller
 {
     use SharedTicketTrait;
     use PrinterTrait;
+
     public function checkout(){
         $sharedTicketID = Session::get('ticketID');
         $totalBasketPrice= $this->getSumTicketLines($sharedTicketID);
@@ -32,6 +33,30 @@ class CheckOutController extends Controller
        Session::put('ticketID',$table_number);
        return $this->printOrder($table_number);
     }
+    public function printOrderEfectivo($ticketID){
+        $this->footer='PAGAR en Efectivo';
+        $this->printFastOrder($ticketID);
+        return redirect()->route('order');
+    }
+         public function printOrderTarjeta($ticketID){
+             $this->footer='PAGAR con Tarjeta';
+             $this->printOrder($ticketID);
+             return redirect()->route('order');
+         }
+
+         public function printFastOrder($ticketID){
+             $ticket= $this->getTicket($ticketID);
+             $header="Mesa: ".$ticketID;
+             try{
+                 $this->printBill($header,$this->getUnprintedTicetLines($ticket));
+             }catch (\Exception $e){
+                 Session::flash('error','No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
+                 Log::error("Error Printing printerbridge error msg:" .$e);
+             }
+             Session::flash('status','Su pedido se esta preparando');
+             $this->updateOpenTable($this->createEmptyTicket(),Session::get('ticketID'));
+
+         }
 
     public function printOrder($ticketID)
     {
@@ -40,7 +65,7 @@ class CheckOutController extends Controller
         try{
             $this->printTicket($header,$this->getUnprintedTicetLines($ticket));
             $this->setUnprintedTicketLinesAsPrinted($ticket,$ticketID);
-            if(config('customoptions.clean_table_after_order')==true){
+            if(config('customoptions.clean_table_after_order')){
                 $this->updateOpenTable($this->createEmptyTicket(),Session::get('ticketID'));
             }
         }catch (\Exception $e){

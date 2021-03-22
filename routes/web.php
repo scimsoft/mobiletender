@@ -34,46 +34,48 @@ Route::get('/web/prices', [WebController::class, 'prices']);
 Route::get('/web/products/printer', [WebController::class, 'printer']);
 
 Auth::routes();
-Route::get('/', [OrderController::class, 'order']);
-Route::get('/menu', [OrderController::class, 'menu']);
-Route::get('/basket/',[OrderController::class, 'showBasket'])->name('basket');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/', [OrderController::class, 'order']);
+    Route::get('/menu', [OrderController::class, 'menu']);
+    Route::get('/basket/', [OrderController::class, 'showBasket'])->name('basket');
 
-Route::get('/order/table/{id}',[OrderController::class,'orderForTableNr']);
-Route::get('/order/', [OrderController::class, 'order'])->name('order');
-Route::get('/order/category/{id}',[OrderController::class, 'showProductsFromCategory']);
-Route::get('/menu/category/{id}',[OrderController::class, 'showProductsFromCategoryForMenu']);
+    Route::get('/order/table/{id}', [OrderController::class, 'orderForTableNr']);
+    Route::get('/order/', [OrderController::class, 'order'])->name('order');
+    Route::get('/order/category/{id}', [OrderController::class, 'showProductsFromCategory']);
+    Route::get('/menu/category/{id}', [OrderController::class, 'showProductsFromCategoryForMenu']);
 
-Route::get('/order/addproduct/{id}',[OrderController::class,'addProduct']);
-Route::get('/order/cancelproduct/{id}',[OrderController::class,'cancelProduct']);
-Route::post('/order/addAddonProduct',[OrderController::class,'addAddOnProduct']);
-
-
-Route::get('/checkout/',[CheckOutController::class,'checkout'])->name('checkout');
-Route::get('/checkout/pickup',[CheckOutController::class,'setPickUpId']);
-Route::get('/checkout/pay',[CheckOutController::class,'pay'])->name('pay');
-Route::get('/checkout/confirmForTable/{id}',[CheckOutController::class,'confirmForTable']);
-Route::get('/checkout/printOrder/{id}',[CheckOutController::class,'printOrder']);
+    Route::get('/order/addproduct/{id}', [OrderController::class, 'addProduct']);
+    Route::get('/order/cancelproduct/{id}', [OrderController::class, 'cancelProduct']);
+    Route::post('/order/addAddonProduct', [OrderController::class, 'addAddOnProduct']);
 
 
-Route::get('/admin',[AdminHomeController::class,'index'])->name('admin')->middleware('is_manager');
-Route::get('/appconfig',[AdminHomeController::class,'appconfig'])->middleware('is_admin');
-Route::post('/appconfig',[AdminHomeController::class,'updateconfig'])->middleware('is_admin');
-Route::get('/openorders',[AdminOrderController::class,'index'])->middleware('is_manager');
-Route::get('/openorders/delete/{id}',[AdminOrderController::class,'delete'])->middleware('is_manager');
-Route::get('/admintable/{id}',[AdminOrderController::class,'admintable'])->middleware('is_manager');
-Route::get('/bill/{id}',[AdminOrderController::class,'send_bill'])->middleware('is_manager');
-
-Route::resource('/products', ProductController::class)->middleware('is_manager');;
-Route::get('/products/index/{id?}',[ProductController::class,'index'])->middleware('is_manager');;
-Route::get('/crop-image/{id}', [ProductController::class,'editImage'])->middleware('is_manager');;
-Route::post('crop-image', [ProductController::class,'imageCrop'])->middleware('is_manager');;
-Route::post('/products/catalog',[ProductController::class,'toggleCatalog'])->middleware('is_manager');;
-Route::post('/addOnProduct/add',[ProductController::class,'addOnProductAdd'])->middleware('is_manager');;
-Route::post('/addOnProduct/remove',[ProductController::class,'removeAddOnProductAdd'])->middleware('is_manager');;
-Route::get('/dbimage/{id}',[ProductImageController::class, 'getImage']);
+    Route::get('/checkout/', [CheckOutController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/pickup', [CheckOutController::class, 'setPickUpId']);
+    Route::get('/checkout/pay', [CheckOutController::class, 'pay'])->name('pay');
+    Route::get('/checkout/confirmForTable/{id}', [CheckOutController::class, 'confirmForTable']);
+    Route::get('/checkout/printOrder/{id}', [CheckOutController::class, 'printOrder']);
+    Route::get('/checkout/printOrderEfectivo/{id}', [CheckOutController::class, 'printOrderEfectivo']);
+    Route::get('/checkout/printOrderTarjeta/{id}', [CheckOutController::class, 'printOrderTarjeta']);
 
 
+    Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin')->middleware('is_manager');
+    Route::get('/appconfig', [AdminHomeController::class, 'appconfig'])->middleware('is_admin');
+    Route::post('/appconfig', [AdminHomeController::class, 'updateconfig'])->middleware('is_admin');
+    Route::get('/openorders', [AdminOrderController::class, 'index'])->middleware('is_manager');
+    Route::get('/openorders/delete/{id}', [AdminOrderController::class, 'delete'])->middleware('is_manager');
+    Route::get('/admintable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
+    Route::get('/bill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/products', ProductController::class)->middleware('is_manager');;
+    Route::get('/products/index/{id?}', [ProductController::class, 'index'])->middleware('is_manager');;
+    Route::get('/crop-image/{id}', [ProductController::class, 'editImage'])->middleware('is_manager');;
+    Route::post('crop-image', [ProductController::class, 'imageCrop'])->middleware('is_manager');;
+    Route::post('/products/catalog', [ProductController::class, 'toggleCatalog'])->middleware('is_manager');;
+    Route::post('/addOnProduct/add', [ProductController::class, 'addOnProductAdd'])->middleware('is_manager');;
+    Route::post('/addOnProduct/remove', [ProductController::class, 'removeAddOnProductAdd'])->middleware('is_manager');;
+    Route::get('/dbimage/{id}', [ProductImageController::class, 'getImage']);
 
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 

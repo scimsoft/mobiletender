@@ -14,6 +14,8 @@
                         </div>
                     @endif
 
+
+
                     <a id="drinks-button" href="/order/category/DRINKS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
                         <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Bebidas</a>

@@ -63,18 +63,40 @@
                         1. de prepago
                         2. a cuenta
                         --}}
+
+
                         @if(Session::get('tableNumber'))
+                            @if(config('customoptions.clean_table_after_order'))
                             <tr>
                                 <td colspan="5">
-                                    <button class="btn btn-tab btn-block" id="addToTable">
-                                        @if(config('customoptions.eatin_prepay'))
-                                            Pagar
-                                        @else
-                                            Confirmar
-                                        @endif
+                                    <button class="btn btn-tab btn-block" id="pagarEfectivo">
+                                      Pagar en efectivo
                                     </button>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="pagarTarjeta">
+                                        Pagar con tarjeta
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="pagarOnline">
+                                        Pagar online
+                                    </button>
+                                </td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="apuntarEnLaMesa">
+                                        Pedir
+                                    </button>
+                                </td>
+                            </tr>
+                            @endif
 
                         @else
                             {{--
@@ -169,26 +191,32 @@
             $('.eatInButton').on('click', function () {
                 jQuery('#eatinrow').slideToggle('slow');
             })
-            $('#table_number').on("change paste keyup", function () {
-                @if(!config('customoptions.eatin_prepay'))
-                        $('#sendTableNumber').attr('href', "/checkout/confirmForTable/" + $('#table_number').val());
-                @endif
+
+            $('#pagarEfectivo').on('click', function () {
+
+                    window.location.href = "/checkout/printOrderEfectivo/{{Session::get('ticketID')}}";
+
+
+
             })
-            $('#sendTableNumber').on('click', function () {
-                @if(config('customoptions.eatin_prepay'))
+            $('#apuntarEnLaMesa').on('click', function () {
+
+                window.location.href = "/checkout/printOrder/{{Session::get('ticketID')}}";
+
+
+
+            })
+            $('#pagarOnline').on('click', function () {
+
                     $('#paypal-button-container').slideDown();
-                @else
-                    window.location.href = "/checkout/printOrder/{{Session::get('ticketID')}}";
-                @endif
+
 
 
             })
-            $('#addToTable').on('click', function () {
-                @if(config('customoptions.eatin_prepay'))
-                    $('#paypal-button-container').slideToggle('slow');
-                @else
-                    window.location.href = "/checkout/printOrder/{{Session::get('ticketID')}}";
-                @endif
+            $('#pagarTarjeta').on('click', function () {
+
+                    window.location.href = "/checkout/printOrderTarjeta/{{Session::get('ticketID')}}";
+
             })
 
             $('#eatin').on('click',function(){

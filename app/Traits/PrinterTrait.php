@@ -22,43 +22,46 @@ use Throwable;
 trait PrinterTrait
 {
 
-
+    protected $printer;
+    protected $footer = '';
     public function printTicket($header, $lines)
     {
-        $printer = $this->printHeader($header);
+        $this->connectToPrinter();
+        $this->printHeader($header);
 
         foreach ($lines as $line) {
             //Log::debug('printline: ' . $line->attributes->product->name);
-            $printer->setTextSize(1, 1);
-            //$printer->text($line->attributes->product->name . "\n");
-            $printer->textRaw(mb_convert_encoding($line->attributes->product->name . "\n",  "CP1252"));
+            $this->printer->setTextSize(1, 1);
+            $this->printer->text($line->attributes->product->name . "\n");
+            //$this->printer->textRaw(mb_convert_encoding($line->attributes->product->name . "\n",  "CP1252"));
         }
-        $this->printFooter($printer);
+        $this->printFooter();
         return true;
     }
 
     public function printBill($header, $lines){
-        $printer = $this->printHeader($header);
+        $this->connectToPrinter();
+        $this->printHeader($header);
         $totalPrice = 0;
         foreach ($lines as $line) {
 
             $productName = $line->attributes->product->name;
-            Log::debug('printName: ' . $productName);
+            //Log::debug('printName: ' . $productName);
             $productPrice = number_format($line->price*1.1,2,",",".") . " ";
             $totalPrice += $line->price*1.1;
-            Log::debug('printPrice: ' . $productPrice);
+            //Log::debug('printPrice: ' . $productPrice);
             $printtext = $this->columnify($productName, $productPrice,22,12,4);
-            Log::debug('printline: ' . $printtext);
-            $printer->setTextSize(1, 1);
-            //$printer->text($printtext);
-            $printer->textRaw(mb_convert_encoding($printtext,  "UTF-8"));
+            //Log::debug('printline: ' . $printtext);
+            $this->printer->setTextSize(1, 1);
+            $this->printer->text($printtext);
+            //$this->printer->textRaw(mb_convert_encoding($printtext,  "UTF-8"));
         }
         $printtext = $this->columnify("TOTAL", number_format($totalPrice,2,",",".")."",22,12,4);
-        $printer->text("\n\n");
-        $printer->setEmphasis();
-        $printer->text($printtext);
-        $this->printFooter($printer);
-        return true;
+        $this->printer->text("\n\n");
+        $this->printer->setEmphasis();
+        $this->printer->text($printtext);
+        $this->printFooter();
+
 
     }
 
@@ -68,8 +71,9 @@ trait PrinterTrait
             Log::debug('ip:' . config('app.printer-ip'));
             $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
          //   $profile = CapabilityProfile::load('xp-n160ii');
-            $printer = new Printer($connector);
+            $this->printer = new Printer($connector);
           //  $printer->selectCharacterTable(6);
+            $this->printer->selectPrintMode(Printer::MODE_FONT_B);
 
 
         } catch (Throwable $e) {
@@ -77,7 +81,6 @@ trait PrinterTrait
             Session('status', 'No se puede imprimir el pedido, avisa a la camarera por favor');
             return abort('503', 'No se puede imprimir el pedido, avisa a la camarera por favor');
         }
-        return $printer;
     }
 
     /**
@@ -86,24 +89,31 @@ trait PrinterTrait
      */
     private function printHeader($header)
     {
-        $printer = $this->connectToPrinter();
+
         $logo = EscposImage::load(config('app.logo'));
-        $printer->bitImage($logo);
-        $printer->setTextSize(2, 2);
-        $printer->text($header . "\n\n");
-        return $printer;
+        $this->printer->bitImage($logo);
+        $this->printer->setTextSize(2, 2);
+
+        $this->printer->text($header . "\n\n");
+
+
     }
+
+
+
 
     /**
      * @param $printer
      */
-    private function printFooter($printer): void
+    private function printFooter(): void
     {
-        $printer->text("\n\n");
-        $printer->cut();
-        $printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
-        $printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
-        $printer->close();
+
+        $this->printer->setJustification(Printer::JUSTIFY_CENTER);
+        $this->printer->text($this->footer . "\n\n");
+        $this->printer->cut();
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
+        $this->printer->close();
     }
 
     private function columnify($leftCol, $rightCol, $leftWidth, $rightWidth, $space = 4)
