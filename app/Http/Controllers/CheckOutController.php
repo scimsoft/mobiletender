@@ -40,7 +40,7 @@ class CheckOutController extends Controller
     }
          public function printOrderTarjeta($ticketID){
              $this->footer='PAGAR con Tarjeta';
-             $this->printOrder($ticketID);
+             $this->printFastOrder($ticketID);
              return redirect()->route('order');
          }
 
@@ -49,11 +49,12 @@ class CheckOutController extends Controller
              $header="Mesa: ".$ticketID;
              try{
                  $this->printBill($header,$this->getUnprintedTicetLines($ticket));
+                 Session::flash('status','Su pedido se esta preparando');
              }catch (\Exception $e){
                  Session::flash('error','No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
                  Log::error("Error Printing printerbridge error msg:" .$e);
              }
-             Session::flash('status','Su pedido se esta preparando');
+
              $this->updateOpenTable($this->createEmptyTicket(),Session::get('ticketID'));
 
          }

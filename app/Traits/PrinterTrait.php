@@ -12,6 +12,7 @@ namespace App\Traits;
 use function config;
 use function e;
 use Illuminate\Support\Facades\Log;
+use function is_array;
 use Mike42\Escpos\CapabilityProfile;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
@@ -129,7 +130,9 @@ trait PrinterTrait
             $rightPart = str_pad(isset($rightLines[$i]) ? $rightLines[$i] : "", $rightWidth, " ");
             $allLines[] = $leftPart . str_repeat(" ", $space) . $rightPart;
         }
-        return implode($allLines, "\n") . "\n";
+            //dd($allLines);
+            return implode("\n",$allLines ) . "\n";
+
     }
 
 
