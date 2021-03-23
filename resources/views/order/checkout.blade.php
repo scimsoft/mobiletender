@@ -207,8 +207,7 @@
 
             })
             $('#pagarOnline').on('click', function () {
-
-                    $('#paypal-button-container').slideDown();
+                window.location.href = "/checkout/pay";
 
 
 

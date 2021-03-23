@@ -43,6 +43,11 @@ class CheckOutController extends Controller
              $this->printFastOrder($ticketID);
              return redirect()->route('order');
          }
+    public function printOrderOnline($ticketID){
+        $this->footer='PAGADO online';
+        $this->printFastOrder($ticketID);
+        return redirect()->route('order');
+    }
 
          public function printFastOrder($ticketID){
              $ticket= $this->getTicket($ticketID);
@@ -89,7 +94,7 @@ class CheckOutController extends Controller
     }
 
     public function pay(){
-        $sharedTicketID = 'Pick UP:'.Session::get('ticketID');
+        $sharedTicketID = Session::get('ticketID');
         //dd($sharedTicketID);
         $totalBasketPrice= $this->getSumTicketLines($sharedTicketID);
         $newLinesPrice = $this->getSumNewTicketLines($sharedTicketID);

@@ -94,7 +94,7 @@
 
         paypal.Buttons({
             createOrder: function (data, actions) {
-
+                jQuery('#overlay').fadeIn();
                 // This function sets up the details of the transaction, including the amount and line item details.
                 return actions.order.create({
                     purchase_units: [{
@@ -110,7 +110,7 @@
                     // This function shows a transaction success message to your buyer.
                     jQuery('#overlay').fadeOut();
 
-                        window.location.href = "/checkout/printOrder/{{Session::get('ticketID')}}";
+                        window.location.href = "/checkout/printOrderOnline/{{Session::get('ticketID')}}";
 
                 });
             },
