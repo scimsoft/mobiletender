@@ -1,5 +1,5 @@
 XPrinter xp-n160ii
-SET IP and Internet connection with USB cable
+SET IP (fuera del dhcp rango) and Internet connection with USB cable
 
 https://www.xprintertech.com/xprinter-application
 

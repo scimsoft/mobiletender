@@ -33,15 +33,7 @@
 
                     </thead>
                     <tbody class="t-5">
-                    <tr>
-                        <td></td>
-                        <td><b>TOTAL</b></td>
 
-                        <td><b>@money($totalBasketPrice*1.1)</b></td>
-                        <td>&nbsp;</td>
-
-
-                    </tr>
                     @foreach($lines as $line)
 
 
@@ -89,11 +81,15 @@
 @endsection
 @section('scripts')
     <script>
+
         jQuery(document).ready(function () {
             $('#doCheckout').on('click', function () {
                 window.location.href ="/checkout/";
 
             });
+            if(isUpdated){
+                $('#doCheckout').prop("disabled",false)
+            }
 
         })
 

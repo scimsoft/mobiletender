@@ -131,6 +131,7 @@ class ProductController extends Controller
         //
         $request->validate([
             'code'=> 'required',
+            'taxcat'=> 'required',
             'reference'=> 'required',
             'category'=> 'required',
             'pricebuy'=> 'required',
@@ -139,11 +140,13 @@ class ProductController extends Controller
 
         ]);
         Log::debug('product update id:'.$id);
+
         $product=Product::find($id);
         $request->validate([
             'name' => 'required',
             'pricebuy' => 'required',
         ]);
+
 
         $product->update($request->all());
         $product->pricesell = ($request->pricesell/1.1);

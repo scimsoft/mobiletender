@@ -70,14 +70,13 @@
                                 </td>
                                 <td>
                                     <label for="taxcat" class="form-label"><b>Tipo de IVA</b></label>
-                                    <input name="taxcat" class="form-control" type="text"
-                                           value="{{$product->taxcat ?? '001'}} ">
+                                    <input name="taxcat" class="form-control" type="text" value="001">
 
                                 </td>
                             </tr><tr>
                                 <td colspan="2">
-                                    <label for="taxcat" class="form-label"><b>Printer</b></label>
-                                    <input name="taxcat" class="form-control" type="text"
+                                    <label for="printto" class="form-label"><b>Printer</b></label>
+                                    <input name="printto" class="form-control" type="text"
                                            value="{{$product->printto ?? '1'}} ">
 
                                 </td>
