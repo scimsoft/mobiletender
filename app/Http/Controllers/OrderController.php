@@ -100,14 +100,18 @@ class OrderController extends Controller
     }
 
     public function showBasket(){
+        $unprintedlines = false;
         $ticketLines=$this->getTicket(Session::get('ticketID'))->m_aLines;
         foreach ($ticketLines as $ticketLine){
             $products[]=Product::all()->find($ticketLine->productid);
+            if($ticketLine->attributes->updated == "true"){
+                $unprintedlines = true;
+            }
             $lines[]=$ticketLine;
         }
         $totalBasketPrice = $this->getTotalBasketValue();
         if(isset($lines)){
-            return view('order.basket',compact(['lines','totalBasketPrice']));
+            return view('order.basket',compact(['lines','totalBasketPrice','unprintedlines']));
         } else{
             return redirect()->route('order');
         }

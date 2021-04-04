@@ -32,7 +32,7 @@ trait PrinterTrait
 
         foreach ($lines as $line) {
             //Log::debug('printline: ' . $line->attributes->product->name);
-            $this->printer->setTextSize(1, 1);
+            $this->printer->setTextSize(2, 2);
             $this->printer->text($line->attributes->product->name . "\n");
             //$this->printer->textRaw(mb_convert_encoding($line->attributes->product->name . "\n",  "CP1252"));
         }

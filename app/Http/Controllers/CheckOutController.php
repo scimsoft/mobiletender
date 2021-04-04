@@ -51,7 +51,7 @@ class CheckOutController extends Controller
             Log::error("Error Printing printerbridge error msg:" . $e);
         }
         Log::debug('return from printOrder');
-        return redirect()->route('basket');
+        return redirect()->route('order');
     }
 
     private function getUnprintedTicetLines(SharedTicket $ticket)
@@ -97,14 +97,15 @@ class CheckOutController extends Controller
         $ticket = $this->getTicket($ticketID);
         $header = "Mesa: " . $ticketID;
         try {
-            $this->printBill($header, $this->getUnprintedTicetLines($ticket));
+            $this->printBill($header, $this->getTicketLines($ticketID));
             Session::flash('status', 'Su pedido se esta preparando');
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" . $e);
         }
-
-        $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+        if(config('clean_table_after_order')) {
+            $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+        }
 
     }
 

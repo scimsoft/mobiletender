@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
 
@@ -23,11 +24,11 @@
 
 
 
-                <table id="products-table" class="table table-striped middleTable">
+                <table id="products-table" class="table middleTable">
                     <thead class="position-sticky">
                     <tr>
-                    <td colspan="2"><a href="/order/" class="btn btn-tab m-1">Volver</a></td>
-                    <td colspan="2"><button disabled="true" class="btn btn-tab m-1" id="doCheckout">Pedir</button></td>
+                    <td colspan="4"><a href="/order/" class="btn btn-tab m-1">Volver</a></td>
+
                     </tr>
 
 
@@ -49,7 +50,7 @@
 
                                 @if($line->attributes->updated == "true" OR (Auth::user() and Auth::user()->isAdmin()))
                                     <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-tab add-to-cart btn-add" type="submit">Cancelar</a>
-                                    <script>$('#doCheckout').prop("disabled",false);</script>
+
                                 @else
                                     <button disabled="true" class="btn btn-primary add-to-cart btn-tab " type="submit">Enviado</button>
                                 @endif
@@ -58,7 +59,7 @@
 
                         @endif
                     @endforeach
-                    <tr>
+                    <tr class="bg-light">
                         <td></td>
                         <td><b>TOTAL</b></td>
 
@@ -67,13 +68,77 @@
 
 
                     </tr>
+                    @if(Session::get('tableNumber'))
+                        @if(config('customoptions.clean_table_after_order')OR !$unprintedlines)
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="pagarEfectivo">
+                                        Pagar en efectivo
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="pagarTarjeta">
+                                        Pagar con tarjeta
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="pagarOnline">
+                                        Pagar online
+                                    </button>
+                                </td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-tab btn-block" id="apuntarEnLaMesa">
+                                        Pedir
+                                    </button>
+                                </td>
+                            </tr>
+                        @endif
+
+                    @else
+                        {{--
+                    Si NO tiene numero de mesa puede ser:
+                    1. Para tomar en el restaurante
+                    2. para llevar
+                    3. O para domicilars
+                    --}}
+
+                        <tr>
+                            <td colspan="5"><button class="btn btn-mobilepos btn-block" id="eatin">Para tomarlo aqui</button></td>
+                        </tr>
+
+                        @if(config('customoptions.takeaway'))
+                            <tr>
+                                <td colspan="5"><button class="btn btn-mobilepos btn-block" id="takeaway">Para recoger</button></td>
+                            </tr>
+                        @endif
+                        @if(config('customoptions.delivery'))
+                            <tr>
+                                <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para entregar </a></td>
+                            </tr>
+                        @endif
+                    @endif
+
 
                     </tbody>
                 </table>
 
-
-
-            </div>
+                        <div id="scan-qr-instructions" style="display:none">
+                            <tr>
+                                <td colspan="5">
+                                    Para añadir el pedido a su mesa, <br>
+                                    escanea con la camera el codgo QR <br>
+                                    que tiene en su mesa.<br>
+                                    <img src="/img/qr-example.png" class="flex-column">
+                                </td>
+                            </tr>
+                        </div>
 
             </div>
         </div>
@@ -87,9 +152,35 @@
                 window.location.href ="/checkout/";
 
             });
-            if(isUpdated){
-                $('#doCheckout').prop("disabled",false)
-            }
+
+            $('#pagarEfectivo').on('click', function () {
+
+                window.location.href = "/checkout/printOrderEfectivo/{{Session::get('ticketID')}}";
+
+
+
+            })
+            $('#apuntarEnLaMesa').on('click', function () {
+
+                window.location.href = "/checkout/printOrder/{{Session::get('ticketID')}}";
+
+
+
+            })
+            $('#pagarOnline').on('click', function () {
+                window.location.href = "/checkout/pay";
+
+
+
+            })
+            $('#pagarTarjeta').on('click', function () {
+
+                window.location.href = "/checkout/printOrderTarjeta/{{Session::get('ticketID')}}";
+
+            })
+            $('#eatin').on('click',function(){
+                $('#scan-qr-instructions').slideToggle('slow');
+            })
 
         })
 

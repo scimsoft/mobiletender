@@ -115,28 +115,6 @@
                                     <td colspan="5"><button class="btn btn-mobilepos btn-block" id="takeaway">Para recoger</button></td>
                                 </tr>
                             @endif
-
-
-
-                            {{--<tr>
-
-                                <td colspan="5" id="eatinrow" style=""> Introducir tu numero de mesa:<br>
-                                    <select class="form-control" id="table_number">
-                                        <option value="0">Tu numero de mesa</option>
-                                        @foreach($tablenames as $table)
-                                            <option value="{{$table->id}}">{{$table->name}}</option>
-                                        @endforeach
-
-                                    </select>
-                                    <br>
-                                    <a class="btn btn-tab btn-block" id="sendTableNumber">Confirmar</a>
-
-                                </td>
-
-
-                            </tr>--}}
-
-
                             @if(config('customoptions.delivery'))
                                 <tr>
                                     <td colspan="5"><a href="" class="btn btn-mobilepos btn-block">Para entregar </a></td>

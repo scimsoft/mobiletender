@@ -143,7 +143,7 @@ trait SharedTicketTrait
         $sharedTicket = $this->getTicket($table_number);
         $ticketLines = [];
         foreach ($sharedTicket->m_aLines as $ticketLine) {
-            $ticketLines[] = json_encode($ticketLine);
+            $ticketLines[] = $ticketLine;
         }
         return $ticketLines;
 
