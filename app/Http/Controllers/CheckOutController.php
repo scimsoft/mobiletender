@@ -51,6 +51,7 @@ class CheckOutController extends Controller
             Log::error("Error Printing printerbridge error msg:" . $e);
         }
         Log::debug('return from printOrder');
+        Session::flash('status', 'Su pedido se esta preparando');
         return redirect()->route('order');
     }
 
@@ -89,6 +90,14 @@ class CheckOutController extends Controller
     {
         $this->footer = 'PAGAR en Efectivo';
         $this->printFastOrder($ticketID);
+        Session::flash('status', 'Su cuenta esta pedida');
+        return redirect()->route('order');
+    }
+
+    public function printOrderPagado($ticketID){
+        $this->footer = 'PAGADO Online';
+        $this->printFastOrder($ticketID);
+        Session::flash('status', 'Su cuenta esta pagado');
         return redirect()->route('order');
     }
 
@@ -98,7 +107,7 @@ class CheckOutController extends Controller
         $header = "Mesa: " . $ticketID;
         try {
             $this->printBill($header, $this->getTicketLines($ticketID));
-            Session::flash('status', 'Su pedido se esta preparando');
+
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" . $e);
@@ -113,6 +122,7 @@ class CheckOutController extends Controller
     {
         $this->footer = 'PAGAR con Tarjeta';
         $this->printFastOrder($ticketID);
+        Session::flash('status', 'Su cuenta esta pedida');
         return redirect()->route('order');
     }
 
@@ -120,6 +130,7 @@ class CheckOutController extends Controller
     {
         $this->footer = 'PAGADO online';
         $this->printFastOrder($ticketID);
+        Session::flash('status', 'Su cuenta esta pagado');
         return redirect()->route('order');
     }
 
