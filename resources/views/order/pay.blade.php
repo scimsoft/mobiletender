@@ -93,8 +93,14 @@
         })
 
         paypal.Buttons({
+            onClick: function(data, actions){
+
+               if(data.fundingSource != "card") {
+                   jQuery('#overlay').fadeIn();
+               }
+            },
             createOrder: function (data, actions) {
-                jQuery('#overlay').fadeIn();
+
                 // This function sets up the details of the transaction, including the amount and line item details.
                 return actions.order.create({
                     purchase_units: [{

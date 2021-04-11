@@ -139,6 +139,16 @@
                                 </td>
                             </tr>
                         </div>
+                        <div id="div-takeaway" style="display:none">
+                            <tr>
+                                <td colspan="5">
+                                    Horario de recogido:<br>
+                                    12:00 hasta las 20:00
+
+
+                                </td>
+                            </tr>
+                        </div>
 
             </div>
         </div>
@@ -180,6 +190,10 @@
             })
             $('#eatin').on('click',function(){
                 $('#scan-qr-instructions').slideToggle('slow');
+            })
+            $('#takeaway').on('click', function(){
+                $('#div-takeaway').slideToggle('slow');
+                window.location.href = "/checkout/pickup";
             })
 
         })

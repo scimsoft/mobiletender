@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use function redirect;
 
@@ -89,6 +90,11 @@ class AdminHomeController extends Controller
             Artisan::call("optimize");
 
         }
+    }
+
+    public function selectTableNr(){
+        $places = DB::select('select id,name from places order by ABS(id)');
+        return view ('admin.table',compact('places'));
     }
 
 

@@ -29,7 +29,7 @@ host('demo')
 
 host('bar')
     ->hostname('bar.playaalta.com')
-    ->set('deploy_path', '/var/www/bar');
+    ->set('deploy_path', '/var/www/sergio');
 
 host('playaalta')
     ->hostname('comer.playaalta.com')

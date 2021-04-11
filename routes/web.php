@@ -66,7 +66,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/openorders/delete/{id}', [AdminOrderController::class, 'delete'])->middleware('is_manager');
     Route::get('/admintable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
     Route::get('/bill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');
-
+    Route::get('/selecttable',[AdminHomeController::class, 'selectTableNr'])->middleware('is_manager');
     Route::resource('/products', ProductController::class)->middleware('is_manager');;
     Route::get('/products/index/{id?}', [ProductController::class, 'index'])->middleware('is_manager');;
     Route::get('/crop-image/{id}', [ProductController::class, 'editImage'])->middleware('is_manager');;

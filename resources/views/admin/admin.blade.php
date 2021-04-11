@@ -18,12 +18,24 @@
                         <br>
 
                         <div>&nbsp;</div>
-                      <a href="/products" class="btn btn-primary"> Products</a>
-                        <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a>
+                        <table>
+                            <tr><td>
+                                    <a href="/selecttable" class="btn btn-primary"> Se3lecionar mesa</a> <br>
+                                </td></tr>
+                            <tr><td>
+                            <tr><td>
+                      <a href="/products" class="btn btn-primary"> Products</a> <br>
+                                </td></tr>
+                            <tr><td>
+                        <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
                       @if(Auth::user()->isAdmin())
-                            <a href="/appconfig" class="btn btn-primary"> Demo config</a>
+                                </td></tr><tr><td>
+                            <a href="/appconfig" class="btn btn-primary"> Demo config</a><br>
                             {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}
-                          @endif
+                                </td></tr>
+                            @endif
+                            </td></tr>
+                        </table>
 
                 </div>
             </div>
