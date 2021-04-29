@@ -68,7 +68,7 @@
 
 
                     </tr>
-                    @if(Session::get('tableNumber'))
+                    @if(Session::get('tableNumber') && Session::get('tableNumber')<100)
                         @if(config('customoptions.clean_table_after_order')OR !$unprintedlines)
                             <tr>
                                 <td colspan="5">

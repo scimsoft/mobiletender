@@ -40,7 +40,7 @@ class CheckOutController extends Controller
     {
         $ticket = $this->getTicket($ticketID);
         if($ticketID > 100){
-            $header = "PICK UP ID: " . $ticketID;
+            $header = "NrPedido: " . $ticketID;
         }else{
         $header = "MESA: " . $ticketID;
         }

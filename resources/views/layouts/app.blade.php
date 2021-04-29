@@ -48,7 +48,7 @@
                     @if(Session::get('tableNumber')<100)
                         <b>Mesa:  {{Session::get('tableNumber')}}</b>
                         @else
-                            <b>Pickup:  {{Session::get('tableNumber')}}</b>
+                            <b>NrPedido:  {{Session::get('tableNumber')}}</b>
                         @endif
 
 
