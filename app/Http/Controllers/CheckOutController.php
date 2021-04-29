@@ -39,12 +39,18 @@ class CheckOutController extends Controller
     public function printOrder($ticketID)
     {
         $ticket = $this->getTicket($ticketID);
-        $header = "Mesa: " . $ticketID;
+        if($ticketID > 100){
+            $header = "PICK UP ID: " . $ticketID;
+        }else{
+        $header = "MESA: " . $ticketID;
+        }
         try {
             $this->printTicket($header, $this->getUnprintedTicetLines($ticket));
             $this->setUnprintedTicketLinesAsPrinted($ticket, $ticketID);
-            if (config('customoptions.clean_table_after_order')) {
+            if (config('customoptions.clean_table_after_order') or $ticketID > 50) {
                 $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+                Session::forget('ticketID');
+                Session::forget('tableNumber');
             }
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
@@ -96,8 +102,8 @@ class CheckOutController extends Controller
 
     public function printOrderPagado($ticketID){
         $this->footer = 'PAGADO Online';
-        $this->printFastOrder($ticketID);
-        Session::flash('status', 'Su cuenta esta pagado');
+        $this->printOrder($ticketID);
+        Session::flash('status', 'Su numero de pedido es el: '. $ticketID );
         return redirect()->route('order');
     }
 

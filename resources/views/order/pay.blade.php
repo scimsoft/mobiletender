@@ -115,7 +115,8 @@
                 return actions.order.capture().then(function (details) {
                     // This function shows a transaction success message to your buyer.
                     jQuery('#overlay').fadeOut();
-                @if(config('customoptions.clean_table_after_order'))
+
+                @if(config('customoptions.clean_table_after_order') OR Session::get('ticketID') < 100 )
                         window.location.href = "/checkout/printOrderOnline/{{Session::get('ticketID')}}";
                 @else
                     window.location.href = "/checkout/printOrderPagado/{{Session::get('ticketID')}}";

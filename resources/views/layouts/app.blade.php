@@ -45,8 +45,11 @@
                 </a>
                 <div class="navbar-text">
                 @if(Session::get('tableNumber'))
-
+                    @if(Session::get('tableNumber')<100)
                         <b>Mesa:  {{Session::get('tableNumber')}}</b>
+                        @else
+                            <b>Pickup:  {{Session::get('tableNumber')}}</b>
+                        @endif
 
 
                     @endif
