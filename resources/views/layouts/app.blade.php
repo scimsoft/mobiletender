@@ -58,6 +58,10 @@
                         <span class="btn-label"><i class="fa fa-shopping-cart shopping-cart"></i></span>  @money($totalBasketPrice*1.1)
                     </button>
                 </a>
+                    @if(Auth::user() and Auth::user()->isAdmin())
+                      <a href="/selecttable"  class="btn btn-labeled btn-tab r"> mesas </a>
+
+                        @endif
 
                 </div>
 
