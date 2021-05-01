@@ -16,11 +16,15 @@
                     @endif
                     <div class="col-centered" > <h4 >Selecionar una mesa</h4></div>
                         <br>
-                        <select onchange="location = '/order/table/'+ this.value;">
+                        <select onchange="location = '/order/table/'+ this.value;" class="form-control" >
                         @foreach($places as $place)
                             <option value="{{$place->id}}">{{$place->name}}</option>
                         @endforeach
                         </select>
+                        @foreach($places as $place)
+                            <a href="/order/table/{{$place->id}}" class="btn btn-secondary btn-lg mt-5 ">{{$place->name}}</a>
+
+                            @endforeach
 
 
                 </div>
