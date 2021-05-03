@@ -22,7 +22,15 @@
                         @endforeach
                         </select>
                         @foreach($places as $place)
-                            <a href="/order/table/{{$place->id}}" class="btn btn-secondary btn-lg mt-5 ">{{$place->name}}</a>
+                            <a href="/order/table/{{$place->id}}"
+                               @if($place->ticketid)
+                               class="btn btn-danger btn-lg mt-5 "
+                               @else
+                               class="btn btn-secondary btn-lg mt-5 "
+
+                               @endif
+
+                            >{{$place->name}}</a>
 
                             @endforeach
 

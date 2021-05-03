@@ -93,7 +93,8 @@ class AdminHomeController extends Controller
     }
 
     public function selectTableNr(){
-        $places = DB::select('select id,name from places order by ABS(id)');
+        $places = DB::select('select id,name,ticketid from places order by ABS(id)');
+
         return view ('admin.table',compact('places'));
     }
 
