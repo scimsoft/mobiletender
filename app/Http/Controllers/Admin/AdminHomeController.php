@@ -93,9 +93,14 @@ class AdminHomeController extends Controller
     }
 
     public function selectTableNr(){
-        $places = DB::select('select id,name,ticketid from places order by ABS(id)');
+        $places = DB::select('select id,name from places order by ABS(id)');
+        $opentickets = DB::select('select * from sharedtickets');
+        $array = [];
+        foreach ( $opentickets as $openticket) {
+            $array[] = $openticket->id;
+        }
 
-        return view ('admin.table',compact('places'));
+        return view ('admin.table',compact(['places','array']));
     }
 
 

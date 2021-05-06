@@ -21,15 +21,16 @@
                             <option value="{{$place->id}}">{{$place->name}}</option>
                         @endforeach
                         </select>
+
                         @foreach($places as $place)
+
                             <a href="/order/table/{{$place->id}}"
-                               @if($place->ticketid)
+
+                               @if(in_array($place->id, $array))
                                class="btn btn-danger btn-lg mt-5 "
                                @else
                                class="btn btn-secondary btn-lg mt-5 "
-
                                @endif
-
                             >{{$place->name}}</a>
 
                             @endforeach
