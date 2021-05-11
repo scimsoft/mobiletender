@@ -67,6 +67,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/openorders', [AdminOrderController::class, 'index'])->middleware('is_manager');
     Route::get('/openorders/delete/{id}', [AdminOrderController::class, 'delete'])->middleware('is_manager')->name('deleteorder');
     Route::get('/openorders/deleteTable/{id}', [AdminOrderController::class, 'deleteTable'])->middleware('is_manager')->name('deleteTable');
+    Route::get('/showusers',[AdminOrderController::class, 'showusers'])->middleware('is_admin');
+    Route::get('/deletuser/{id}',[AdminOrderController::class, 'deleteuser'])->middleware('is_admin');
+    Route::get('/changeusertype/{id}/{type}',[AdminOrderController::class, 'changeUserType'])->middleware('is_admin');
+
+
 
     Route::get('/admintable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
     Route::get('/bill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');

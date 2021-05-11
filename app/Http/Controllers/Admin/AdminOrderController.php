@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Traits\PrinterTrait;
 use App\Traits\SharedTicketTrait;
 use Illuminate\Support\Facades\Log;
@@ -70,6 +71,19 @@ class AdminOrderController extends Controller
         }
         Log::debug('return from printOrder');
         return back();
+    }
+
+
+    public function showusers(){
+        $users = User::all();
+        return view('admin.users',compact('users'));
+    }
+
+    public function changeUserType($id, $type){
+        $user = User::find($id);
+        $user->type = $type;
+        $user->save();
+        return $this->showusers();
     }
 
 }

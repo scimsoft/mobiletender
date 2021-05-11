@@ -32,10 +32,18 @@
                         <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
                                     @endif
                       @if(Auth::user()->isAdmin())
-                                </td></tr><tr><td>
+                                </td></tr>
+                            <tr><td>
+                                    <a href="/showusers" class="btn btn-primary"> Usuarios</a><br>
+                                    {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}
+                                </td></tr>
+                            <tr><td>
                             <a href="/appconfig" class="btn btn-primary"> Demo config</a><br>
                             {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}
                                 </td></tr>
+
+
+
                             @endif
                             </td></tr>
                         </table>
