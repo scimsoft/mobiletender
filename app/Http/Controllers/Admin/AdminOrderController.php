@@ -50,6 +50,12 @@ class AdminOrderController extends Controller
         Session::forget('tableNumber');
         return $this->index();
     }
+    public function deleteTable($id){
+        $this->clearOpenTableTicket($id);
+        Session::forget('ticketID');
+        Session::forget('tableNumber');
+        return redirect()->route('order');
+    }
 
     public function send_bill($ticketID)
     {

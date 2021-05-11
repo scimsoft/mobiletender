@@ -163,5 +163,13 @@ class CheckOutController extends Controller
         return view('order.pay', compact(['totalBasketPrice', 'newLinesPrice', 'tablenames']));
     }
 
+    public function payed()
+    {
+        $sharedTicketID = Session::get('ticketID');
+
+
+        return redirect()->route('deleteTable',$sharedTicketID);
+    }
+
 
 }

@@ -13,6 +13,7 @@ class User extends Authenticatable
 
     const ADMIN_TYPE = 'admin';
     const MANAGER_TYPE = 'manager';
+    const WAITER_TYPE = 'waiter';
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +51,9 @@ class User extends Authenticatable
 
     public function isManager()    {
         return $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
+    }
+
+    public function isWaiter()    {
+        return $this->type === self::WAITER_TYPE OR $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
     }
 }

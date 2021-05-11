@@ -24,10 +24,13 @@
                                 </td></tr>
                             <tr><td>
                             <tr><td>
+                                    @if(Auth::user()->isManager())
                       <a href="/products" class="btn btn-primary"> Products</a> <br>
+
                                 </td></tr>
                             <tr><td>
                         <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
+                                    @endif
                       @if(Auth::user()->isAdmin())
                                 </td></tr><tr><td>
                             <a href="/appconfig" class="btn btn-primary"> Demo config</a><br>

@@ -41,7 +41,7 @@ class OrderController extends Controller
        // Log::debug('checkForSessionTicketId: hasTicket: ' . $this->hasTicket($ticketID));
         Session::put('ticketID',$tablenumber);
         Session::put('tableNumber',$tablenumber);
-        $webadmin = Auth::check() && Auth::user()->isAdmin();
+        $webadmin = Auth::check() && Auth::user()->isWaiter();
         //dd($webadmin);
         //TODO posible ver si mesa no esta vacio pero no tiene productos
         if (($this->hasTicket($tablenumber) < 1)) {
