@@ -38,7 +38,11 @@ host('playaalta')
 host('copas')
     ->hostname('copas.playaalta.com')
     ->set('deploy_path', '/var/www/copas');
-    
+
+host('horecalo')
+    ->hostname('demo.horecalo.com')
+    ->set('deploy_path', '/var/www/horecalo')
+    ->set('branch','horecalo');
 // Tasks
 
 task('build', function () {
