@@ -36,7 +36,7 @@ Route::get('/web/products/printer', [WebController::class, 'printer']);
 
 Auth::routes();
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', [OrderController::class, 'order']);
+    Route::get('/', [WebController::class, 'web']);
     Route::get('/menu', [OrderController::class, 'menu']);
     Route::get('/basket/', [OrderController::class, 'showBasket'])->name('basket');
 
