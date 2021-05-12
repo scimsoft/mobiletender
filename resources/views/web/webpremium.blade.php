@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div>&nbsp;</div>
-                        <div>&nbsp;</div>
+                        <img src="/img/horecalologo.png" class="img-fluid mx-auto d-block">
 
                     </div>
                     <div class="card-body">
@@ -31,7 +31,7 @@
                                 </div>
                                 <div>
                                     <div>&nbsp;</div>
-                                    <div><b>WebApp ICamarera©</b></div>
+                                    <div><b>WebApp Horecalo©</b></div>
                                     <div>Haz que tus clientes pueden  pedir directamente desde su movil desde la Carta Digital en un clic. Mejora las medidas de higiene, ahorra tiempo de esperas a tus camareros y agiliza el proceso de comandas con la Carta Digital para bares, restaurantes y hoteles más moderna del mercado.</div>
                                 </div>
                                 <div>

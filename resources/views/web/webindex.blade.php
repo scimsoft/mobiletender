@@ -9,8 +9,9 @@
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div class="text-center">
-                            <h4>Camarera virtual</h4>
-                            <h5>Pide directamente desde la mesa</h5>
+
+                            <h4>HORECALO</h4>
+                            <h5>Sus cliente pide con su movil</h5>
 
                         </div>
                     </div>

@@ -43,4 +43,8 @@ class WebController extends Controller
     {
         return view('web.webprinter');
     }
+    public function contact()
+    {
+        return view('web.webcontact');
+    }
 }

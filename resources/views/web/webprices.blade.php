@@ -6,8 +6,9 @@
             <div class="">
                 <div class="card">
                     <div class="card-header">
+
                         <div>&nbsp;</div>
-                        <div>&nbsp;</div>
+                        <img src="/img/horecalologo.png" class="img-fluid mx-auto d-block">
                         <div class="text-center">
                             <h4>Contratos</h4>
                             <h6></h6>

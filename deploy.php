@@ -4,7 +4,7 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'PlayaAltaPos');
+set('application', 'Horecalo');
 
 // Project repository
 set('repository', 'https://github.com/scimsoft/mobiletender.git');

@@ -32,6 +32,7 @@ Route::get('/web/products/simple', [WebController::class, 'simple']);
 Route::get('/web/products/standard', [WebController::class, 'standard']);
 Route::get('/web/products/premium', [WebController::class, 'premium']);
 Route::get('/web/prices', [WebController::class, 'prices']);
+Route::get('/web/contact', [WebController::class, 'contact']);
 Route::get('/web/products/printer', [WebController::class, 'printer']);
 
 Auth::routes();
