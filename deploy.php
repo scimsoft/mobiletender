@@ -41,7 +41,8 @@ host('copas')
 
 host('tertulia')
     ->hostname('tertulia.horecalo.com')
-    ->set('deploy_path', '/var/www/tertulia');
+    ->set('deploy_path', '/var/www/tertulia')
+    ->set('branch','tertulia');
 
 host('horecalo')
     ->hostname('demo.horecalo.com')

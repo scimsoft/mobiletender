@@ -23,31 +23,36 @@
 
                     <a id="drinks-button" href="/order/category/DRINKS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Bebidas</a>
+                        <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Refrescos</a>
 
-                    <a id="food-button" href="/order/category/FOOD" type="button"
-                       class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbsp; Comidas</a>
+                        <a id="coffee-button" href="/order/category/VINOS" type="button"
+                           class="btn btn-labeled btn-tab mr-1 mb-1">
+                            <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Bebidas Alcoholicas</a>
+
+                        <a id="coffee-button" href="/order/category/COCTELES" type="button"
+                           class="btn btn-labeled btn-tab mr-1 mb-1">
+                            <span class="btn-label"><i class="fa fa-glass"></i></span> Tés Frios</a>
+
 
                     <a id="coffee-button" href="/order/category/COFFEE" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-coffee"></i></span>&nbsp; Cafes</a>
+                        <span class="btn-label"><i class="fa fa-coffee"></i></span>&nbsp; Bebidas Calientes</a>
 
-                    <a id="coffee-button" href="/order/category/COCTELES" type="button"
-                       class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-glass"></i></span>&nbsp; Cocteles</a>
+
 
                     <a id="coffee-button" href="/order/category/COPAS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
                         <span class="btn-label"><i class="fa fa-bolt"></i></span>&nbsp; Copas</a>
 
-                    <a id="coffee-button" href="/order/category/VINOS" type="button"
-                       class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Vinos</a>
+
+
+                        <a id="food-button" href="/order/category/FOOD" type="button"
+                           class="btn btn-labeled btn-tab mr-1 mb-1">
+                            <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbspPara Picar</a>
 
                     <a id="coffee-button" href="/order/category/OTROS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
+                        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Licores</a>
 
 
                     <table id="products-table" class="table middleTable">
