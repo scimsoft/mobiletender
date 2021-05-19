@@ -39,6 +39,10 @@ host('copas')
     ->hostname('copas.playaalta.com')
     ->set('deploy_path', '/var/www/copas');
 
+host('tertulia')
+    ->hostname('tertulia.horecalo.com')
+    ->set('deploy_path', '/var/www/tertulia');
+
 host('horecalo')
     ->hostname('demo.horecalo.com')
     ->set('deploy_path', '/var/www/horecalo')
