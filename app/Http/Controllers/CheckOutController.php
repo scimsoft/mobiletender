@@ -118,7 +118,7 @@ class CheckOutController extends Controller
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" . $e);
         }
-        if(config('clean_table_after_order')) {
+        if(config('clean_table_after_order' OR 'clean_table_after_bill')) {
             $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
         }
 
