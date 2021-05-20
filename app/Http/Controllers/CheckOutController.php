@@ -109,16 +109,20 @@ class CheckOutController extends Controller
 
     public function printFastOrder($ticketID)
     {
+
         $ticket = $this->getTicket($ticketID);
         $header = "Mesa: " . $ticketID;
         try {
             $this->printBill($header, $this->getTicketLines($ticketID));
 
+
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" . $e);
         }
-        if(config('clean_table_after_order' OR 'clean_table_after_bill')) {
+
+        if(config('customoptions.clean_table_after_order') OR config( 'customoptions.clean_table_after_bill')) {
+
             $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
         }
 
