@@ -22,7 +22,7 @@
 
         <a id="coffee-button" href="/products/index/VINOS" type="button"
            class="btn btn-labeled btn-tab mr-1 mb-1">
-            <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Bebidas Alcoholicas</a>
+            <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Cervezas y Vinos</a>
 
         <a id="coffee-button" href="/products/index/COCTELES" type="button"
            class="btn btn-labeled btn-tab mr-1 mb-1">
@@ -43,7 +43,7 @@
 
         <a id="food-button" href="/products/index/FOOD" type="button"
            class="btn btn-labeled btn-tab mr-1 mb-1">
-            <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbspPara Picar</a>
+            <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbspMontaditos</a>
 
         <a id="coffee-button" href="/products/index/OTROS" type="button"
            class="btn btn-labeled btn-tab mr-1 mb-1">

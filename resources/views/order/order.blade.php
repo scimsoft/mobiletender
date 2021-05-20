@@ -27,7 +27,7 @@
 
                         <a id="coffee-button" href="/order/category/VINOS" type="button"
                            class="btn btn-labeled btn-tab mr-1 mb-1">
-                            <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Bebidas Alcoholicas</a>
+                            <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Cervezas y Vinos</a>
 
                         <a id="coffee-button" href="/order/category/COCTELES" type="button"
                            class="btn btn-labeled btn-tab mr-1 mb-1">
@@ -48,7 +48,7 @@
 
                         <a id="food-button" href="/order/category/FOOD" type="button"
                            class="btn btn-labeled btn-tab mr-1 mb-1">
-                            <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbspPara Picar</a>
+                            <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbspMontaditos</a>
 
                     <a id="coffee-button" href="/order/category/OTROS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
@@ -136,7 +136,7 @@
                 <div class="modal-body">
                     <div class="table-responsive">
                     <table id="addOnProductsTable" class="table table-borderless">
-                        <tr><td>Image</td><td>Name</td><td>Price</td></tr>
+                        <tr id="firstaddonrow"><td>Image</td><td>Name</td><td>Price</td></tr>
                     </table>
                     <div>
                 </div>
@@ -208,10 +208,6 @@
 
                     if (adonnproducts.length > 0) {
                         $('#selectAddOnModal').modal("show");
-                        $("#addOnProductSelect").find('option')
-                            .remove()
-                            .end()
-
 
                         $.each(adonnproducts, function (index, value) {
                             var optionvalue =  Math.round(value[2],2)+ '€'+" __    "+value[1] ;
@@ -221,17 +217,17 @@
                                 '<td id="'+value[1]+'">'+value[1]+'</td>' +
                                 '<td id="'+value[2]+'">'+value[2].toFixed(2)+'€</td></tr>'
                             );
-                            $("#addOnProductSelect").append($('<option>', {
-                                value: value[0]+"|" + value[2],
-                                 text: optionvalue
-                            }));
+
                         });
+
                     }
                     orderTotalBasket = (data[0] * 1.1).toFixed(2) + "€";
                     $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;' + orderTotalBasket);
                 }
             });
+
         }
+
         //TODO TODO
         // Tengo que mandar el producto y el precio
         function addOnProduct(addOnProductID,price) {
