@@ -19,6 +19,16 @@ class Product extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
 
+    public function setPriceSellAttribute($value)
+    {
+        $this->attributes['pricesell'] = str_replace(',', '.', $value);
+    }
+
+    public function setPriceBuyAttribute($value)
+    {
+        $this->attributes['pricebuy'] = str_replace(',', '.', $value);
+    }
+
     protected $fillable = [
         'name', 'pricebuy','pricesell','code','reference','taxcat','category', 'detail'
     ];
