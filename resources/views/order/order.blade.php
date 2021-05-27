@@ -131,7 +131,7 @@
                 <div class="modal-body">
                     <div class="table-responsive">
                     <table id="addOnProductsTable" class="table table-borderless">
-                        <tr><td>Image</td><td>Name</td><td>Price</td></tr>
+                        <tr id="firstaddonrow"><td>Image</td><td>Name</td><td>Price</td></tr>
                     </table>
                     <div>
                 </div>
@@ -203,10 +203,8 @@
 
                     if (adonnproducts.length > 0) {
                         $('#selectAddOnModal').modal("show");
-                        $("#addOnProductSelect").find('option')
-                            .remove()
-                            .end()
-
+                        $('#addOnProductsTable').empty();
+                        $('#addOnProductsTable').append("<tr><td>Image</td><td>Name</td><td>Price</td></tr>")
 
                         $.each(adonnproducts, function (index, value) {
                             var optionvalue =  Math.round(value[2],2)+ '€'+" __    "+value[1] ;
@@ -216,10 +214,7 @@
                                 '<td id="'+value[1]+'">'+value[1]+'</td>' +
                                 '<td id="'+value[2]+'">'+value[2].toFixed(2)+'€</td></tr>'
                             );
-                            $("#addOnProductSelect").append($('<option>', {
-                                value: value[0]+"|" + value[2],
-                                 text: optionvalue
-                            }));
+
                         });
                     }
                     orderTotalBasket = (data[0] * 1.1).toFixed(2) + "€";
