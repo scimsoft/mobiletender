@@ -23,36 +23,31 @@
 
                     <a id="drinks-button" href="/order/category/DRINKS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Refrescos</a>
+                        <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Bebidas</a>
 
-                        <a id="coffee-button" href="/order/category/VINOS" type="button"
-                           class="btn btn-labeled btn-tab mr-1 mb-1">
-                            <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Cervezas y Vinos</a>
-
-                        <a id="coffee-button" href="/order/category/COCTELES" type="button"
-                           class="btn btn-labeled btn-tab mr-1 mb-1">
-                            <span class="btn-label"><i class="fa fa-glass"></i></span> Tés Frios</a>
-
+                    <a id="food-button" href="/order/category/FOOD" type="button"
+                       class="btn btn-labeled btn-tab mr-1 mb-1">
+                        <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbsp; Comidas</a>
 
                     <a id="coffee-button" href="/order/category/COFFEE" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-coffee"></i></span>&nbsp; Bebidas Calientes</a>
+                        <span class="btn-label"><i class="fa fa-coffee"></i></span>&nbsp; Cafes</a>
 
-
+                    <a id="coffee-button" href="/order/category/COCTELES" type="button"
+                       class="btn btn-labeled btn-tab mr-1 mb-1">
+                        <span class="btn-label"><i class="fa fa-glass"></i></span>&nbsp; Cocteles</a>
 
                     <a id="coffee-button" href="/order/category/COPAS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
                         <span class="btn-label"><i class="fa fa-bolt"></i></span>&nbsp; Copas</a>
 
-
-
-                        <a id="food-button" href="/order/category/FOOD" type="button"
-                           class="btn btn-labeled btn-tab mr-1 mb-1">
-                            <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbspMontaditos</a>
+                    <a id="coffee-button" href="/order/category/VINOS" type="button"
+                       class="btn btn-labeled btn-tab mr-1 mb-1">
+                        <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Vinos</a>
 
                     <a id="coffee-button" href="/order/category/OTROS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Licores</a>
+                        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
 
 
                     <table id="products-table" class="table middleTable">
@@ -208,8 +203,10 @@
 
                     if (adonnproducts.length > 0) {
                         $('#selectAddOnModal').modal("show");
-                        $('#addOnProductsTable').empty();
-                        $('#addOnProductsTable').append("<tr><td>Image</td><td>Name</td><td>Price</td></tr>")
+                        $("#addOnProductSelect").find('option')
+                            .remove()
+                            .end()
+
 
                         $.each(adonnproducts, function (index, value) {
                             var optionvalue =  Math.round(value[2],2)+ '€'+" __    "+value[1] ;
@@ -219,17 +216,17 @@
                                 '<td id="'+value[1]+'">'+value[1]+'</td>' +
                                 '<td id="'+value[2]+'">'+value[2].toFixed(2)+'€</td></tr>'
                             );
-
+                            $("#addOnProductSelect").append($('<option>', {
+                                value: value[0]+"|" + value[2],
+                                 text: optionvalue
+                            }));
                         });
-
                     }
                     orderTotalBasket = (data[0] * 1.1).toFixed(2) + "€";
                     $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;' + orderTotalBasket);
                 }
             });
-
         }
-
         //TODO TODO
         // Tengo que mandar el producto y el precio
         function addOnProduct(addOnProductID,price) {
