@@ -11,7 +11,7 @@
                         <div class="text-center">
 
                             <h4>HORECALO</h4>
-                            <h5>Sus cliente pide con su movil</h5>
+                            <h5>Sus clientes piden con su movil</h5>
 
                         </div>
                     </div>
