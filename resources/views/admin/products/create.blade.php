@@ -50,14 +50,7 @@
 
                                 <td>
                                     <label for="category" class="label label-default"><b>Categoria</b> </label>
-                                    <select name="category" class="form-control">
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}" >
-                                                {{$category->name}}
-                                            </option>
 
-                                            @endforeach
-                                    </select>
                                 </td>
                                 <td>
                                     <!--label for="taxcat" class="form-label"><b>Tax</b></label-->

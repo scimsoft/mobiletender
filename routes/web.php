@@ -85,7 +85,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/addOnProduct/add', [ProductController::class, 'addOnProductAdd'])->middleware('is_manager');;
     Route::post('/addOnProduct/remove', [ProductController::class, 'removeAddOnProductAdd'])->middleware('is_manager');;
     Route::get('/dbimage/{id}', [ProductImageController::class, 'getImage']);
-    Route::resource('category', App\Http\Controllers\CategoryController::class)->middleware('is_manager');
+    Route::resource('categories', App\Http\Controllers\CategoryController::class)->middleware('is_manager');
+    Route::post('/categories/setparent',[CategoryController::class,'setParentId'])->middleware('is_manager');
+    Route::post('/categories/toggleactive',[CategoryController::class,'toggleActive'])->middleware('is_manager');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
