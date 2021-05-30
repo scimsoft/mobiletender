@@ -16,26 +16,20 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    <a id="drinks-button" href="/products/index/DRINKS" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Bebidas</a>
+        @for ($i = 0; $i < 6; $i++)
+            <a href="/products/index/{{$categories[$i]->id}}" class="btn btn-secondary m1-2">{{$categories[$i]->name}}</a>
+        @endfor
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle m-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Otros
+            </button>
 
-    <a id="food-button" href="/products/index/FOOD" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-cutlery"></i></span>&nbsp; Comidas</a>
-
-    <a id="coffee-button" href="/products/index/COFFEE" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-coffee"></i></span>&nbsp; Cafes</a>
-
-    <a id="coffee-button" href="/products/index/COCTELES" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-glass"></i></span>&nbsp; Cocteles</a>
-
-    <a id="coffee-button" href="/products/index/COPAS" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-bolt"></i></span>&nbsp; Copas</a>
-
-    <a id="coffee-button" href="/products/index/VINOS" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-flask"></i></span>&nbsp; Vinos</a>
-
-    <a id="coffee-button" href="/products/index/OTROS" type="button" class="btn btn-labeled btn-tab mr-1 mb-1">
-        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
+            <div class="dropdown-menu">
+                @for ($i = 6; $i < count($categories); $i++)
+                    <a href="/products/index/{{$categories[$i]->id}}" class="dropdown-item" href="#">{{$categories[$i]->name}}</a>
+                @endfor
+            </div>
+        </div>
         <div class="float-right">
             <a class="btn btn-tab" href="{{ route('products.create') }}"> Producto Nuevo</a>
         </div>

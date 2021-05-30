@@ -28,8 +28,9 @@ class ProductController extends Controller
         }else{
             $products= $this->getCategoryProducts($category);
     }
+        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
 
-        return view('admin.products.index',compact('products'))
+        return view('admin.products.index',compact('categories','products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

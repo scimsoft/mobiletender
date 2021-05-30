@@ -21,7 +21,7 @@
 
 
 
-                    <a id="drinks-button" href="/order/category/DRINKS" type="button"
+                    <!--a id="drinks-button" href="/order/category/DRINKS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
                         <span class="btn-label"><i class="fa fa-beer"></i></span>&nbsp; Bebidas</a>
 
@@ -47,9 +47,26 @@
 
                     <a id="coffee-button" href="/order/category/OTROS" type="button"
                        class="btn btn-labeled btn-tab mr-1 mb-1">
-                        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a>
+                        <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a-->
 
 
+                        @for ($i = 0; $i < 6; $i++)
+
+                            @if(is_null($categories[$i]->parentid))
+                            <a href="/order/category/{{$categories[$i]->id}}" class="btn btn-secondary m1-2">{{$categories[$i]->name}}</a>
+                            @endif
+                        @endfor
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle m-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Otros
+                            </button>
+
+                            <div class="dropdown-menu">
+                                @for ($i = 6; $i < count($categories); $i++)
+                                <a href="/order/category/{{$categories[$i]->id}}" class="dropdown-item" href="#">{{$categories[$i]->name}}</a>
+                                @endfor
+                            </div>
+                        </div>
                     <table id="products-table" class="table middleTable">
                         <thead>
                         <tr>

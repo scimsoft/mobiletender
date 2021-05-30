@@ -30,7 +30,8 @@
                     <tr id="{{$category->id}}">
                         <td><input type="checkbox" class="form-check" name="catalogcheckbox" @if($category->catshowname) checked="checked" @endif></td>
                     <td>
-                        <select name="category" class="form-control">
+                        <form action="{{ route('categories.destroy',$category->id) }}" method="POST">
+                        <select name="parentid" class="form-control">
                             <option value="">&nbsp;</option>
                         @foreach($categories as $subcategory)
                             <option value="{{$subcategory->id}}" {{ ( $subcategory->id == $category->parentid) ? 'selected' : '' }}>
@@ -40,7 +41,7 @@
                         @endforeach
                         </select>
                     </td>
-                        <form action="{{ route('categories.destroy',$category->id) }}" method="POST">
+
 
                             @csrf
                             @method('PATCH')

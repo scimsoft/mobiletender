@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductAdOn;
+use App\Models\UnicentaModels\Category;
 use App\Traits\SharedTicketTrait;
 
 use App\Models\UnicentaModels\Product;
@@ -17,20 +18,24 @@ class OrderController extends Controller
 {
     use SharedTicketTrait;
     use ProductTrait;
+    protected $categories;
 
     public function order()
     {
         $this->checkForSessionTicketId();
         $totalBasketPrice = $this->getTotalBasketValue();
-        $products = $this->getCategoryProducts('DRINKS');
-        return view('order.order', compact(['products','totalBasketPrice']));
+        $categories = Category::where('catshowname',1 )->orderByRaw('CONVERT(catorder, SIGNED)')->get();
+        $products = $this->getCategoryProducts($categories[0]->id);
+
+        return view('order.order', compact(['categories','products','totalBasketPrice']));
     }
     public function menu()
     {
         $this->checkForSessionTicketId();
         $totalBasketPrice = $this->getTotalBasketValue();
-        $products = $this->getCategoryProducts('FOOD');
-        return view('order.menu', compact(['products','totalBasketPrice']));
+        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
+        $products = $this->getCategoryProducts($categories[0]->id);
+        return view('order.menu', compact(['categories','products','totalBasketPrice']));
     }
 
     public function orderForTableNr($tablenumber)
@@ -59,15 +64,18 @@ class OrderController extends Controller
     }
 
     public function showProductsFromCategoryForMenu($category){
+
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
-        return view('order.menu', compact(['products','totalBasketPrice']));
+        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
+        return view('order.menu', compact(['categories','products','totalBasketPrice']));
     }
     public function showProductsFromCategory($category){
         $this->checkForSessionTicketId();
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
-        return view('order.order', compact(['products','totalBasketPrice']));
+        $categories = Category::orderBy('catorder')->get();
+        return view('order.order', compact(['categories','products','totalBasketPrice']));
     }
 
     public function addProduct($productID){

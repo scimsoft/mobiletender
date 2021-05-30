@@ -95,10 +95,11 @@ class CategoryController extends Controller
 
         ]);
         $category = Category::findorfail($request->id);
+        $category->parentid = $request->parentid;
         $category->name = $request->name;
         $category->catorder = $request->catorder;
         $category->save();
-        return redirect('/categories')->with('success', 'Categoria guradado!');
+        return redirect('/categories')->with('success', 'Categoria guardado!');
 
     }
 
