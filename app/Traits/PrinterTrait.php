@@ -25,9 +25,9 @@ trait PrinterTrait
 
     protected $printer;
     protected $footer = '';
-    public function printTicket($header, $lines)
+    public function printTicket($header, $lines,$printernumber=1)
     {
-        $this->connectToPrinter();
+        $this->connectToPrinter($printernumber);
         $this->printHeader($header);
 
         foreach ($lines as $line) {
@@ -41,7 +41,7 @@ trait PrinterTrait
     }
 
     public function printBill($header, $lines){
-        $this->connectToPrinter();
+        $this->connectToPrinter(1);
         $this->printHeader($header);
         $totalPrice = 0;
         foreach ($lines as $line) {
@@ -66,11 +66,15 @@ trait PrinterTrait
 
     }
 
-    public function connectToPrinter()
+    public function connectToPrinter($printernumber)
     {
         try {
             Log::debug('ip:' . config('app.printer-ip'));
-            $connector = new NetworkPrintConnector(config('app.printer-ip'), config('app.printer-port'), 3);
+
+            $printerIP = explode(',',config('app.printer-ip'));
+            $printerPort = explode(',',config('app.printer-port'));
+
+            $connector = new NetworkPrintConnector($printerIP[$printernumber-1], $printerPort[$printernumber-1], 3);
          //   $profile = CapabilityProfile::load('xp-n160ii');
             $this->printer = new Printer($connector);
           //  $printer->selectCharacterTable(6);

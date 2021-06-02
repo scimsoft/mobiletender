@@ -39,26 +39,45 @@ class CheckOutController extends Controller
     public function printOrder($ticketID)
     {
         $ticket = $this->getTicket($ticketID);
+        $toPrintLines = $this->getUnprintedTicetLines($ticket);
         if($ticketID > 100){
             $header = "NrPedido: " . $ticketID;
         }else{
-        $header = "MESA: " . $ticketID;
+            $header = "MESA: " . $ticketID;
         }
+        for($prinernr = 1 ;$prinernr <= config('app.nr-of-printers');$prinernr++){
+            $toprint = collect($toPrintLines)->where('attributes.product.printto', $prinernr)->all();
+            $this->sendLinesToSelectedPrinter($header, $toprint,$prinernr );
+    }
+
+
+
+
+        Session::flash('status', 'Su pedido se esta preparando');
+
+        $this->setUnprintedTicketLinesAsPrinted($ticket, $ticketID);
+        if (config('customoptions.clean_table_after_order') or $ticketID > 50) {
+            $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+
+
+        }
+        return redirect()->route('order');
+    }
+    /**
+     * @param $ticketID
+     * @param $header
+     * @param $toPrintLines
+     */
+    private function sendLinesToSelectedPrinter($header, $toPrintLines,$printerNumber)
+    {
         try {
-            $this->printTicket($header, $this->getUnprintedTicetLines($ticket));
-            $this->setUnprintedTicketLinesAsPrinted($ticket, $ticketID);
-            if (config('customoptions.clean_table_after_order') or $ticketID > 50) {
-                $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
-                Session::forget('ticketID');
-                Session::forget('tableNumber');
-            }
+            $this->printTicket($header, $toPrintLines,$printerNumber);
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" . $e);
+            return redirect()->route('basket');
         }
         Log::debug('return from printOrder');
-        Session::flash('status', 'Su pedido se esta preparando');
-        return redirect()->route('order');
     }
 
     private function getUnprintedTicetLines(SharedTicket $ticket)
@@ -122,8 +141,8 @@ class CheckOutController extends Controller
         }
 
         if(config('customoptions.clean_table_after_order') OR config( 'customoptions.clean_table_after_bill')) {
-
             $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+
         }
 
     }
@@ -174,6 +193,8 @@ class CheckOutController extends Controller
 
         return redirect()->route('deleteTable',$sharedTicketID);
     }
+
+
 
 
 }

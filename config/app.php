@@ -130,6 +130,7 @@ return [
      * Add Printer IP and Port
      *
      * */
+    'nr-of-printers' => env('NR_OF_PRINTERS'),
     'printer-ip' => env('PRINTER_IP'),
     'printer-port' => env('PRINTER_PORT'),
 
