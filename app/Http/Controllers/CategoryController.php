@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::all();
+        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
 
         return view('admin.categories.index', compact('categories'));
     }

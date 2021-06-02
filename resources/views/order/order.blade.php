@@ -50,7 +50,7 @@
                         <span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp; Otros</a-->
 
 
-                        @for ($i = 0; $i < 6; $i++)
+                        @for ($i = 0; $i < config('customoptions.buttons_on_page'); $i++)
 
                             @if(is_null($categories[$i]->parentid))
                             <a href="/order/category/{{$categories[$i]->id}}" class="btn btn-secondary m1-2">{{$categories[$i]->name}}</a>
@@ -62,7 +62,7 @@
                             </button>
 
                             <div class="dropdown-menu">
-                                @for ($i = 6; $i < count($categories); $i++)
+                                @for ($i = config('customoptions.buttons_on_page'); $i < count($categories); $i++)
                                 <a href="/order/category/{{$categories[$i]->id}}" class="dropdown-item" href="#">{{$categories[$i]->name}}</a>
                                 @endfor
                             </div>

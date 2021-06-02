@@ -17,6 +17,9 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    'buttons_on_page' =>env('NR_CATEGORY_BUTTONS',6),
+
+
     'eatin' => env('EATIN',true),
     'takeaway' => env('TAKE_AWAY', false),
     'delivery' => env('DELIVERY',false),
