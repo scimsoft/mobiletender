@@ -74,7 +74,7 @@ class OrderController extends Controller
         $this->checkForSessionTicketId();
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
-        $categories = Category::where('catshowname',1 )->orderBy('catorder')->get();
+        $categories = Category::where('catshowname',1 )->orderByRaw('CONVERT(catorder, SIGNED)')->get();
         return view('order.order', compact(['categories','products','totalBasketPrice']));
     }
 
