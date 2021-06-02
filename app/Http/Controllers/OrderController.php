@@ -33,7 +33,7 @@ class OrderController extends Controller
     {
         $this->checkForSessionTicketId();
         $totalBasketPrice = $this->getTotalBasketValue();
-        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
+        $categories = Category::where('catshowname',1 )->orderByRaw('CONVERT(catorder, SIGNED)')->get();
         $products = $this->getCategoryProducts($categories[0]->id);
         return view('order.menu', compact(['categories','products','totalBasketPrice']));
     }
@@ -67,14 +67,14 @@ class OrderController extends Controller
 
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
-        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
+        $categories = Category::where('catshowname',1 )->orderByRaw('CONVERT(catorder, SIGNED)')->get();
         return view('order.menu', compact(['categories','products','totalBasketPrice']));
     }
     public function showProductsFromCategory($category){
         $this->checkForSessionTicketId();
         $products = $this->getCategoryProducts($category);
         $totalBasketPrice = $this->getTotalBasketValue();
-        $categories = Category::orderBy('catorder')->get();
+        $categories = Category::where('catshowname',1 )->orderBy('catorder')->get();
         return view('order.order', compact(['categories','products','totalBasketPrice']));
     }
 
