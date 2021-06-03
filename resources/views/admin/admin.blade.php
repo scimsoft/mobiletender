@@ -22,17 +22,27 @@
                             <tr><td>
                                     <a href="/selecttable" class="btn btn-primary"> Se3lecionar mesa</a> <br>
                                 </td></tr>
-                            <tr><td>
+
                             <tr><td>
                                     @if(Auth::user()->isManager())
-                      <a href="/products" class="btn btn-primary"> Products</a> <br>
+                                    <a href="/products" class="btn btn-primary"> Products</a> <br>
 
                                 </td></tr>
                             <tr><td>
-                        <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
-                                    @endif
-                      @if(Auth::user()->isAdmin())
+
+
+                                        <a href="/categories" class="btn btn-primary"> Categorias (Botones)</a> <br>
+
                                 </td></tr>
+
+
+                            <tr><td>
+                                    <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
+
+
+                                </td></tr>
+                            @endif
+                            @if(Auth::user()->isAdmin())
                             <tr><td>
                                     <a href="/showusers" class="btn btn-primary"> Usuarios</a><br>
                                     {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}
