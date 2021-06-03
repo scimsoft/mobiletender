@@ -53,7 +53,7 @@
                         @for ($i = 0; $i < config('customoptions.buttons_on_page'); $i++)
 
                             @if(is_null($categories[$i]->parentid))
-                            <a href="/order/category/{{$categories[$i]->id}}" class="btn btn-secondary m-2">{{$categories[$i]->name}}</a>
+                            <a href="/order/category/{{$categories[$i]->id}}" class="btn btn-secondary m-1">{{$categories[$i]->name}}</a>
                             @endif
                         @endfor
                         <div class="btn-group">
