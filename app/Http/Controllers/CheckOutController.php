@@ -47,7 +47,7 @@ class CheckOutController extends Controller
         }
         for($prinernr = 1 ;$prinernr <= config('app.nr-of-printers');$prinernr++){
             $toprint = collect($toPrintLines)->where('attributes.product.printto', $prinernr)->all();
-            $this->sendLinesToSelectedPrinter($header, $toprint,$prinernr );
+            if(!empty($toprint))$this->sendLinesToSelectedPrinter($header, $toprint,$prinernr );
     }
 
 
