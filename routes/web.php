@@ -32,7 +32,6 @@ Route::get('/web/products/simple', [WebController::class, 'simple']);
 Route::get('/web/products/standard', [WebController::class, 'standard']);
 Route::get('/web/products/premium', [WebController::class, 'premium']);
 Route::get('/web/prices', [WebController::class, 'prices']);
-Route::get('/web/contact', [WebController::class, 'contact']);
 Route::get('/web/products/printer', [WebController::class, 'printer']);
 
 Auth::routes();
@@ -85,7 +84,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/addOnProduct/add', [ProductController::class, 'addOnProductAdd'])->middleware('is_manager');;
     Route::post('/addOnProduct/remove', [ProductController::class, 'removeAddOnProductAdd'])->middleware('is_manager');;
     Route::get('/dbimage/{id}', [ProductImageController::class, 'getImage']);
-    Route::resource('category', App\Http\Controllers\CategoryController::class)->middleware('is_manager');
+    Route::resource('categories', App\Http\Controllers\CategoryController::class)->middleware('is_manager');
+    Route::post('/categories/setparent',[CategoryController::class,'setParentId'])->middleware('is_manager');
+    Route::post('/categories/toggleactive',[CategoryController::class,'toggleActive'])->middleware('is_manager');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

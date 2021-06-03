@@ -17,6 +17,9 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    'buttons_on_page' =>env('NR_CATEGORY_BUTTONS',6),
+
+
     'eatin' => env('EATIN',true),
     'takeaway' => env('TAKE_AWAY', false),
     'delivery' => env('DELIVERY',false),
@@ -25,6 +28,7 @@ return [
     'takeaway_prepay'=> env('TAKEAWAY_PREPAY',true),
     'delivery_prepay'=> env('DELIVERY_PREPAY',true),
 
-    'clean_table_after_order' => env('CLEAN_TABLE_AFTER_ORDER',false)
+    'clean_table_after_order' => env('CLEAN_TABLE_AFTER_ORDER',false),
+    'clean_table_after_bill' => env('CLEAN_TABLE_AFTER_BILL',false)
 
     ];

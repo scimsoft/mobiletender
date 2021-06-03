@@ -4,7 +4,7 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'Horecalo');
+set('application', 'PlayaAltaPos');
 
 // Project repository
 set('repository', 'https://github.com/scimsoft/mobiletender.git');
@@ -39,10 +39,16 @@ host('copas')
     ->hostname('copas.playaalta.com')
     ->set('deploy_path', '/var/www/copas');
 
+host('tertulia')
+    ->hostname('tertulia.horecalo.com')
+    ->set('deploy_path', '/var/www/tertulia')
+    ->set('branch','tertulia');
+
 host('horecalo')
     ->hostname('demo.horecalo.com')
     ->set('deploy_path', '/var/www/horecalo')
     ->set('branch','horecalo');
+    
 // Tasks
 
 task('build', function () {

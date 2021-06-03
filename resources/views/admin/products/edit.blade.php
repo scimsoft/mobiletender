@@ -48,7 +48,7 @@
                                 </td>
                                 <td>
                                     <a href="/crop-image/{{$product->id}}" class="btn btn-tab">
-                                        Edit
+                                        Imagen
                                     </a>
                                 </td>
                             </tr>
@@ -69,8 +69,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <label for="taxcat" class="form-label"><b>Tipo de IVA</b></label>
-                                    <input name="taxcat" class="form-control" type="text" value="001">
+                                    <!--label for="taxcat" class="form-label"><b>Tipo de IVA</b></label-->
+                                    <input name="taxcat" class="form-control" type="hidden" value="001">
 
                                 </td>
                             </tr><tr>
@@ -84,13 +84,13 @@
                             <tr>
 
                                 <td>
-                                    <label for="reference" class="label label-default"><b>Referencia</b> </label>
-                                    <input name="reference" class="form-control" type="text"
+                                    <!--label for="reference" class="label label-default"><b>Referencia</b> </label-->
+                                    <input name="reference" class="form-control" type="hidden"
                                            value="{{$product->reference}}">
                                 </td>
                                 <td>
-                                    <label for="code" class="form-label"><b>Codigo</b></label>
-                                    <input name="code" class="form-control" type="text"
+                                    <!--label for="code" class="form-label"><b>Codigo</b></label-->
+                                    <input name="code" class="form-control" type="hidden"
                                            value="{{$product->code}}">
 
                                 </td>
@@ -98,13 +98,13 @@
                             <tr>
 
                                 <td>
-                                    <label for="pricebuy" class="form-label"><b>PrecioCompra</b> </label>
+                                    <label for="pricebuy" class="form-label"><b>Precio de Compra</b> </label>
                                     <input name="pricebuy" class="form-control" type="text"
                                            value="{{$product->pricebuy}}">
 
                                 </td>
                                 <td>
-                                    <label for="pricesell" class="form-label"><b>PrecioVenta</b></label>
+                                    <label for="pricesell" class="form-label"><b>Precio de Venta</b></label>
                                     <input name="pricesell" class="form-control" type="text"
                                            value="{{($product->pricesell *1.1)}}">
 
@@ -137,14 +137,14 @@
 
                                 </td>
                             </tr>
-                            <tr>
+                            <!--tr>
                                 <td colspan="2">
                                     <label for="description" class="form-label"><b>Dicripcion</b></label>
                                     <textarea name="description" class="form-control"
                                               rows="3">{{$product->description}}</textarea>
 
                                 </td>
-                            </tr>
+                            </tr-->
 
 
                             <tr>

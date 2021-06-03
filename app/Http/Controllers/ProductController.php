@@ -9,6 +9,7 @@ use App\Models\UnicentaModels\Product;
 use App\Models\UnicentaModels\Products_Cat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use function str_replace;
 use function view;
 
 class ProductController extends Controller
@@ -27,8 +28,9 @@ class ProductController extends Controller
         }else{
             $products= $this->getCategoryProducts($category);
     }
+        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
 
-        return view('admin.products.index',compact('products'))
+        return view('admin.products.index',compact('categories','products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -71,7 +73,8 @@ class ProductController extends Controller
 
         $createdProduct = Product::where('code', $code)->first();
 
-        $createdProduct->pricesell = ($request->pricesell/1.1);
+        $pricesell = str_replace(',','.',$request->pricesell);
+        $createdProduct->pricesell = $pricesell /1.1;
         $createdProduct->save();
         $product_id = $createdProduct->id;
         $this->addOrDeleteFromCatalog($product_id);
@@ -149,7 +152,8 @@ class ProductController extends Controller
 
 
         $product->update($request->all());
-        $product->pricesell = ($request->pricesell/1.1);
+        $pricesell = str_replace(',','.',$request->pricesell);
+        $product->pricesell = ($pricesell/1.1);
         $product->save();
 
         return redirect()->route('products.index')
