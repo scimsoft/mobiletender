@@ -50,9 +50,20 @@
 
                                 <td>
                                     <label for="category" class="label label-default"><b>Categoria</b> </label>
+                                    <select name="category" class="form-control">
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}" >
+                                                {{$category->name}}
+                                            </option>
 
+                                            @endforeach
+                                    </select>
                                 </td>
                                 <td>
+                                    <label for="pricesell" class="form-label"><b>Precio Venta</b></label>
+                                    <input name="pricesell" class="form-control" type="text"
+                                           value="">
+
                                     <!--label for="taxcat" class="form-label"><b>Tax</b></label-->
                                     <input name="taxcat" class="form-control" type="hidden"
                                            value="001">
@@ -82,9 +93,6 @@
 
                                 </td>
                                 <td>
-                                    <label for="pricesell" class="form-label"><b>Precio Venta</b></label>
-                                    <input name="pricesell" class="form-control" type="text"
-                                           value="">
 
                                 </td>
                             </tr>

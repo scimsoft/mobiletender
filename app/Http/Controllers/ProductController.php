@@ -105,7 +105,7 @@ class ProductController extends Controller
     {
         //
         $product=Product::findOrFail($id);
-        $alldrinks = $this->getCategoryProducts('DRINKS');
+
         if (!empty($product->image)) {
             $product->image = base64_encode($product->image);
         }
@@ -119,7 +119,7 @@ class ProductController extends Controller
 
         $categories = Category::all();
 
-        return view('admin.products.edit',compact('product','alldrinks','all_adons','categories'));
+        return view('admin.products.edit',compact('product','all_adons','categories'));
     }
 
     /**
@@ -235,6 +235,10 @@ class ProductController extends Controller
         } else {
             $productcat->delete();
         }
+    }
+
+    public function getProductList($id){
+        return Product::select('id','name')->where('category',$id)->get();
     }
 
 

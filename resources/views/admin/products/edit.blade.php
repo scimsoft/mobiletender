@@ -110,17 +110,20 @@
 
                                 </td>
                             </tr>
-                            <tr><td colspan="2">
+                            <tr><td colspan="">
                                     <b>Seleccion de sub-productos</b>
-                                </td></tr>
+                                </td>
+                            <td><select class="custom-select" name="category_addon" id="category_addon">
+                                    @foreach($categories as $categorie)
+                                        <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+
+                                    @endforeach
+                                </select></td></tr>
                             <tr>
                                 <td colspan="1">
                                     <label for="products_list" class="form-label">Disponibles</label>
                                     <select class="custom-select" size="8" multiple="multiple" name="products_list" id="products_list">
-                                        @foreach($alldrinks as $drink)
-                                            <option value="{{$drink->id}}">{{$drink->name}}</option>
 
-                                            @endforeach
 
                                     </select>
 
@@ -189,6 +192,30 @@
                 var addOnProductID = $(this).find(":selected").text();
                 $(this).find(":selected").remove();
                 removeaddOnProduct(productID)
+            })
+
+            $('#category_addon').on('change',function(){
+                var categoryid=$(this).find(":selected").val();
+                jQuery.ajax({
+                    url: '/products/list/'+categoryid,
+                    type: "GET",
+
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data);
+                        var $el = $("#products_list");
+                        $el.empty(); // remove old options
+                        $.each(data,function(id,name){
+
+                            $el.append($("<option></option>")
+                                .attr("value", name.id).text(name.name));
+
+                        })
+
+
+                    }
+                });
+
             })
 
         })
