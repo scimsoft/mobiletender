@@ -202,7 +202,7 @@
 
                     dataType: "json",
                     success: function (data) {
-                        alert(data);
+
                         var $el = $("#products_list");
                         $el.empty(); // remove old options
                         $.each(data,function(id,name){
