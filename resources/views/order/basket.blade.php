@@ -91,7 +91,7 @@
                                     </button>
                                 </td>
                             </tr>
-                            @if(Auth::user() and Auth::user()->isManager())
+                            @if(Auth::user() and Auth::user()->isAdmin())
                                 <tr>
                                     <td colspan="5">
                                         <button class="btn btn-tab btn-block" id="PAGADO">
