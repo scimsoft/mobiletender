@@ -58,8 +58,8 @@ class CheckOutController extends Controller
         $this->setUnprintedTicketLinesAsPrinted($ticket, $ticketID);
         if (config('customoptions.clean_table_after_order') or $ticketID > 50) {
             $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
-
-
+            Session::forget('ticketID');
+            Session::forget('tableNumber');
         }
         return redirect()->route('order');
     }
