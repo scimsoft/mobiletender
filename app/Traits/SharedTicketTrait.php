@@ -34,13 +34,14 @@ trait SharedTicketTrait
 
     public function getOpenOrders(){
 
-        return DB::select('Select * from sharedtickets order by length(id)');
+        return DB::select('Select * from sharedtickets where length(id)<8 order by length(id)');
 
     }
     public function getTicket($table_number)
     {
 
         $existingticketlines = DB::select("Select content from sharedtickets where id ='$table_number'");
+
         $ticketlinenumber = 0;
         $sharedTicket = $this->createEmptyTicket();
         if(count($existingticketlines)>0) {
@@ -90,6 +91,7 @@ trait SharedTicketTrait
 
     public function getSumTicketLines($sharedTicketID){
         $sharedTicket = $this->getTicket($sharedTicketID);
+        //dd($sharedTicket);
         $sum = 0;
         foreach ($sharedTicket->m_aLines as $line){
             $sum+=$line->price;

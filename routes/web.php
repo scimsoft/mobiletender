@@ -3,6 +3,8 @@
 
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminOrderController;
+
+use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
@@ -72,6 +74,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/deletuser/{id}',[AdminOrderController::class, 'deleteuser'])->middleware('is_admin');
     Route::get('/changeusertype/{id}/{type}',[AdminOrderController::class, 'changeUserType'])->middleware('is_admin');
 
+    Route::get('/payments/{id}',[AdminPaymentController::class,'pay'])->middleware('is_manager');
+    Route::get('/paypanel',[AdminPaymentController::class,'paypanel'])->middleware('is_manager');
 
 
     Route::get('/admintable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');

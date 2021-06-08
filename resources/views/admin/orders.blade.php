@@ -29,7 +29,11 @@
                                <td>@money($openSums[$index]*1.1)</td>
                                <td><a href="\admintable\{{$order->id}}" class="btn btn-primary">Ver</a></td>
                                <td><a href="\bill\{{$order->id}}" class="btn btn-danger">La Cuenta</a></td>
-                               <td><a href="\openorders\delete\{{$order->id}}" class="btn btn-danger">Borrar</a></td>
+                               <td>
+                                   @if(Auth::user()->isAdmin())
+                                   <a href="\openorders\delete\{{$order->id}}" class="btn btn-danger">Borrar</a>
+                                       @endif
+                               </td>
 
                            </tr>
                            @endforeach

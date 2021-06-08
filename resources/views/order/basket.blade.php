@@ -48,7 +48,7 @@
                             <td>
 
 
-                                @if($line->attributes->updated == "true" OR (Auth::user() and Auth::user()->isAdmin()))
+                                @if($line->attributes->updated == "true" OR (Auth::user() and Auth::user()->isManager()))
                                     <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-tab add-to-cart btn-add" type="submit">Cancelar</a>
 
                                 @else

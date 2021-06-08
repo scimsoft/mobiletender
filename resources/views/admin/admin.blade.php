@@ -18,39 +18,55 @@
                         <br>
 
                         <div>&nbsp;</div>
-                        <table>
+                        <table class="table">
                             <tr><td>
-                                    <a href="/selecttable" class="btn btn-primary"> Se3lecionar mesa</a> <br>
-                                </td></tr>
+                                    <a href="/selecttable" class="btn btn-primary"> Seleccionar mesa</a> <br>
+                                </td>
+                                <td>&nbsp;</td>
+                            <td>Seleccionar una mesa para atender</td></tr>
 
+                            @if(Auth::user()->isManager())
+                                <tr><td>
+                                        <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
+
+
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>Ver una listado de mesas abiertas</td></tr>
                             <tr><td>
-                                    @if(Auth::user()->isManager())
+
                                     <a href="/products" class="btn btn-primary"> Products</a> <br>
 
-                                </td></tr>
-                            <tr><td>
+                                </td>
+                                <td>&nbsp;</td>
+                            <td>Habilitar y editar productos</td></tr>
+
+
+
+
+                            @endif
+                            @if(Auth::user()->isAdmin())
+                                <tr><td><a href="paypanel" class="btn btn-primary">Cobrar</a></td><td>Cobrar mesas</td></tr>
+                                <tr><td>
 
 
                                         <a href="/categories" class="btn btn-primary"> Categorias (Botones)</a> <br>
 
-                                </td></tr>
-
-
-                            <tr><td>
-                                    <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>
-
-
-                                </td></tr>
-                            @endif
-                            @if(Auth::user()->isAdmin())
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>Habilitar y editar Categorias</td></tr>
                             <tr><td>
                                     <a href="/showusers" class="btn btn-primary"> Usuarios</a><br>
                                     {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}
-                                </td></tr>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>Habilitar y editar Usuarios</td></tr>
                             <tr><td>
                             <a href="/appconfig" class="btn btn-primary"> Demo config</a><br>
                             {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}
-                                </td></tr>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>Editar Config</td></tr>
 
 
 
