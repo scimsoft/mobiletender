@@ -79,6 +79,9 @@
                                 Una buena comida comienza con una gran presentación, abre el apetito de tus clientes
                                 con las fotos de tus productos.
                                 <br><br>
+                                <b>INCLUSION SOCIAL<br></b>
+                                Nuestra webapp es un producto en apolla a la inclusion social, permitiendo la intagracion de personas con descapacidades.
+                                <br><br>
                                 <b>MENÚ DIGITAL MULTIDIOMA<br></b>
                                 Lee el menú digital del restaurante en diferentes idiomas.
                             </div>
