@@ -48,7 +48,7 @@
                             <td>
 
 
-                                @if($line->attributes->updated == "true" OR (Auth::user() and Auth::user()->isAdmin()))
+                                @if($line->attributes->updated == "true" OR (Auth::user() and Auth::user()->isManager()))
                                     <a href="/order/cancelproduct/{{$line->m_iLine}}"  class="btn btn-tab add-to-cart btn-add" type="submit">Cancelar</a>
 
                                 @else
@@ -69,7 +69,7 @@
 
                     </tr>
                     @if(Session::get('tableNumber') && Session::get('tableNumber')<100)
-                        @if(config('customoptions.clean_table_after_order')OR !$unprintedlines)
+                        @if(!$unprintedlines)
                             <tr>
                                 <td colspan="5">
                                     <button class="btn btn-tab btn-block" id="pagarEfectivo">

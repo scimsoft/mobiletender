@@ -87,7 +87,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('basket') }}">
+                                    <a class="dropdown-item" href="{{ route('admin') }}">
                                         {{ __('Home') }}
                                     </a>
 
