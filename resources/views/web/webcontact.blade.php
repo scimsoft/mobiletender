@@ -14,15 +14,17 @@
                             <h5>LLAMANOS</h5>
                             +34 669698577
                             <h5>o escribenos</h5>
-                            horecalo@gmail.com
+                            horecaloapp@gmail.com
 
 
                         </div>
                     </div>
-                    <div class="card-body">
-
-
+                    <div class="card-footer">
+                        <div class="col-md-12">
+                            <img src="/img/web/123banner.gif" class="img-fluid">
+                        </div>
                     </div>
+
 
                 </div>
             </div>

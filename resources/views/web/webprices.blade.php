@@ -10,117 +10,37 @@
                         <div>&nbsp;</div>
                         <img src="/img/horecalologo.png" class="img-fluid mx-auto d-block">
                         <div class="text-center">
-                            <h4>Contratos</h4>
+                            <h4>Precio</h4>
                             <h6></h6>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive p-0 m-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="h4 strong">  En 72 horas puede estar 100% funcionando.                                                        </div>
 
-                            <tr>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <b>1. Manda tu menu<br></b>
+                                    Nos encargamos de configurar la webapp con tus productos<br>
+                                    <br>
+                                    <b>2. Manda el nombre de Red Wifi y Clave<br></b>
+                                    La impresora la mandamos preconfigurada para conectarse a Internet mediante el WIFI.
+                                    <br><br>
+                                    <b>3. En 72 horas recibes tu impresora y tus pegatinas QR<br></b>
+                                    Las pegatinas QR se pegan en las mesas segun su numeracion habitual.
+                                    <br><br>
+                                    <b>4. Enchufa la impresora y LISTO<br></b>
+                                    Una vez enchufada la impresora se puede empezar a recibir pedidos de las mesas
+                                </div>
 
+                            </div>
+                            <div class="card-header">
+                                <div class="h4 strong text-primary">  Por 46€ al mes.                                                        </div>
 
-                                <th   scope="col">&nbsp;</th>
-                                <th scope="col" class="h6 diagonal-label-text p-0 m-0 pb-9"><a href="/web/products/simple" >Simple</a></th>
-                                <th scope="col" class="h6 diagonal-label-text p-0 m-0 pb-9"><a href="/web/products/standard" >Estandard</a></th>
-                                <th scope="col" class="h6 diagonal-label-text p-0 m-0 pb-9"><a href="/web/products/premium" >Premium</a></th>
-                            </tr>
+                            </div>
 
-                            <tr>
-
-                                <td class="h6 border-top-0">&nbsp;</td>
-                                <td class="p-0 m-0 border-top-0">&nbsp;</td>
-                                <td class="p-0 m-0 border-top-0">&nbsp;</td>
-                                <td class="p-0 m-0 border-top-0">&nbsp;</td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">WebApp ICamarera ©</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">Nombre y Logo Personalizado</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td  class="h6">Productos personables</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">'Click&Collect'</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">'Comer aqui'</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">'Delivery'</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6" >Impresora Thermica Internet</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">App ventas por dia</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">POS IHosteleria©</td>
-                                <td  class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-
-                            <tr>
-
-                                <td class="h6">Business Intelligence</td>
-                                <td  class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0"><img src="/img/web/green-check-mark.png" class="img-fluid"></td>
-                            </tr>
-                            <tr>
-
-                                <td class="h6">&nbsp;</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                                <td class="p-0 m-0">&nbsp;</td>
-                            </tr>
-                            <tr>
-
-                                <td  class="p-0 m-0">Precios</td>
-                                <td  class="p-0 m-0">5€ / mes</td>
-                                <td  class="p-0 m-0">45€ / mes</td>
-                                <td  class="p-0 m-0">150€ / mes</td>
-                            </tr>
-
-
-                        </table>
 
 
                     </div>

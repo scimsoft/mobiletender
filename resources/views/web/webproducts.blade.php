@@ -9,20 +9,16 @@
                         <div>&nbsp;</div>
                         <img src="/img/horecalologo.png" class="img-fluid mx-auto d-block">
                         <div class="text-center">
-                            <h4>Paquetes</h4>
+                            <h4>Servicio de Mesa digital</h4>
                             <h5></h5>
 
                         </div>
                     </div>
                     <div class="card-body">
-                        <a href="/web/products/standard" class="h5">Paquete Estandard</a>
-                        <h6>El cliente escanea el codigo QR inteligente, que le abre directamente la carta digital con su mesa configurada. Hace una seleccion desde la carta digital y cursa el pedido. En la barra y/o cocina salen los tickets de los pedidos para que los camareros lo sirven.</h6>
+                        <a href="/web/products/standard" class="h5">Horecalo</a>
+                        <h5>El cliente escanea el codigo QR inteligente, que le abre directamente la carta digital de su de mesa. El cliente hace una seleccion de sus prodcutos y cursa el pedido. En la barra y/o cocina salen los tickets de los pedidos para que los camareros lo sirven.</h5>
 
-                        <a href="/web/products/premium" class="h5">Paquete Premium</a>
-                        <h6>100% integrado en nuestro TPV, con sus modulos de stock, reservas, informes. Haz lo que los clientes piden  se integra con el TPV a 100%. Haz que sus camareras pueden usar cualquier dispositivo con interet para tomar nota, corregir pedidos de los clientes.</h6>
-                        <h6>Permite ofrecer a sus clientes que piden desde la mesa, en su casa para recoger o para que se lo llevan.</h6>
 
-                        <h6>Haz que cada persona en la mesa puede añadir sus propias gustas, comentarias y ver y pedir la cuenta todo desde su movil.</h6>
 
                     </div>
                     <style type="text/css">
@@ -65,7 +61,11 @@
                             </div>
                             <div>&nbsp;</div>
                             <div>&nbsp;</div>
+                        </div>
+                            <div class="card-header">
                             <div class="h5 strong">BENEFICIOS para los CLIENTES</div>
+                            </div>
+                        <div class="card-body">
                             <div>
                                 <b>REDUCE LOS TIEMPOS DE ESPERA<br></b>
                                 Consulta el menú digital con los productos, imágenes e ingredientes al llegar al

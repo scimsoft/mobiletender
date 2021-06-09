@@ -69,9 +69,7 @@
                     <li class="nav-item">
                         <a href="/order" class="nav-link "><div class="font-weight-bold">Probar</div></a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/web/products" class="nav-link">Comprar</a>
-                    </li>
+
                     <li class="nav-item">
                         <a href="/web/contact" class="nav-link">Contacto</a>
                     </li>

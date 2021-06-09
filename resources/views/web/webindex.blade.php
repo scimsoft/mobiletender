@@ -25,7 +25,7 @@
 
                         <div class="text-center mt-4">
                             <h5>
-                                Nuestra webapp para pedir desde el movil, aporta múltiples beneficios tanto a los establecimientos como a los clientes. En una nueva normalidad en la que el distanciamiento social, las medidas higiénicas y la capacidad de adaptación a este entorno son claves, nuestra plataforma ofrece una solución con múltiples beneficios.
+                                Nuestra webapp ofrese la posibilidad para que sus clientes piden directamente desde su movil. Asi la nuetsra webapp aporta múltiples beneficios tanto a los establecimientos como a los clientes. En una nueva normalidad en la que el distanciamiento social, las medidas higiénicas y la capacidad de adaptación a este entorno son claves, nuestra plataforma ofrece una solución con múltiples beneficios.
                             </h5>
                         </div>
                         <div class="text-center mt-4">
