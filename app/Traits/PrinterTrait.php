@@ -69,6 +69,7 @@ trait PrinterTrait
         //$this->printer->text("__________________________________________________________\n");
         $this->printer->text("----------------------------------------------------------\n");
         $this->printProdcutLines($lines);
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "p" . chr(48) . chr(60).chr(120));
         $this->printFooter();
 
 
