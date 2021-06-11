@@ -28,7 +28,7 @@ trait PrinterTrait
     public function printTicket($header, $lines,$printernumber=1)
     {
         $this->connectToPrinter($printernumber);
-        $this->printHeader($header,2,'ticketlogo');
+        $this->printHeader($header,2,'app.ticketlogo');
 
         foreach ($lines as $line) {
             //Log::debug('printline: ' . $line->attributes->product->name);
