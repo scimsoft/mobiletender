@@ -91,15 +91,7 @@
                                     </button>
                                 </td>
                             </tr>
-                            @if(Auth::user() and Auth::user()->isManager())
-                                <tr>
-                                    <td colspan="5">
-                                        <button class="btn btn-tab btn-block" id="PAGADO">
-                                            PAGADO
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endif
+
                         @else
                             <tr>
                                 <td colspan="5">
