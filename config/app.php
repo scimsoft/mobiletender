@@ -17,6 +17,8 @@ return [
 
     'logo' => env('APP_LOGO', '/img/logo.png'),
 
+    'ticketlogo' => env('TICKET_LOGO', '/img/logo.png'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
