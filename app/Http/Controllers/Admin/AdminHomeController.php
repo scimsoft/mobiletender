@@ -95,12 +95,12 @@ class AdminHomeController extends Controller
     public function selectTableNr(){
         $places = DB::select('select id,name from places order by ABS(id)');
         $opentickets = DB::select('select * from sharedtickets');
-        $array = [];
+        $openTicket = [];
         foreach ( $opentickets as $openticket) {
-            $array[] = $openticket->id;
+            $openTicket[] = $openticket->id;
         }
 
-        return view ('admin.table',compact(['places','array']));
+        return view ('admin.table',compact(['places','openTicket']));
     }
 
 

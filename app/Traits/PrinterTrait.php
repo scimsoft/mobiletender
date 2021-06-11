@@ -28,7 +28,7 @@ trait PrinterTrait
     public function printTicket($header, $lines,$printernumber=1)
     {
         $this->connectToPrinter($printernumber);
-        $this->printHeader($header);
+        $this->printHeader($header,2);
 
         foreach ($lines as $line) {
             //Log::debug('printline: ' . $line->attributes->product->name);
@@ -42,26 +42,26 @@ trait PrinterTrait
 
     public function printBill($header, $lines){
         $this->connectToPrinter(1);
-        $this->printHeader($header);
-        $totalPrice = 0;
-        foreach ($lines as $line) {
-
-            $productName = $line->attributes->product->name;
-            //Log::debug('printName: ' . $productName);
-            $productPrice = number_format($line->price*1.1,2,",",".") . " ";
-            $totalPrice += $line->price*1.1;
-            //Log::debug('printPrice: ' . $productPrice);
-            $printtext = $this->columnify($productName, $productPrice,22,12,4);
-            //Log::debug('printline: ' . $printtext);
-            $this->printer->setTextSize(1, 1);
-            $this->printer->text($printtext);
-            //$this->printer->textRaw(mb_convert_encoding($printtext,  "UTF-8"));
-        }
-        $printtext = $this->columnify("TOTAL", number_format($totalPrice,2,",",".")."",22,12,4);
-        $this->printer->text("\n\n");
-        $this->printer->setEmphasis();
-        $this->printer->text($printtext);
+        $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $this->printHeader($header,2);
+        $this->printProdcutLines($lines);
         $this->printFooter();
+
+
+    }
+
+    public function printInvoice($header, $lines){
+        $this->connectToPrinter(1);
+        $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $this->printHeader($header,1);
+        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $this->printer->setEmphasis();
+        $this->printer->text($this->columnify('Nombre', 'Precio',40,12,4));
+        //$this->printer->text("__________________________________________________________\n");
+        $this->printer->text("----------------------------------------------------------\n");
+        $this->printProdcutLines($lines);
+        $this->printFooter();
+
 
 
     }
@@ -92,12 +92,12 @@ trait PrinterTrait
      * @param $header
      * @return Printer|void
      */
-    private function printHeader($header)
+    private function printHeader($header,$size)
     {
 
         $logo = EscposImage::load(config('app.logo'));
         $this->printer->bitImage($logo);
-        $this->printer->setTextSize(2, 2);
+        $this->printer->setTextSize($size, $size);
 
         $this->printer->text($header . "\n\n");
 
@@ -137,6 +137,35 @@ trait PrinterTrait
             //dd($allLines);
             return implode("\n",$allLines ) . "\n";
 
+    }
+
+    /**
+     * @param $lines
+     */
+    private function printProdcutLines($lines): void
+    {
+        $totalPrice = 0;
+        foreach ($lines as $line) {
+
+            $productName = $line->attributes->product->name;
+            //Log::debug('printName: ' . $productName);
+            $productPrice = number_format($line->price * 1.1, 2, ",", ".") . " ";
+            $totalPrice += $line->price * 1.1;
+            //Log::debug('printPrice: ' . $productPrice);
+            $printtext = $this->columnify($productName, $productPrice, 40, 12, 4);
+            //Log::debug('printline: ' . $printtext);
+            $this->printer->setTextSize(1, 1);
+            $this->printer->text($printtext);
+            //$this->printer->textRaw(mb_convert_encoding($printtext,  "UTF-8"));
+        }
+        //$this->printer->text("----------------------------------------------------------\n");
+        $this->printer->text("==========================================================\n");
+        $this->printer->text($this->columnify('IVA', number_format($totalPrice*0.1, 2, ",", ".") .' €', 40, 12, 4));
+        $this->printer->setTextSize(2, 2);
+        $printtext = $this->columnify("TOTAL", number_format($totalPrice, 2, ",", ".") . "", 15, 12, 4);
+        //$this->printer->text("\n\n");
+        $this->printer->setEmphasis();
+        $this->printer->text($printtext);
     }
 
 

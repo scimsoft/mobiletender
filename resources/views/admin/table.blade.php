@@ -16,17 +16,13 @@
                     @endif
                     <div class="col-centered" > <h4 >Selecionar una mesa</h4></div>
                         <br>
-                        <select onchange="location = '/order/table/'+ this.value;" class="form-control" >
-                        @foreach($places as $place)
-                            <option value="{{$place->id}}">{{$place->name}}</option>
-                        @endforeach
-                        </select>
+
 
                         @foreach($places as $place)
 
                             <a href="/order/table/{{$place->id}}"
 
-                               @if(in_array($place->id, $array))
+                               @if(in_array($place->id, $openTicket))
                                class="btn btn-danger btn-lg mt-5 "
                                @else
                                class="btn btn-secondary btn-lg mt-5 "

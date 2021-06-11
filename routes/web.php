@@ -75,7 +75,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/changeusertype/{id}/{type}',[AdminOrderController::class, 'changeUserType'])->middleware('is_admin');
 
     Route::get('/payments/{id}',[AdminPaymentController::class,'pay'])->middleware('is_manager');
-    Route::get('/paypanel',[AdminPaymentController::class,'paypanel'])->middleware('is_manager');
+    Route::get('/payed/{id}/{mode}',[AdminPaymentController::class,'payed'])->middleware('is_manager');
+    Route::get('/paypanel',[AdminPaymentController::class,'paypanel'])->middleware('is_manager')->name('paypanel');
 
 
     Route::get('/admintable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
