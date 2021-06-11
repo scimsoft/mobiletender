@@ -28,7 +28,7 @@ trait PrinterTrait
     public function printTicket($header, $lines,$printernumber=1)
     {
         $this->connectToPrinter($printernumber);
-        $this->printHeader($header,2);
+        $this->printHeader($header,2,'ticketlogo');
 
         foreach ($lines as $line) {
             //Log::debug('printline: ' . $line->attributes->product->name);
@@ -43,7 +43,7 @@ trait PrinterTrait
     public function printBill($header, $lines){
         $this->connectToPrinter(1);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,2);
+        $this->printHeader($header,2,'app.logo');
         $this->printProdcutLines($lines);
         $this->printFooter();
 
@@ -54,7 +54,7 @@ trait PrinterTrait
         $this->connectToPrinter(1);
         $this->printer -> pulse(0,148,49);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,1);
+        $this->printHeader($header,1,'app.ticketlogo');
 
         $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
         $this->printer->setEmphasis();
@@ -94,10 +94,10 @@ trait PrinterTrait
      * @param $header
      * @return Printer|void
      */
-    private function printHeader($header,$size)
+    private function printHeader($header,$size,$logokey)
     {
 
-        $logo = EscposImage::load(config('app.logo'));
+        $logo = EscposImage::load(config($logokey));
         $this->printer->bitImage($logo);
         $this->printer->setTextSize($size, $size);
 
