@@ -43,7 +43,7 @@ trait PrinterTrait
     public function printBill($header, $lines){
         $this->connectToPrinter(1);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,2,'app.logo');
+        $this->printHeader($header,2,'app.ticketlogo');
         $this->printProdcutLines($lines);
         $this->printFooter();
 
