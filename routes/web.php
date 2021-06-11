@@ -63,6 +63,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkout/printOrderTarjeta/{id}', [CheckOutController::class, 'printOrderTarjeta']);
     Route::get('/checkout/printOrderOnline/{id}', [CheckOutController::class, 'printOrderOnline']);
     Route::get('/checkout/printOrderPagado/{id}', [CheckOutController::class, 'printOrderPagado']);
+    Route::get('/checkout/printOrderTicket/{id}', [CheckOutController::class, 'printOrderTicket']);
+
 
     Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin')->middleware('is_waiter');
     Route::get('/appconfig', [AdminHomeController::class, 'appconfig'])->middleware('is_admin');

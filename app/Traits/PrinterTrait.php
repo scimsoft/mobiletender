@@ -52,13 +52,8 @@ trait PrinterTrait
 
     public function printInvoice($header, $lines){
         $this->connectToPrinter(1);
-        $this->printer->pulse(0, 25, 250) ;
-        $this->printer -> pulse();
-        $this->printer-> pulse(1);
-        $this->printer -> pulse(0, 100, 100);
-        $this->printer -> pulse(0, 300, 300);
-        $this->printer -> pulse(1, 100, 100);
-        $this->printer -> pulse(1, 300, 300);
+        $this->printer -> pulse(0,148,49);
+
 
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader($header,1);
@@ -69,7 +64,6 @@ trait PrinterTrait
         //$this->printer->text("__________________________________________________________\n");
         $this->printer->text("----------------------------------------------------------\n");
         $this->printProdcutLines($lines);
-        $this->printer->getPrintConnector()->write(PRINTER::ESC . "p" . chr(48) . chr(60).chr(120));
         $this->printFooter();
 
 

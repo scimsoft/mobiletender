@@ -119,6 +119,14 @@ class CheckOutController extends Controller
         return redirect()->route('order');
     }
 
+    public function printOrderTicket($ticketID)
+    {
+        $this->footer = " ";
+        $this->printFastOrder($ticketID);
+
+        return redirect()->route('paypanel');
+    }
+
     public function printOrderPagado($ticketID){
         $this->footer = 'PAGADO Online';
         $this->printOrder($ticketID);

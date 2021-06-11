@@ -64,26 +64,35 @@
                         <td>&nbsp;</td>
 
 
+
                     </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a href="/checkout/printOrderTicket/{{$tableId}}" class="btn btn-tab btn-block" id="pagarEfectivo">
+                               TICKET
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
 
                             <tr>
                                 <td colspan="5">
                                     <a href="/payed/{{$tableId}}/cash" class="btn btn-tab btn-block" id="pagarEfectivo">
-                                        Pagar en efectivo
+                                        Cobrar en efectivo
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="5">
                                     <a href="/payed/{{$tableId}}/tarjeta" class="btn btn-tab btn-block" id="pagarTarjeta">
-                                        Pagar con tarjeta
+                                        Cobrar con tarjeta
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="5">
                                     <a href="/payed/{{$tableId}}/bank" class="btn btn-tab btn-block" id="pagarOnline">
-                                        Pagar online
+                                        Cobrar online
                                     </a>
                                 </td>
                             </tr>
