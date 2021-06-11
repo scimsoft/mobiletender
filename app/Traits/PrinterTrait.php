@@ -28,7 +28,7 @@ trait PrinterTrait
     public function printTicket($header, $lines,$printernumber=1)
     {
         $this->connectToPrinter($printernumber);
-        $this->printHeader($header,2,'app.logo');
+        $this->printHeader($header,2,'app.ticketlogo');
 
         foreach ($lines as $line) {
             //Log::debug('printline: ' . $line->attributes->product->name);
@@ -43,7 +43,7 @@ trait PrinterTrait
     public function printBill($header, $lines){
         $this->connectToPrinter(1);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,2,'app.logo');
+        $this->printHeader($header,2,'app.ticketlogo');
         $this->printProdcutLines($lines);
         $this->printFooter();
 
@@ -54,7 +54,7 @@ trait PrinterTrait
         $this->connectToPrinter(1);
         $this->printer -> pulse(0,148,49);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,1,'app.ticketlogo');
+        $this->printHeader($header,1,'app.logo');
 
         $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
         $this->printer->setEmphasis();
