@@ -52,9 +52,10 @@ trait PrinterTrait
 
     public function printInvoice($header, $lines){
         $this->connectToPrinter(1);
+        $this->printer->pulse(0, 25, 250) ;
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader($header,1);
-        $this->printer->pulse() ;
+
         $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
         $this->printer->setEmphasis();
         $this->printer->text($this->columnify('Nombre', 'Precio',40,12,4));
