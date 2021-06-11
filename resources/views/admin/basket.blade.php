@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.reg')
 
 @section('content')
 
@@ -22,7 +22,7 @@
                             </div>
                         @endif
 
-
+<div><a href="javascript:history.back()" class="btn btn-primary">Volver</a></div>
 
                 <table id="products-table" class="table middleTable">
                     <thead class="position-sticky">
