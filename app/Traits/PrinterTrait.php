@@ -53,6 +53,13 @@ trait PrinterTrait
     public function printInvoice($header, $lines){
         $this->connectToPrinter(1);
         $this->printer->pulse(0, 25, 250) ;
+        $this->printer -> pulse();
+        $this->printer-> pulse(1);
+        $this->printer -> pulse(0, 100, 100);
+        $this->printer -> pulse(0, 300, 300);
+        $this->printer -> pulse(1, 100, 100);
+        $this->printer -> pulse(1, 300, 300);
+
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader($header,1);
 
