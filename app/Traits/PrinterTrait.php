@@ -9,8 +9,10 @@
 namespace App\Traits;
 
 
+use Carbon\Carbon;
 use function config;
 use function e;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
 use function is_array;
 use Mike42\Escpos\CapabilityProfile;
@@ -25,86 +27,75 @@ trait PrinterTrait
 
     protected $printer;
     protected $footer = '';
-    public function printTicket($header, $lines,$printernumber=1)
+    public function printOrder($header, $lines, $printernumber=1)
     {
-        $this->connectToPrinter($printernumber);
-        $this->printHeader($header,2,'app.logo');
 
+        $this->connectToPrinter($printernumber);
+        //$this->printLogo('app.logo');
+        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $this->printHeader($header,2);
         foreach ($lines as $line) {
-            //Log::debug('printline: ' . $line->attributes->product->name);
             $this->printer->setTextSize(2, 2);
             $this->printer->text($line->attributes->product->name . "\n");
-            //$this->printer->textRaw(mb_convert_encoding($line->attributes->product->name . "\n",  "CP1252"));
-        }
+            }
         $this->printFooter();
         return true;
     }
 
-    public function printBill($header, $lines){
+    public function printTicket($header, $lines){
         $this->connectToPrinter(1);
-        $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,2,'app.logo');
-        $this->printProdcutLines($lines);
+
+        $this->printLogo('app.logo');
+        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $this->printHeader($header,2);
+        $this->printProductLinesAndPrices($lines);
         $this->printFooter();
+    }
 
-
+    public function printClosedCash( $lines){
+        $this->connectToPrinter(1);
+        $this->printLogo('app.logo');
+        $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $this->printHeader("Closed Cash Report \n " ,2);
+        $this->printTwoColumnHeader();
+        $total= $this->printTwoColumnLines($lines);
+        $this->printTwoClumnFooter($total);
+        $this->printFooter();
     }
 
     public function printInvoice($header, $lines){
+
         $this->connectToPrinter(1);
+
         $this->printer -> pulse(0,148,49);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $this->printHeader($header,1,'app.ticketlogo');
+        $this->printLogo('app.ticketlogo');
+        $this->printHeader($header,1);
 
-        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
-        $this->printer->setEmphasis();
-        $this->printer->text($this->columnify('Nombre', 'Precio',40,12,4));
-        //$this->printer->text("__________________________________________________________\n");
-        $this->printer->text("----------------------------------------------------------\n");
-        $this->printProdcutLines($lines);
+        $this->printProductLinesAndPrices($lines);
+
+        $this->footer = "\n\nGracias por la visita \n Siguenos en @PlayaAlta. \n\n\n horecalo.com";
         $this->printFooter();
-
-
-
-    }
-
-    public function connectToPrinter($printernumber)
-    {
-        try {
-            Log::debug('ip:' . config('app.printer-ip'));
-
-            $printerIP = explode(',',config('app.printer-ip'));
-            $printerPort = explode(',',config('app.printer-port'));
-
-            $connector = new NetworkPrintConnector($printerIP[$printernumber-1], $printerPort[$printernumber-1], 3);
-         //   $profile = CapabilityProfile::load('xp-n160ii');
-            $this->printer = new Printer($connector);
-          //  $printer->selectCharacterTable(6);
-            $this->printer->selectPrintMode(Printer::MODE_FONT_B);
-
-
-        } catch (Throwable $e) {
-
-            Session('status', 'No se puede imprimir el pedido, avisa a la camarera por favor');
-            return abort('503', 'No se puede imprimir el pedido, avisa a la camarera por favor');
-        }
     }
 
     /**
      * @param $header
      * @return Printer|void
      */
-    private function printHeader($header,$size,$logokey)
+    private function printHeader($header,$size)
     {
 
+        $this->printer->setTextSize($size, $size);
+        $this->printer->text($header . "\n");
+    }
+
+    private function printLogo($logokey){
+        $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $logo = EscposImage::load(config($logokey));
         $this->printer->bitImage($logo);
-        $this->printer->setTextSize($size, $size);
-
-        $this->printer->text($header . "\n\n");
-
-
     }
+
+
 
 
 
@@ -115,13 +106,72 @@ trait PrinterTrait
     private function printFooter(): void
     {
 
-        $this->printer->setJustification(Printer::JUSTIFY_CENTER);
+        $this->printer->setTextSize(1, 1);
         $this->printer->text($this->footer . "\n\n");
         $this->printer->cut();
         $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
         $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
         $this->printer->close();
     }
+
+
+    /**
+     * @param $lines
+     */
+    private function printProductLinesAndPrices($lines): void
+    {
+        $this->printTwoColumnHeader();
+        $totalPrice = 0;
+        $this->printer->setTextSize(1, 1);
+        foreach ($lines as $line) {
+            $productName = $line->attributes->product->name;
+            $productPrice = number_format($line->price * 1.1, 2, ",", ".") . " ";
+            $totalPrice += $line->price * 1.1;
+            $printtext = $this->columnify($productName, $productPrice, 40, 12, 4);
+            $this->printer->text($printtext);
+        }
+        $this->printTwoClumnFooter($totalPrice);
+    }
+
+    private function printTwoColumnLines($lines)
+    {
+
+        $totalPrice = 0;
+        $this->printer->setTextSize(1, 1);
+        foreach ($lines as $line) {
+            $totalPrice += $line->total;
+            $printtext = $this->columnify($line->payment, $line->total, 40, 12, 4);
+            $this->printer->text($printtext);
+        }
+        return $totalPrice;
+    }
+
+    public function connectToPrinter($printernumber)
+    {
+        try {
+            Log::debug('ip:' . config('app.printer-ip'));
+
+            $printerIP = explode(',',config('app.printer-ip'));
+            $printerPort = explode(',',config('app.printer-port'));
+            $connector = new NetworkPrintConnector($printerIP[$printernumber-1], $printerPort[$printernumber-1], 3);
+         //   $profile = CapabilityProfile::load('xp-n160ii');
+            $this->printer = new Printer($connector);
+            $this->printer->selectCharacterTable(1);
+            $this->printer->selectPrintMode(Printer::MODE_FONT_B);
+
+
+        } catch (Throwable $e) {
+
+            Session('status', 'No se puede imprimir el pedido, avisa a la camarera por favor');
+            return abort('503', 'No se puede imprimir el pedido, avisa a la camarera por favor');
+        }
+    }
+
+
+
+
+
+
 
     private function columnify($leftCol, $rightCol, $leftWidth, $rightWidth, $space = 4)
     {
@@ -136,39 +186,32 @@ trait PrinterTrait
             $rightPart = str_pad(isset($rightLines[$i]) ? $rightLines[$i] : "", $rightWidth, " ");
             $allLines[] = $leftPart . str_repeat(" ", $space) . $rightPart;
         }
-            //dd($allLines);
-            return implode("\n",$allLines ) . "\n";
+        //dd($allLines);
+        return implode("\n",$allLines ) . "\n";
 
+    }
+
+    private function printTwoColumnHeader(): void
+    {
+        $this->printer->setJustification(Printer::JUSTIFY_LEFT);
+        $this->printer->setTextSize(1, 1);
+        $this->printer->setEmphasis();
+
+        $this->printer->text($this->columnify('Nombre', 'Precio', 40, 12, 4));
+        $this->printer->text("----------------------------------------------------------\n");
     }
 
     /**
-     * @param $lines
+     * @param $totalPrice
      */
-    private function printProdcutLines($lines): void
+    private function printTwoClumnFooter($totalPrice): void
     {
-        $totalPrice = 0;
-        foreach ($lines as $line) {
-
-            $productName = $line->attributes->product->name;
-            //Log::debug('printName: ' . $productName);
-            $productPrice = number_format($line->price * 1.1, 2, ",", ".") . " ";
-            $totalPrice += $line->price * 1.1;
-            //Log::debug('printPrice: ' . $productPrice);
-            $printtext = $this->columnify($productName, $productPrice, 40, 12, 4);
-            //Log::debug('printline: ' . $printtext);
-            $this->printer->setTextSize(1, 1);
-            $this->printer->text($printtext);
-            //$this->printer->textRaw(mb_convert_encoding($printtext,  "UTF-8"));
-        }
-        //$this->printer->text("----------------------------------------------------------\n");
         $this->printer->text("==========================================================\n");
-        $this->printer->text($this->columnify('IVA', number_format($totalPrice*0.1, 2, ",", ".") .' €', 40, 12, 4));
+        $this->printer->text($this->columnify('IVA', number_format($totalPrice * 0.1, 2, ",", ".") . '', 40, 12, 4));
         $this->printer->setTextSize(2, 2);
         $printtext = $this->columnify("TOTAL", number_format($totalPrice, 2, ",", ".") . "", 15, 12, 4);
-        //$this->printer->text("\n\n");
         $this->printer->setEmphasis();
         $this->printer->text($printtext);
     }
-
 
 }

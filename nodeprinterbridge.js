@@ -31,6 +31,10 @@ var printerserver = net.createServer(function(printersocket) {
         console.log('printersocket timeout');
         printersocket.write("\x00");
     });
+    printersocket.on('data', function(data) {
+        console.log('printerdata:', data);
+    });
+
 
 });
 
@@ -87,6 +91,7 @@ function printPedido(message) {
     // If there are clients remaining then broadcast message
     printers.forEach(function(socket, index, array){
         // Dont send any messages to the sender
+
          socket.write(message);
 
     });

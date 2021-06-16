@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <br>
-                <div class="card-header col-centered"><h1 class="display-3"> Mesas abiertas</h1></div>
+                <div class="card-header col-centered"><h1 class="display-3 text-center"> CAJA</h1></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -15,7 +15,8 @@
                         </div>
                     @endif
 
-                        <a href="paypanel" class="btn btn-primary">refrescar</a>
+                        <a href="paypanel" class="btn btn-primary">Refrescar</a>
+
                         <br>
 
 
@@ -23,7 +24,7 @@
 
                             <a href="/payments/{{$place->id}}"
 
-                               @if(in_array($place->id, $openTicket))
+                               @if(in_array($place->id, $openTicket) and $openTicketSum[$loop->iteration-1] > 0)
                                class="btn btn-danger btn-lg mt-5 "
                                @else
                                class="btn btn-secondary btn-lg mt-5 "

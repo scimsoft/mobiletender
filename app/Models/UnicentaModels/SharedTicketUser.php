@@ -17,7 +17,9 @@ class SharedTicketUser
 
     public function __construct(array $attributes = [])
     {
+        $person = !empty(auth()->user())?$person = auth()->user()->name:'Guest';
+
         $this->m_sId = "1";
-        $this->m_sName="app";
+        $this->m_sName=$person;
     }
 }

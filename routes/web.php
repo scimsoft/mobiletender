@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\AdminOrderController;
 
 use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
@@ -53,17 +53,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/order/addAddonProduct', [OrderController::class, 'addAddOnProduct']);
 
 
-    Route::get('/checkout/', [CheckOutController::class, 'checkout'])->name('checkout');
-    Route::get('/checkout/pickup', [CheckOutController::class, 'setPickUpId']);
-    Route::get('/checkout/pay', [CheckOutController::class, 'pay'])->name('pay');
-    Route::get('/checkout/payed', [CheckOutController::class, 'payed'])->name('payed');
-    Route::get('/checkout/confirmForTable/{id}', [CheckOutController::class, 'confirmForTable']);
-    Route::get('/checkout/printOrder/{id}', [CheckOutController::class, 'printOrder']);
-    Route::get('/checkout/printOrderEfectivo/{id}', [CheckOutController::class, 'printOrderEfectivo']);
-    Route::get('/checkout/printOrderTarjeta/{id}', [CheckOutController::class, 'printOrderTarjeta']);
-    Route::get('/checkout/printOrderOnline/{id}', [CheckOutController::class, 'printOrderOnline']);
-    Route::get('/checkout/printOrderPagado/{id}', [CheckOutController::class, 'printOrderPagado']);
-    Route::get('/checkout/printOrderTicket/{id}', [CheckOutController::class, 'printOrderTicket']);
+    Route::get('/checkout/', [BasketController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/pickup', [BasketController::class, 'setPickUpId']);
+    Route::get('/checkout/pay', [BasketController::class, 'pay'])->name('pay');
+    Route::get('/checkout/payed', [BasketController::class, 'payed'])->name('payed');
+    Route::get('/checkout/confirmForTable/{id}', [BasketController::class, 'confirmForTable']);
+    Route::get('/checkout/printOrder/{id}', [BasketController::class, 'sendOrder']);
+    Route::get('/checkout/printOrderEfectivo/{id}', [BasketController::class, 'printOrderEfectivo']);
+    Route::get('/checkout/printOrderTarjeta/{id}', [BasketController::class, 'printOrderTarjeta']);
+    Route::get('/checkout/printOrderOnline/{id}', [BasketController::class, 'printOrderOnline']);
+    Route::get('/checkout/printOrderPagado/{id}', [BasketController::class, 'printOrderPagado']);
+    Route::get('/checkout/printOrderTicket/{id}', [BasketController::class, 'printTicketfromPayment']);
 
 
     Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin')->middleware('is_waiter');
@@ -76,13 +76,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/deletuser/{id}',[AdminOrderController::class, 'deleteuser'])->middleware('is_admin');
     Route::get('/changeusertype/{id}/{type}',[AdminOrderController::class, 'changeUserType'])->middleware('is_admin');
 
-    Route::get('/payments/{id}',[AdminPaymentController::class,'pay'])->middleware('is_manager');
-    Route::get('/payed/{id}/{mode}',[AdminPaymentController::class,'payed'])->middleware('is_manager');
-    Route::get('/paypanel',[AdminPaymentController::class,'paypanel'])->middleware('is_manager')->name('paypanel');
 
-
-    Route::get('/admintable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
-    Route::get('/bill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');
+    Route::get('/adminvertable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
+    Route::get('/printbill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');
     Route::get('/selecttable',[AdminHomeController::class, 'selectTableNr'])->middleware('is_waiter');
     Route::resource('/products', ProductController::class)->middleware('is_manager');;
     Route::get('/products/list/{id}',[ProductController::class,'getProductList'])->middleware('is_manager');
@@ -97,6 +93,21 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/categories/setparent',[CategoryController::class,'setParentId'])->middleware('is_manager');
     Route::post('/categories/toggleactive',[CategoryController::class,'toggleActive'])->middleware('is_manager');
+
+    Route::get('/payments/{id}',[AdminPaymentController::class,'pay'])->middleware('is_manager');
+    Route::get('/payed/{id}/{mode}',[AdminPaymentController::class,'payed'])->middleware('is_manager');
+    Route::get('/paypanel',[AdminPaymentController::class,'paypanel'])->middleware('is_manager')->name('paypanel');
+
+    Route::get('/closecash',[AdminPaymentController::class,'closecash'])->middleware('is_manager')->name('closecash');
+    Route::get('/printmoney',[AdminPaymentController::class,'printmoney'])->middleware('is_manager')->name('printmoney');
+    Route::get('/closemoney',[AdminPaymentController::class,'closemoney'])->middleware('is_manager')->name('closemoney');
+
+    Route::get('/movements',[AdminPaymentController::class,'movementsIndex'])->middleware('is_manager')->name('movementsIndex');
+    Route::post('/addmovement',[AdminPaymentController::class,'addmovement'])->middleware('is_manager')->name('addmovement');
+
+
+
+
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

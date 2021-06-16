@@ -25,6 +25,7 @@
                                <td>{{$user->email}}</td>
                                <td><select name="type" class="type">
                                        <option  value="{{$user->id}}.admin" {{$user->type == 'admin'  ? 'selected' : ''}}>Admin</option>
+                                       <option  value="{{$user->id}}.finance" {{$user->type == 'finance'  ? 'selected' : ''}}>Caja</option>
                                        <option  value="{{$user->id}}.manager" {{$user->type == 'manager'  ? 'selected' : ''}}>Encargado</option>
                                        <option  value="{{$user->id}}.waiter" {{$user->type == 'waiter'  ? 'selected' : ''}}>Camarera</option>
                                        <option  value="{{$user->id}}.default" {{$user->type == 'default'  ? 'selected' : ''}}></option>

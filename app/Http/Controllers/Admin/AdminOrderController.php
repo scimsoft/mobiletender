@@ -60,10 +60,11 @@ class AdminOrderController extends Controller
 
     public function send_bill($ticketID)
     {
+
         $ticket= $this->getTicket($ticketID);
         $header="Mesa: ".$ticketID;
         try{
-            $this->printBill($header,$ticket->m_aLines);
+            $this->printTicket($header,$ticket->m_aLines);
 
         }catch (\Exception $e){
             Session::flash('error','No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');

@@ -45,8 +45,12 @@
 
 
                             @endif
-                            @if(Auth::user()->isAdmin())
-                                <tr><td><a href="paypanel" class="btn btn-primary">Cobrar</a></td><td>Cobrar mesas</td></tr>
+                            @if(Auth::user()->isFinance())
+                                <tr><td><a href="paypanel" class="btn btn-primary">Cobrar</a></td><td></td><td >Cobrar mesas</td></tr>
+                                <tr><td> <a href="movements" class="btn btn-primary">Movimientos</a></td><td></td><td >Entradas y Salidas de la caja</td></tr>
+                                <tr><td> <a href="closecash" class="btn btn-primary">Cerrar caja</a></td><td></td><td >Cerrar la Caja</td></tr>
+                            @endif
+                                @if(Auth::user()->isAdmin())
                                 <tr><td>
 
 
@@ -55,6 +59,8 @@
                                     </td>
                                     <td>&nbsp;</td>
                                     <td>Habilitar y editar Categorias</td></tr>
+
+
                             <tr><td>
                                     <a href="/showusers" class="btn btn-primary"> Usuarios</a><br>
                                     {{--<a href="/cleanhome" class="btn btn-primary"> Mesas</a>--}}

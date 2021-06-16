@@ -7,8 +7,11 @@
  */
 namespace App\Traits;
 
+use App\Models\UnicentaModels\SharedTicketLines;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
+use Dotenv\Store\File\Reader;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -124,4 +127,63 @@ trait UnicentaPayedTrait
          * */
 
     }
+    public function setLineRemoved(SharedTicketLines $lines){
+        $person = !empty($person = auth()->user()->name)?$person = auth()->user()->name:'Guest';
+        foreach ($lines as $line) {
+            $lineremovedSQL = "INSERT INTO lineremoved (NAME, TICKETID, PRODUCTNAME, UNITS) VALUES($person, $line->m_sTicket, $line->product->name, $line->multiply)";
+            DB::insert($lineremovedSQL);
+        }
+
+
+    }
+
+    public function getClosedCash(){
+        $money = $this->getActiveClosedCashID();
+
+        $totals = DB::select("SELECT payment, sum(total)as total,notes  FROM mobiletender.payments where receipt in (select id from receipts where money = '$money') group by payment,notes order by payment");
+
+        return $totals;
+    }
+
+    public function closeCashDB(){
+        $now = Carbon::now();
+        $closedcash = DB::Select('SELECT money,hostsequence,datestart FROM closedcash where dateend is null')[0];
+        $money = $closedcash->money;
+        $sequence =$closedcash->hostsequence + 1;
+        $startdate = $closedcash->datestart;
+        $this->footer = "From: ".$startdate."\n To:" . Carbon::now();
+
+        DB::update("UPDATE closedcash SET DATEEND = '$now', NOSALES = 0 WHERE MONEY = '$money'");
+        $money = Str::uuid();
+
+        DB::insert("INSERT INTO closedcash(MONEY, HOST, HOSTSEQUENCE, DATESTART, DATEEND) VALUES ('$money', 'HORECALO', $sequence, '$now', NULL)");
+    }
+
+    public function getMovementsLines(){
+        $closedcash = DB::Select('SELECT money,hostsequence,datestart FROM closedcash where dateend is null')[0];
+        $money = $closedcash->money;
+        $movements = DB::select("SELECT * FROM mobiletender.payments where receipt in (select id from receipts where money='$money') AND (payment = 'cashin' OR payment = 'cashout')");
+        return $movements;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getActiveClosedCashID()
+    {
+        $money = DB::Select('SELECT money FROM closedcash where dateend is null')[0]->money;
+        return $money;
+    }
+
+    public function addMovementFromForm($payment,$total,$notes){
+        $money = $this->getActiveClosedCashID();
+        $receiptsID = Str::uuid();
+        $now=Carbon::now();
+        DB::insert("INSERT INTO receipts (ID, MONEY, DATENEW) VALUES ('$receiptsID', '$money', '$now')");
+        $paymentsID = Str::uuid();
+        DB::insert("INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, NOTES) VALUES ('$paymentsID', '$receiptsID', '$payment', $total, '$notes')");
+
+    }
+
+
 }

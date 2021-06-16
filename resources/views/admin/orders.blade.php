@@ -27,8 +27,8 @@
                            <tr>
                                <td> <b>{{$order->id}}</b> </td>
                                <td>@money($openSums[$index]*1.1)</td>
-                               <td><a href="\admintable\{{$order->id}}" class="btn btn-primary">Ver</a></td>
-                               <td><a href="\bill\{{$order->id}}" class="btn btn-danger">La Cuenta</a></td>
+                               <td><a href="\adminvertable\{{$order->id}}" class="btn btn-primary">Ver</a></td>
+                               <td><a href="\printbill\{{$order->id}}" class="btn btn-danger">La Cuenta</a></td>
                                <td>
                                    @if(Auth::user()->isAdmin())
                                    <a href="\openorders\delete\{{$order->id}}" class="btn btn-danger">Borrar</a>

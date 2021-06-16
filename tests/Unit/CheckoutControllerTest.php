@@ -9,7 +9,7 @@
 namespace Tests;
 
 
-use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\UnicentaSharedTicketController;
 use App\Traits\SharedTicketTrait;
 use App\Models\UnicentaModels\Product;
@@ -36,7 +36,7 @@ class CheckoutControllerTest extends TestCase
        foreach ($ticket->m_aLines as $ticketLine) {
            self::assertEquals(true, $ticketLine->attributes->updated);
        }
-       $checkoutController= new CheckOutController();
+       $checkoutController= new BasketController();
        $checkoutController->printOrder(self::TABLENUMBER);
         $ticket = $this->getTicket(self::TABLENUMBER);
         foreach ($ticket->m_aLines as $ticketLine) {

@@ -12,6 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     const ADMIN_TYPE = 'admin';
+    const FINANCE_TYPE = 'finance';
     const MANAGER_TYPE = 'manager';
     const WAITER_TYPE = 'waiter';
 
@@ -49,11 +50,15 @@ class User extends Authenticatable
         return $this->type === self::ADMIN_TYPE;
     }
 
+    public function isFinance(){
+        return $this->type === self::FINANCE_TYPE OR $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
+    }
+
     public function isManager()    {
-        return $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
+        return $this->type === self::FINANCE_TYPE OR $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
     }
 
     public function isWaiter()    {
-        return $this->type === self::WAITER_TYPE OR $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
+        return $this->type === self::FINANCE_TYPE OR $this->type === self::WAITER_TYPE OR $this->type === self::MANAGER_TYPE OR $this->type === self::ADMIN_TYPE;
     }
 }

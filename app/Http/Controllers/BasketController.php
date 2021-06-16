@@ -13,19 +13,19 @@ use Mockery\Exception;
 use function redirect;
 
 
-class CheckOutController extends Controller
+class BasketController extends Controller
 {
     use SharedTicketTrait;
     use PrinterTrait;
-
-    public function checkout()
-    {
-        $sharedTicketID = Session::get('ticketID');
-        $totalBasketPrice = $this->getSumTicketLines($sharedTicketID);
-        $newLinesPrice = $this->getSumNewTicketLines($sharedTicketID);
-        $tablenames = DB::select('select id,name from places order by id');
-        return view('order.checkout', compact(['totalBasketPrice', 'newLinesPrice', 'tablenames']));
-    }
+// Checkout profess integrated in basket handling
+//    public function checkout()
+//    {
+//        $sharedTicketID = Session::get('ticketID');
+//        $totalBasketPrice = $this->getSumTicketLines($sharedTicketID);
+//        $newLinesPrice = $this->getSumNewTicketLines($sharedTicketID);
+//        $tablenames = DB::select('select id,name from places order by id');
+//        return view('order.checkout', compact(['totalBasketPrice', 'newLinesPrice', 'tablenames']));
+//    }
 
     public function confirmForTable($table_number)
     {
@@ -33,34 +33,29 @@ class CheckOutController extends Controller
         $this->moveTable($ticketID, $table_number);
         Session::put('tableNumber', $table_number);
         Session::put('ticketID', $table_number);
-        return $this->printOrder($table_number);
+        return $this->sendOrder($table_number);
     }
 
-    public function printOrder($ticketID)
+    public function sendOrder($ticketID)
     {
+
         $ticket = $this->getTicket($ticketID);
-        $toPrintLines = $this->getUnprintedTicetLines($ticket);
+        $unprintedTicetLines = $this->getUnprintedTicetLines($ticket);
+
         if($ticketID > 100){
             $header = "NrPedido: " . $ticketID;
         }else{
             $header = "MESA: " . $ticketID;
         }
+        $this->footer = "Pedido por:" .$ticket->m_User->m_sName;
+
         for($prinernr = 1 ;$prinernr <= config('app.nr-of-printers');$prinernr++){
-            $toprint = collect($toPrintLines)->where('attributes.product.printto', $prinernr)->all();
+            $toprint = collect($unprintedTicetLines)->where('attributes.product.printto', $prinernr)->all();
+
             if(!empty($toprint))$this->sendLinesToSelectedPrinter($header, $toprint,$prinernr );
     }
-
-
-
-
-        Session::flash('status', 'Su pedido se esta preparando');
-
         $this->setUnprintedTicketLinesAsPrinted($ticket, $ticketID);
-        if (config('customoptions.clean_table_after_order') or $ticketID > 50) {
-            $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
-            Session::forget('ticketID');
-            Session::forget('tableNumber');
-        }
+        $this->afterPrintOrderHandling($ticketID);
         return redirect()->route('order');
     }
     /**
@@ -70,29 +65,19 @@ class CheckOutController extends Controller
      */
     private function sendLinesToSelectedPrinter($header, $toPrintLines,$printerNumber)
     {
+
         try {
-            $this->printTicket($header, $toPrintLines,$printerNumber);
+            $this->printOrder($header, $toPrintLines,$printerNumber);
+            Session::flash('status', 'Su pedido se esta preparando');
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
             Log::error("Error Printing printerbridge error msg:" . $e);
             return redirect()->route('basket');
         }
-        Log::debug('return from printOrder');
+
     }
 
-    private function getUnprintedTicetLines(SharedTicket $ticket)
-    {
-        $lines_to_print = null;
-        foreach ($ticket->m_aLines as $ticket_line) {
-            // Log::debug('line updated:'.$ticket_line->attributes->updated);
-            if ($ticket_line->attributes->updated == 1) {
-                $lines_to_print[] = $ticket_line;
 
-            }
-        }
-
-        return $lines_to_print;
-    }
 
     /**
      * @param $ticket_lines
@@ -114,17 +99,9 @@ class CheckOutController extends Controller
     public function printOrderEfectivo($ticketID)
     {
         $this->footer = 'PAGAR en Efectivo';
-        $this->printFastOrder($ticketID);
+        $this->printOrderAndReceipt($ticketID);
         Session::flash('status', 'Su cuenta esta pedida');
         return redirect()->route('order');
-    }
-
-    public function printOrderTicket($ticketID)
-    {
-        $this->footer = " ";
-        $this->printFastOrder($ticketID);
-
-        return redirect()->route('paypanel');
     }
 
     public function printOrderPagado($ticketID){
@@ -134,14 +111,12 @@ class CheckOutController extends Controller
         return redirect()->route('order');
     }
 
-    public function printFastOrder($ticketID)
+    public function printOrderAndReceipt($ticketID)
     {
-
         $ticket = $this->getTicket($ticketID);
         $header = "Mesa: " . $ticketID;
         try {
-            $this->printBill($header, $this->getTicketLines($ticketID));
-
+            $this->printTicket($header, $this->getTicketLines($ticketID));
 
         } catch (\Exception $e) {
             Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
@@ -158,7 +133,7 @@ class CheckOutController extends Controller
     public function printOrderTarjeta($ticketID)
     {
         $this->footer = 'PAGAR con Tarjeta';
-        $this->printFastOrder($ticketID);
+        $this->printOrderAndReceipt($ticketID);
         Session::flash('status', 'Su cuenta esta pedida');
         return redirect()->route('order');
     }
@@ -166,11 +141,15 @@ class CheckOutController extends Controller
     public function printOrderOnline($ticketID)
     {
         $this->footer = 'PAGADO online';
-        $this->printFastOrder($ticketID);
+        $this->printOrderAndReceipt($ticketID);
         Session::flash('status', 'Su cuenta esta pagado');
         return redirect()->route('order');
     }
-
+    public function printTicketfromPayment($ticketID)
+    {
+        $this->printOrderAndReceipt($ticketID);
+        return redirect()->route('paypanel');
+    }
     public function setPickUpId()
     {
         $pickup_ID = DB::table('pickup_number')->max('id');
@@ -197,12 +176,31 @@ class CheckOutController extends Controller
     public function payed()
     {
         $sharedTicketID = Session::get('ticketID');
-
-
         return redirect()->route('deleteTable',$sharedTicketID);
     }
 
+    private function getUnprintedTicetLines(SharedTicket $ticket)
+    {
+        $lines_to_print = null;
+        foreach ($ticket->m_aLines as $ticket_line) {
+            if ($ticket_line->attributes->updated == 1) {
+                $lines_to_print[] = $ticket_line;
+            }
+        }
+        return $lines_to_print;
+    }
 
+    /**
+     * @param $ticketID
+     */
+    private function afterPrintOrderHandling($ticketID): void
+    {
+        if (config('customoptions.clean_table_after_order') or $ticketID > 100) {
+            $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+            Session::forget('ticketID');
+            Session::forget('tableNumber');
+        }
+    }
 
 
 }

@@ -8,7 +8,7 @@
             <div class="card">
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
-                <div class="card-header text-center"><h4>Cuenta</h4></div>
+                <div class="card-header text-center"><h4>Cuenta mesa {{$tableId}}</h4></div>
 
                 <div class="card-body text-center">
                     @if (session('status'))
@@ -22,8 +22,9 @@
                             </div>
                         @endif
 
-<div><a href="javascript:history.back()" class="btn btn-primary">Volver</a></div>
-
+<div><a href="javascript:history.back()" class="btn btn-primary">Volver</a>
+<!--a href="/order/table/{{$tableId}}" target="_blank" class="btn btn-primary">Añadir prodcutos</a--> </div>
+<br>
                 <table id="products-table" class="table middleTable">
                     <thead class="position-sticky">
 
@@ -66,9 +67,10 @@
 
 
                     </tr>
+                    @if($totalBasketPrice > 0)
                     <tr>
                         <td colspan="5">
-                            <a href="/checkout/printOrderTicket/{{$tableId}}" class="btn btn-tab btn-block" id="pagarEfectivo">
+                            <a href="/checkout/printOrderTicket/{{$tableId}}" class="btn btn-primary btn-block" id="pagarEfectivo">
                                TICKET
                             </a>
                         </td>
@@ -77,26 +79,26 @@
 
                             <tr>
                                 <td colspan="5">
-                                    <a href="/payed/{{$tableId}}/cash" class="btn btn-tab btn-block" id="pagarEfectivo">
+                                    <a href="/payed/{{$tableId}}/cash" class="btn btn-success btn-block" id="pagarEfectivo">
                                         Cobrar en efectivo
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    <a href="/payed/{{$tableId}}/tarjeta" class="btn btn-tab btn-block" id="pagarTarjeta">
+                                    <a href="/payed/{{$tableId}}/tarjeta" class="btn btn-success btn-block" id="pagarTarjeta">
                                         Cobrar con tarjeta
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    <a href="/payed/{{$tableId}}/bank" class="btn btn-tab btn-block" id="pagarOnline">
+                                    <a href="/payed/{{$tableId}}/bank" class="btn btn-success btn-block" id="pagarOnline">
                                         Cobrar online
                                     </a>
                                 </td>
                             </tr>
-
+@endif
 
 
 

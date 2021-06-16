@@ -46,7 +46,7 @@ trait SharedTicketTrait
         $sharedTicket = $this->createEmptyTicket();
         if(count($existingticketlines)>0) {
             $productLists = json_decode($existingticketlines[0]->content)->m_aLines;
-            //dd($existingticketlines[0]);
+
             foreach ($productLists as $productList) {
                 $categoryid = $productList->attributes->{'product.categoryid'};
                 $code = $productList->attributes->{'product.code'};
@@ -81,9 +81,10 @@ trait SharedTicketTrait
 
     public function saveEmptyTicket(SharedTicket $sharedTicket, $table_number)
     {
-
+        $person = !empty(auth()->user())?$person = auth()->user()->name:'Guest';
         //INSERT empty sharedticket
-        $SQLString = "INSERT into sharedtickets VALUES ('".$table_number."','Gerrit','" . json_encode($sharedTicket) . "',0,0,null)";
+        $jsonTicket = json_encode($sharedTicket);
+        $SQLString = "INSERT into sharedtickets VALUES ('$table_number','$person', '$jsonTicket',0,0,null)";
         //Log::debug('INSERT SQLSTRING sharedticket: ' . $SQLString);
         DB::insert($SQLString);
     }
@@ -128,7 +129,9 @@ trait SharedTicketTrait
 
     public function removeTicketLine($table_number, $ticketLineNumber)
     {
+
         $sharedTicket = ($this->getTicket($table_number));
+
         if ($sharedTicket->m_aLines[$ticketLineNumber]->updated) {
             array_splice($sharedTicket->m_aLines, $ticketLineNumber, 1);
             $this->updateOpenTable($sharedTicket, $table_number);
