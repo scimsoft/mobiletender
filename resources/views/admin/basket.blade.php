@@ -22,8 +22,12 @@
                             </div>
                         @endif
 
-<div><a href="javascript:history.back()" class="btn btn-primary">Volver</a>
-<!--a href="/order/table/{{$tableId}}" target="_blank" class="btn btn-primary">Añadir prodcutos</a--> </div>
+                        <div>
+                            <a href="javascript:history.back()" class="btn btn-primary">Volver</a>
+                            <a href="/movefrom/{{$tableId}}" class="btn btn-primary">Mover</a>
+                        </div>
+
+<!--a href="/order/table/{{$tableId}}" target="_blank" class="btn btn-primary">Añadir prodcutos</a-->
 <br>
                 <table id="products-table" class="table middleTable">
                     <thead class="position-sticky">

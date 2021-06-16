@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <br>
-                <div class="card-header col-centered"><h1 class="display-3 text-center"> CAJA</h1></div>
+                <div class="card-header col-centered"><h1 class="display-3 text-center"> Cuentas abiertas</h1></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -15,28 +15,22 @@
                         </div>
                     @endif
 
-                        <a href="paypanel" class="btn btn-primary">Refrescar</a>
 
-
-                        <br>
 
 
                         @foreach($places as $place)
 
-                            <a href="/payments/{{$place->id}}"
+                            <a href="/moveto/{{$fromID}}/{{$place->id}}"
 
-                               @if(in_array($place->id, $openTicket) and $openTicketSum[$loop->iteration-1] > 0)
+                               @if(in_array($place->id, $openTicket))
                                class="btn btn-danger btn-lg mt-5 "
                                @else
                                class="btn btn-secondary btn-lg mt-5 "
                                @endif
-                            >{{$place->name}}
-                                <br>
-
+                            >{{$place->name}}<br>
                                 @if($openTicketSum[$loop->iteration-1] > 0)
-                               @money($openTicketSum[$loop->iteration-1]*1.1)
-                                    @endif
-
+                                    @money($openTicketSum[$loop->iteration-1]*1.1)
+                                @endif
                             </a>
 
                             @endforeach
@@ -52,9 +46,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function () {
-
-
         });
+
 
     </script>
 

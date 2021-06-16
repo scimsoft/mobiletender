@@ -31,6 +31,7 @@ class AdminPaymentController extends Controller
             $openTicketSum[] = $this->getSumTicketLines($place->id);
 
         }
+
         return view ('admin.payment',compact(['places','openTicket','openTicketSum']));
 
     }
@@ -89,6 +90,28 @@ class AdminPaymentController extends Controller
         $notes = $request->notes;
         $this->addMovementFromForm($payment,$total,$notes);
         return $this->movementsIndex();
+        }
+
+        public function movefrom($fromID){
+            $places = DB::select('select id,name from places order by ABS(id)');
+            $tickets = DB::select('select * from sharedtickets where length(id)<3');
+            $openTicket = [];
+            $openTicketSum= [];
+
+            foreach ( $tickets as $ticket) {
+                $openTicket[] = $ticket->id;
+
+            }
+            foreach($places as $place){
+                $openTicketSum[] = $this->getSumTicketLines($place->id);
+
+            }
+        return view ('admin.moveto',compact('places','openTicket','openTicketSum','fromID'));
+        }
+
+        public function moveto($from,$to){
+            $this->moveTable($from,$to);
+            return redirect()->route('paypanel');
         }
 
 
