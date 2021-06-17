@@ -140,7 +140,7 @@ trait UnicentaPayedTrait
     public function getClosedCash(){
         $money = $this->getActiveClosedCashID();
 
-        $totals = DB::select("SELECT payment, sum(total)as total,notes  FROM mobiletender.payments where receipt in (select id from receipts where money = '$money') group by payment,notes order by payment");
+        $totals = DB::select("SELECT payment, sum(total)as total,notes  FROM payments where receipt in (select id from receipts where money = '$money') group by payment,notes order by payment");
 
         return $totals;
     }
