@@ -55,6 +55,7 @@ trait PrinterTrait
 
     public function printClosedCash( $lines){
         $this->connectToPrinter(1);
+        $this->printer -> pulse(0,148,49);
         $this->printLogo('app.logo');
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader("Closed Cash Report \n " ,2);
@@ -76,7 +77,7 @@ trait PrinterTrait
 
         $this->printProductLinesAndPrices($lines);
 
-        $this->footer = "Gracias por la visita y no olvide de siguernos en @PlayaAlta. \n\n Servicio de mesa digital por: horecalo.com";
+        $this->footer = "Gracias por la visita y no olvides seguirnos en @PlayaAlta. \n\n Servicio de mesa digital por: horecalo.com";
         $this->printFooter();
     }
 

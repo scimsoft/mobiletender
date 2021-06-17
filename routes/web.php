@@ -52,6 +52,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/order/cancelproduct/{id}', [OrderController::class, 'cancelProduct']);
     Route::post('/order/addAddonProduct', [OrderController::class, 'addAddOnProduct']);
 
+    Route::get('/order/admincancelproduct/{id}', [OrderController::class, 'admincancelproduct']);
+
 
     Route::get('/checkout/', [BasketController::class, 'checkout'])->name('checkout');
     Route::get('/checkout/pickup', [BasketController::class, 'setPickUpId']);

@@ -107,6 +107,10 @@ class OrderController extends Controller
         return redirect()->route('basket');
     }
 
+    public function admincancelproduct($ticketLine){
+        $this->removeTicketLine(Session::get('ticketID'),$ticketLine);
+        return redirect()->route('paypanel');
+    }
     public function showBasket(){
         $unprintedlines = false;
         $ticketLines=$this->getTicket(Session::get('ticketID'))->m_aLines;
