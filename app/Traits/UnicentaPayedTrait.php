@@ -162,7 +162,7 @@ trait UnicentaPayedTrait
     public function getMovementsLines(){
         $closedcash = DB::Select('SELECT money,hostsequence,datestart FROM closedcash where dateend is null')[0];
         $money = $closedcash->money;
-        $movements = DB::select("SELECT * FROM mobiletender.payments where receipt in (select id from receipts where money='$money') AND (payment = 'cashin' OR payment = 'cashout')");
+        $movements = DB::select("SELECT * FROM payments where receipt in (select id from receipts where money='$money') AND (payment = 'cashin' OR payment = 'cashout')");
         return $movements;
     }
 
