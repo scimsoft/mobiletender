@@ -98,14 +98,14 @@ class BasketController extends Controller
 
     public function printOrderEfectivo($ticketID)
     {
-        $this->footer = 'PAGAR en Efectivo';
+        $this->footer = 'Se pide pagar con EFECTIVO';
         $this->printOrderAndReceipt($ticketID);
         Session::flash('status', 'Su cuenta esta pedida');
         return redirect()->route('order');
     }
 
     public function printOrderPagado($ticketID){
-        $this->footer = 'PAGADO Online';
+        $this->footer = 'La cuenta esta PAGADO Online';
         $this->printOrder($ticketID);
         Session::flash('status', 'Su numero de pedido es el: '. $ticketID );
         return redirect()->route('order');
@@ -132,7 +132,7 @@ class BasketController extends Controller
 
     public function printOrderTarjeta($ticketID)
     {
-        $this->footer = 'PAGAR con Tarjeta';
+        $this->footer = 'Se pide pagar con TARJETA';
         $this->printOrderAndReceipt($ticketID);
         Session::flash('status', 'Su cuenta esta pedida');
         return redirect()->route('order');

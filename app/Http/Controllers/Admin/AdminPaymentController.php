@@ -47,7 +47,7 @@ class AdminPaymentController extends Controller
 
         $lines =  $this->getTicketLines($tableId);
 
-        $header = "Chiringuito Playa Alta \n Paseo de lo Gavilanes s/n \n Isla Canela \n CIF: 29479010W \n +34 618065010 ";
+        $header = "Chiringuito Playa Alta \n CIF: 29479010W \n +34 618065010 ";
 
         $this->printInvoice($header,$lines);
 

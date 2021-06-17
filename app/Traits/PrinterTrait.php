@@ -31,9 +31,10 @@ trait PrinterTrait
     {
 
         $this->connectToPrinter($printernumber);
-        //$this->printLogo('app.logo');
-        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $this->printLogo('app.logo');
+        $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader($header,2);
+        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
         foreach ($lines as $line) {
             $this->printer->setTextSize(2, 2);
             $this->printer->text($line->attributes->product->name . "\n");
@@ -46,7 +47,7 @@ trait PrinterTrait
         $this->connectToPrinter(1);
 
         $this->printLogo('app.logo');
-        $this->printer -> setJustification(Printer::JUSTIFY_LEFT);
+
         $this->printHeader($header,2);
         $this->printProductLinesAndPrices($lines);
         $this->printFooter();
@@ -70,11 +71,12 @@ trait PrinterTrait
         $this->printer -> pulse(0,148,49);
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printLogo('app.ticketlogo');
+
         $this->printHeader($header,1);
 
         $this->printProductLinesAndPrices($lines);
 
-        $this->footer = "\n\nGracias por la visita \n Siguenos en @PlayaAlta. \n\n\n horecalo.com";
+        $this->footer = "Gracias por la visita y no olvide de siguernos en @PlayaAlta. \n\n Servicio de mesa digital por: horecalo.com";
         $this->printFooter();
     }
 
@@ -197,7 +199,7 @@ trait PrinterTrait
         $this->printer->setTextSize(1, 1);
         $this->printer->setEmphasis();
 
-        $this->printer->text($this->columnify('Nombre', 'Precio', 40, 12, 4));
+        $this->printer->text($this->columnify('Producto', 'Precio', 40, 12, 4));
         $this->printer->text("----------------------------------------------------------\n");
     }
 
@@ -209,7 +211,7 @@ trait PrinterTrait
         $this->printer->text("==========================================================\n");
         $this->printer->text($this->columnify('IVA', number_format($totalPrice * 0.1, 2, ",", ".") . '', 40, 12, 4));
         $this->printer->setTextSize(2, 2);
-        $printtext = $this->columnify("TOTAL", number_format($totalPrice, 2, ",", ".") . "", 15, 12, 4);
+        $printtext = $this->columnify("TOTAL", number_format($totalPrice, 2, ",", ".") . "", 18, 12, 4);
         $this->printer->setEmphasis();
         $this->printer->text($printtext);
     }
