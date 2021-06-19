@@ -65,6 +65,18 @@ trait PrinterTrait
         $this->printFooter();
     }
 
+    public function justOpenDrawer($code=1){
+
+        $this->connectToPrinter(1);
+        $this->printer -> pulse(0,148,49);
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
+        $this->printer->getPrintConnector()->write(PRINTER::ESC . "B" . chr(4) . chr(1));
+
+        $this->printer->close();
+
+    }
     public function printInvoice($header, $lines){
 
         $this->connectToPrinter(1);

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Traits\UnicentaPayedTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use function openssl_decrypt;
 use function redirect;
 use function view;
 
@@ -89,6 +90,7 @@ class AdminPaymentController extends Controller
         }
         $notes = $request->notes;
         $this->addMovementFromForm($payment,$total,$notes);
+        $this->justOpenDrawer(1);
         return $this->movementsIndex();
         }
 
@@ -113,6 +115,11 @@ class AdminPaymentController extends Controller
             $this->moveTable($from,$to);
             return redirect()->route('paypanel');
         }
+
+    public function openDrawer(){
+            $this->justOpenDrawer(1);
+        return redirect()->route('paypanel');
+    }
 
 
 }

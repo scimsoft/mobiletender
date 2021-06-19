@@ -14,11 +14,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                        <table class="table table-borderless m-0 p-0">
+                            <tr class="text-center"><td>
                         <a href="paypanel" class="btn btn-primary">Refrescar</a>
+                                </td>
+                            <td>
+                                <!--a href="opendrawer" class="btn btn-primary">Abrir Caja</a-->
+                            </td></tr>
+                        </table>
 
 
-                        <br>
+
 
 
                         @foreach($places as $place)
