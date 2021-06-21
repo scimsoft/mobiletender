@@ -19,12 +19,20 @@
 
                         <div>&nbsp;</div>
                         <table class="table">
+                            @if(Auth::user()->isEmployee())
+                                <tr><td>
+                                        <a href="/controlPresencial" class="btn btn-primary"> Seleccionar mesa</a> <br>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>Checkin o Checkout</td></tr>
+                            @endif
+                            @if(Auth::user()->isWaiter())
                             <tr><td>
                                     <a href="/selecttable" class="btn btn-primary"> Seleccionar mesa</a> <br>
                                 </td>
                                 <td>&nbsp;</td>
                             <td>Seleccionar una mesa para atender</td></tr>
-
+                            @endif
                             @if(Auth::user()->isManager())
                                 <tr><td>
                                         <a href="/openorders" class="btn btn-primary"> Mesas y Pedidos</a><br>

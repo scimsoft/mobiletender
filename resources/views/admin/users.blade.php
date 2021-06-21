@@ -28,6 +28,7 @@
                                        <option  value="{{$user->id}}.finance" {{$user->type == 'finance'  ? 'selected' : ''}}>Caja</option>
                                        <option  value="{{$user->id}}.manager" {{$user->type == 'manager'  ? 'selected' : ''}}>Encargado</option>
                                        <option  value="{{$user->id}}.waiter" {{$user->type == 'waiter'  ? 'selected' : ''}}>Camarera</option>
+                                       <option  value="{{$user->id}}.employee" {{$user->type == 'employee'  ? 'selected' : ''}}>Empleado</option>
                                        <option  value="{{$user->id}}.default" {{$user->type == 'default'  ? 'selected' : ''}}></option>
                                    </select>
 

@@ -12,7 +12,9 @@ use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\ProductImageController;
 
+use App\Http\Controllers\TimeReportController;
 use App\Http\Controllers\Web\WebController;
+use App\Models\TimeReport;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
@@ -66,6 +68,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkout/printOrderOnline/{id}', [BasketController::class, 'printOrderOnline']);
     Route::get('/checkout/printOrderPagado/{id}', [BasketController::class, 'printOrderPagado']);
     Route::get('/checkout/printOrderTicket/{id}', [BasketController::class, 'printTicketfromPayment']);
+
+    Route::get('/timereport',[TimeReportController::class,'index'])->middleware('is_employee');
+    Route::get('/timereport/enter',[TimeReportController::class,'enter'])->middleware('is_employee');
+    Route::get('/timereport/exit',[TimeReportController::class,'exit'])->middleware('is_employee');
+
+
+
 
 
     Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin')->middleware('is_waiter');
