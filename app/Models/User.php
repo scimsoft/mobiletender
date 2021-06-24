@@ -74,7 +74,8 @@ class User extends Authenticatable
     }
 
     public function isEmployee(){
-        return $this->type === self::EMPLOYEE_TYPE OR
+        return
+            $this->type === self::EMPLOYEE_TYPE OR
             $this->type === self::FINANCE_TYPE OR
             $this->type === self::WAITER_TYPE OR
             $this->type === self::MANAGER_TYPE OR

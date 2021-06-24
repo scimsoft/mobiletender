@@ -77,7 +77,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
-    Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin')->middleware('is_waiter');
+    Route::get('/admin', [AdminHomeController::class, 'index'])->name('admin')->middleware('is_employee');
     Route::get('/appconfig', [AdminHomeController::class, 'appconfig'])->middleware('is_admin');
     Route::post('/appconfig', [AdminHomeController::class, 'updateconfig'])->middleware('is_admin');
     Route::get('/openorders', [AdminOrderController::class, 'index'])->middleware('is_manager');

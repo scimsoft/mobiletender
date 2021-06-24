@@ -21,7 +21,7 @@
                         <table class="table">
                             @if(Auth::user()->isEmployee())
                                 <tr><td>
-                                        <a href="/controlPresencial" class="btn btn-primary"> Seleccionar mesa</a> <br>
+                                        <a href="/timereport" class="btn btn-primary"> Marcar Entradad o Salida</a> <br>
                                     </td>
                                     <td>&nbsp;</td>
                                     <td>Checkin o Checkout</td></tr>

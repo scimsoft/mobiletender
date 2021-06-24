@@ -43,7 +43,7 @@
 
                     @if(!is_null($timereport->endtime))
                         <td>{{ \Carbon\Carbon::parse( $timereport->starttime )->diffForHumans( $timereport->endtime,['parts'=> 2,'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE] ) }}</td>
-
+                        
                 @else
                     <td></td>
                         @endif
