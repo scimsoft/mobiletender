@@ -116,6 +116,8 @@ trait SharedTicketTrait
     public function addProductsToTicket($products, $table_number)
     {
         $sharedTicket = $this->getTicket($table_number);
+        $muser = new SharedTicketUser();
+        $sharedTicket->m_User = $muser;
         $numberLines = count($sharedTicket->m_aLines);
         foreach ($products as $product) {
 
