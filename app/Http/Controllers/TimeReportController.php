@@ -21,7 +21,7 @@ class TimeReportController extends Controller
         //
        $timereports= TimeReport::get();
        $lastChecking= TimeReport::where('userId',Auth::user()->id)->where('endtime',null)->first();
-       $isChecking = count(TimeReport::find(Auth::user()->id)->where('endtime',null)->get())>0;
+       $isChecking = count(TimeReport::where('userId',Auth::user()->id)->where('endtime',null)->get())>0;
 //dd($isChecking);
        return view('admin.timereport.index',compact('timereports','isChecking','lastChecking'));
     }
