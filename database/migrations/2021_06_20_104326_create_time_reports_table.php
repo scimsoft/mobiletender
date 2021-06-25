@@ -17,7 +17,7 @@ class CreateTimeReportsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('userId')->index();
-            $table->timestamp('starttime');
+            $table->timestamp('starttime')->nullable();
             $table->timestamp('breakstarttime')->nullable();
             $table->timestamp('breakendtime')->nullable();
             $table->timestamp('endtime')->nullable();
