@@ -23,17 +23,20 @@ class AdminPaymentController extends Controller
         $tickets = DB::select('select * from sharedtickets where length(id)<3');
         $openTicket = [];
         $openTicketSum= [];
+        $ticketWithUnorderditems=[];
 
         foreach ( $tickets as $ticket) {
             $openTicket[] = $ticket->id;
 
+
         }
         foreach($places as $place){
             $openTicketSum[] = $this->getSumTicketLines($place->id);
-
+            $ticketWithUnorderdItems[]= $this->hasUnprintedTicketLines($place->id);
         }
 
-        return view ('admin.payment',compact(['places','openTicket','openTicketSum']));
+
+        return view ('admin.payment',compact(['places','openTicket','openTicketSum','ticketWithUnorderdItems']));
 
     }
     public function pay($tableId){
@@ -58,6 +61,7 @@ class AdminPaymentController extends Controller
 
     public function closecash(){
         $totals = $this->getClosedCash();
+        $this->justOpenDrawer();
         return view('admin.closecash',compact(['totals']));
 
     }

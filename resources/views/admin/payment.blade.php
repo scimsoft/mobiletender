@@ -32,7 +32,11 @@
                             <a href="/payments/{{$place->id}}"
 
                                @if(in_array($place->id, $openTicket) and $openTicketSum[$loop->iteration-1] > 0)
-                               class="btn btn-danger btn-lg mt-5 "
+                               @if($ticketWithUnorderdItems[$loop->iteration-1])
+                               class="btn btn-warning btn-lg mt-5 "
+                               @else
+                               class="btn btn-success btn-lg mt-5 "
+                               @endif
                                @else
                                class="btn btn-secondary btn-lg mt-5 "
                                @endif

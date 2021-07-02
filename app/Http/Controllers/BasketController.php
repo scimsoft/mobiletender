@@ -179,16 +179,7 @@ class BasketController extends Controller
         return redirect()->route('deleteTable',$sharedTicketID);
     }
 
-    private function getUnprintedTicetLines(SharedTicket $ticket)
-    {
-        $lines_to_print = null;
-        foreach ($ticket->m_aLines as $ticket_line) {
-            if ($ticket_line->attributes->updated == 1) {
-                $lines_to_print[] = $ticket_line;
-            }
-        }
-        return $lines_to_print;
-    }
+
 
     /**
      * @param $ticketID

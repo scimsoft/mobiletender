@@ -16,6 +16,7 @@ use App\Models\UnicentaModels\SharedTicketUser;
 use Carbon\Carbon;
 use function count;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use function json_encode;
 use function json_last_error;
 
@@ -194,6 +195,30 @@ trait SharedTicketTrait
     {
         $SQLString = "DELETE from sharedtickets WHERE id = '$table_number'";
         DB::delete($SQLString);
+    }
+
+    private function getUnprintedTicetLines(SharedTicket $ticket)
+    {
+        $lines_to_print = null;
+        foreach ($ticket->m_aLines as $ticket_line) {
+            if ($ticket_line->attributes->updated == 1) {
+                $lines_to_print[] = $ticket_line;
+            }
+        }
+        return $lines_to_print;
+    }
+
+    public function hasUnprintedTicketLines($tableNumber){
+        $ticketLines= $this->getTicketLines($tableNumber);
+
+        foreach ($ticketLines as $ticketLine) {
+            //dd($ticketLines);
+            if ($ticketLine->attributes->updated == 1) {
+                Log::debug('Table:'.$tableNumber.' ticketline: '. $ticketLine->attributes->updated);
+                return true;
+            }
+        }
+        return false;
     }
 
 

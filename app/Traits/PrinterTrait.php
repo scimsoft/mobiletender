@@ -12,6 +12,7 @@ namespace App\Traits;
 use Carbon\Carbon;
 use function config;
 use function e;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
 use function is_array;
@@ -55,12 +56,30 @@ trait PrinterTrait
 
     public function printClosedCash( $lines){
         $this->connectToPrinter(1);
-        $this->printer -> pulse(0,148,49);
+        $this->justOpenDrawer();
         $this->printLogo('app.logo');
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader("Closed Cash Report \n " ,2);
         $this->printTwoColumnHeader();
-        $total= $this->printTwoColumnLines($lines);
+        $totalCash = 0;
+        $total = 0;
+
+        foreach ($lines as $line) {
+            if(str_contains($line->payment,'cash')) {
+                $totalCash += $line->total;
+                $total  += $line->total;
+                $this->printTwoColumnLine($line);
+            }
+            $totalLine = new stdClass();
+            $totalLine->total = $totalCash;
+            $totalLine->payment='TOTAL CASH';
+            if(!str_contains($line->payment,'cash')) {
+                $total  += $line->total;
+                $this->printTwoColumnLine($line);
+            }
+
+
+        }
         $this->printTwoClumnFooter($total);
         $this->printFooter();
     }
@@ -155,8 +174,7 @@ trait PrinterTrait
         $this->printer->setTextSize(1, 1);
         foreach ($lines as $line) {
             $totalPrice += $line->total;
-            $printtext = $this->columnify($line->payment, $line->total, 40, 12, 4);
-            $this->printer->text($printtext);
+            $this->printTwoColumnLine($line);
         }
         return $totalPrice;
     }
@@ -226,6 +244,15 @@ trait PrinterTrait
         $this->printer->setTextSize(2, 2);
         $printtext = $this->columnify("TOTAL", number_format($totalPrice, 2, ",", ".") . "", 18, 12, 4);
         $this->printer->setEmphasis();
+        $this->printer->text($printtext);
+    }
+
+    /**
+     * @param $line
+     */
+    private function printTwoColumnLine($line): void
+    {
+        $printtext = $this->columnify($line->payment, $line->total, 40, 12, 4);
         $this->printer->text($printtext);
     }
 
