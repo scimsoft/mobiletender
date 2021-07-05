@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Traits\UnicentaPayedTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
@@ -19,6 +20,7 @@ class AdminHomeController extends Controller
      *
      * @return void
      */
+    use UnicentaPayedTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -99,8 +101,12 @@ class AdminHomeController extends Controller
         foreach ( $opentickets as $openticket) {
             $openTicket[] = $openticket->id;
         }
+        foreach($places as $place){
+            $openTicketSum[] = $this->getSumTicketLines($place->id);
+            $ticketWithUnorderdItems[]= $this->hasUnprintedTicketLines($place->id);
+        }
 
-        return view ('admin.table',compact(['places','openTicket']));
+        return view ('admin.table',compact(['places','openTicket','openTicketSum','ticketWithUnorderdItems']));
     }
 
 

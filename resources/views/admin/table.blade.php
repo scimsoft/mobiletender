@@ -22,11 +22,15 @@
 
                             <a href="/order/table/{{$place->id}}"
 
-                               @if(in_array($place->id, $openTicket))
-                               class="btn btn-danger btn-lg mt-5 "
+                               @if(in_array($place->id, $openTicket) and $openTicketSum[$loop->iteration-1] > 0)
+                               @if($ticketWithUnorderdItems[$loop->iteration-1])
+                               class="btn btn-warning btn-lg mt-5 "
+                               @else
+                               class="btn btn-success btn-lg mt-5 "
+                               @endif
                                @else
                                class="btn btn-secondary btn-lg mt-5 "
-                               @endif
+                                    @endif
                             >{{$place->name}}</a>
 
                             @endforeach

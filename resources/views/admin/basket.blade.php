@@ -35,7 +35,7 @@
 
 
                     </thead>
-                    <tbody class="t-5">
+                    <tbody class="">
 
                     @foreach($lines as $line)
 
@@ -47,6 +47,12 @@
 
                             <td class="" >{{$line->attributes->product->name }}</td>
                             <td class="nowrapcol"><b>@money($line->price *1.1)</b></td>
+                            <td>@if($line->attributes->updated == "true" )
+
+                                   @else
+                                    <img src="/img/printer-icon.png" width="24">
+                                @endif
+                            </td>
                             <td>
 
 
@@ -66,6 +72,7 @@
                         <td><b>TOTAL</b></td>
 
                         <td><b>@money($totalBasketPrice*1.1)</b></td>
+                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
 
 
