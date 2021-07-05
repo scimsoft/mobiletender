@@ -19,26 +19,26 @@
             </div>
         @endif
         <br>
+            <input class="form-control" id="searchText" type="text" placeholder="Search..">
         <table class="table table-bordered">
             <tr>
-                <th>User</th>
-                <th>Date</th>
-                <th>Hora de entrada</th>
-                <th>Start Break</th>
-                <th>End Break</th>
-                <th>Hora de Salida</th>
-                <th>Total</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Entrada</th>
+
+                <th>Salida</th>
+                <th>Tiempo</th>
 
             </tr>
+            <tbody id="reportTable">
         @if(Auth::user() and Auth::user()->isAdmin())
             @foreach($timereports as $timereport)
                 <tr>
                     <td>{{$timereport->user->name}}</td>
-                    <td>{{date('d-M-y',strtotime($timereport->starttime))}}</td>
+                    <td>{{date('D d-M-y',strtotime($timereport->starttime))}}</td>
 
                     <td>{{date('H:i',strtotime($timereport->starttime))}}</td>
-                    <td>{{date('H:i',strtotime($timereport->breakstarttime))}}</td>
-                    <td>{{date('H:i',strtotime($timereport->breakendtime))}}</td>
+
                     <td>{{date('H:i',strtotime($timereport->endtime))}}</td>
 
                     @if(!is_null($timereport->endtime))
@@ -50,13 +50,13 @@
                 </tr>
 
             @endforeach
-            @endif
+            @else
             <tr>
                 <form action="{{ route('categories.store') }}" method="POST">
-                    <td></td>
+                    <td>{{Auth::user()->name}}</td>
                     @csrf
                     @if(!$isChecking)
-                    <td></td>
+                    <td>{{ date('Y-m-d H:i:s') }}</td>
 
                     <td>
 
@@ -68,8 +68,9 @@
                         <td>
                             {{date('H:i',strtotime($lastChecking->starttime))}}
                         </td>
+                        <td>{{ \Carbon\Carbon::parse( $lastChecking->starttime )->diffForHumans( \Carbon\Carbon::now('Europe/Madrid'),['parts'=> 2,'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE] ) }}</td>
+
                     @endif
-                    <td></td>
                     <td></td>
                     <td>@if($isChecking)
                         <a href="/timereport/exit" class="btn btn-primary">Salida</a>
@@ -81,6 +82,8 @@
                     &nbsp;
                 </td>
             </tr>
+            @endif
+            </tbody>
         </table>
     </div>
     </div>
@@ -89,5 +92,14 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
 
-
+    <script>
+        $(document).ready(function(){
+            $("#searchText").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#reportTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 @stop
