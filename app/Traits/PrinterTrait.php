@@ -21,6 +21,7 @@ use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
 use function PHPUnit\Framework\isEmpty;
+use stdClass;
 use Throwable;
 
 trait PrinterTrait
@@ -56,7 +57,7 @@ trait PrinterTrait
 
     public function printClosedCash( $lines){
         $this->connectToPrinter(1);
-        $this->justOpenDrawer();
+
         $this->printLogo('app.logo');
         $this->printer -> setJustification(Printer::JUSTIFY_CENTER);
         $this->printHeader("Closed Cash Report \n " ,2);
