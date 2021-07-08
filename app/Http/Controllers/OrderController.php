@@ -52,7 +52,7 @@ class OrderController extends Controller
         if (($this->hasTicket($tablenumber) < 1)) {
             if($this->hasTicket($ticketID)>0 && !$webadmin ){
                 $this->moveTable($ticketID,$tablenumber);
-                return redirect()->route('checkout');
+                return redirect()->route('basket');
             }else {
                 $this->saveEmptyTicket($this->createEmptyTicket(), $tablenumber);
             }
