@@ -53,6 +53,8 @@ class AdminPaymentController extends Controller
 
         $header = "Chiringuito Playa Alta \n CIF: 29479010W \n +34 618065010 ";
 
+        $header .= "\n\n Mesa:  ". $tableId;
+
         $this->printInvoice($header,$lines);
 
         $this->setTicketPayed($tableId,$mode);

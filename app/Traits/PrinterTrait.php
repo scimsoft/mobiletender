@@ -47,9 +47,7 @@ trait PrinterTrait
 
     public function printTicket($header, $lines){
         $this->connectToPrinter(1);
-
         $this->printLogo('app.logo');
-
         $this->printHeader($header,2);
         $this->printProductLinesAndPrices($lines);
         $this->printFooter();
@@ -256,5 +254,7 @@ trait PrinterTrait
         $printtext = $this->columnify($line->payment, $line->total, 40, 12, 4);
         $this->printer->text($printtext);
     }
+
+
 
 }
