@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminOrderController;
 
 use App\Http\Controllers\Admin\AdminPaymentController;
+use App\Http\Controllers\Admin\AdminStockController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\OrderController;
@@ -112,16 +113,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/movefrom/{from}',[AdminPaymentController::class,'movefrom'])->middleware('is_finance')->name('movefrom');
 
     Route::get('/opendrawer',[AdminPaymentController::class,'openDrawer']) ->middleware('is_finance');
-
     Route::get('/closecash',[AdminPaymentController::class,'closecash'])->middleware('is_manager')->name('closecash');
     Route::get('/printmoney',[AdminPaymentController::class,'printmoney'])->middleware('is_manager')->name('printmoney');
     Route::get('/closemoney',[AdminPaymentController::class,'closemoney'])->middleware('is_manager')->name('closemoney');
-
     Route::get('/movements',[AdminPaymentController::class,'movementsIndex'])->middleware('is_manager')->name('movementsIndex');
     Route::post('/addmovement',[AdminPaymentController::class,'addmovement'])->middleware('is_manager')->name('addmovement');
 
-
-
+    Route::get('/stockindex/{cat?}',[AdminStockController::class,'currentStockIndex'])->middleware('is_admin')->name('stockIndex');
+    Route::post('/stock/add',[AdminStockController::class,'addStock'])->middleware('is_admin');
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
