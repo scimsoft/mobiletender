@@ -9,6 +9,7 @@ use App\Models\UnicentaModels\Product;
 use App\Models\UnicentaModels\Products_Cat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use function str_replace;
 use function view;
 
@@ -119,6 +120,7 @@ class ProductController extends Controller
 
         $categories = Category::all();
 
+
         return view('admin.products.edit',compact('product','all_adons','categories'));
     }
 
@@ -153,11 +155,15 @@ class ProductController extends Controller
 
         $product->update($request->all());
         $pricesell = str_replace(',','.',$request->pricesell);
+        $stockunits = str_replace(',','.',$request->stockunits);
         $product->pricesell = ($pricesell/1.1);
+        $product->stockunits = $stockunits;
         $product->save();
 
-        return redirect()->route('products.index')
-            ->with('success','Product updated successfully');
+        $url = $request->only('redirects_to');
+
+        return redirect()->to($url['redirects_to']);
+        //return redirect()->route('products.index')->with('success','Product updated successfully');
     }
 
     /**

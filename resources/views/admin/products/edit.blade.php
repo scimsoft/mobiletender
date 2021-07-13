@@ -30,6 +30,7 @@
                     <form action="{{ route('products.update',$product->id) }}" method="POST"
                           class="form-inline justify-content-center">
 
+                        <input type="hidden" name="redirects_to" value="{{URL::previous()}}">
                         @method('PATCH')
                         @csrf
 
@@ -48,16 +49,14 @@
                                 </td>
                                 <td>
                                     <a href="/crop-image/{{$product->id}}" class="btn btn-tab">
-                                        Imagen
+                                        Edit Image
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="2">&nbsp;</td>
-                            </tr>
+
                             <tr>
 
-                                <td>
+                                <td colspan="1">
                                     <label for="category" class="label label-default"><b>Categoria</b> </label>
                                     <select name="category" class="form-control">
                                         @foreach($categories as $category)
@@ -65,21 +64,23 @@
                                                 {{$category->name}}
                                             </option>
 
-                                            @endforeach
+                                        @endforeach
                                     </select>
+                                </td>
+                                <td colspan="1">
+                                    <label for="printto" class="form-label"><b>Printer Nr</b></label>
+                                    <input name="printto" class="form-control" type="text" size="2"
+                                           value="{{$product->printto ?? '1'}} ">
+
                                 </td>
                                 <td>
                                     <!--label for="taxcat" class="form-label"><b>Tipo de IVA</b></label-->
                                     <input name="taxcat" class="form-control" type="hidden" value="001">
 
                                 </td>
-                            </tr><tr>
-                                <td colspan="2">
-                                    <label for="printto" class="form-label"><b>Printer</b></label>
-                                    <input name="printto" class="form-control" type="text"
-                                           value="{{$product->printto ?? '1'}} ">
+                            </tr>
+                            <tr>
 
-                                </td>
                             </tr>
                             <tr>
 
@@ -97,32 +98,48 @@
                             </tr>
                             <tr>
 
+                                <td colspan="2">
+                                    <label for="stockunits" class="label label-default"><b>Unidades de stock</b> </label>
+                                    <input name="stockunits" class="form-control" type="text" size="2"
+                                           value="{{$product->stockunits}}">
+                                </td>
+
+                            </tr>
+                            <tr>
+
                                 <td>
-                                    <label for="pricebuy" class="form-label"><b>Precio de Compra</b> </label>
-                                    <input name="pricebuy" class="form-control" type="text"
-                                           value="{{$product->pricebuy}}">
+                                    <label for="pricebuy" class="form-label"><b>Precio de Compra (sin IVA)</b> </label>
+                                    <input name="pricebuy" class="form-control" type="text" size="3"
+                                           value="{{$product->pricebuy}}">€
 
                                 </td>
                                 <td>
-                                    <label for="pricesell" class="form-label"><b>Precio de Venta</b></label>
-                                    <input name="pricesell" class="form-control" type="text"
-                                           value="{{($product->pricesell *1.1)}}">
+                                    <label for="pricesell" class="form-label"><b>Precio de Venta (con IVA)</b></label>
+                                    <input name="pricesell" class="form-control" type="text"  size="3"
+                                           value="{{($product->pricesell *1.1)}}">€
 
                                 </td>
                             </tr>
-                            <tr><td colspan="">
+                            <tr><td><hr></td><td><hr></td></tr>
+
+                            <tr>
+                                <td colspan="">
                                     <b>Seleccion de sub-productos</b>
                                 </td>
-                            <td><select class="custom-select" name="category_addon" id="category_addon">
-                                    @foreach($categories as $categorie)
-                                        <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                                <td><select class="custom-select" name="category_addon" id="category_addon">
+                                        @foreach($categories as $categorie)
+                                            <option value="{{$categorie->id}}">{{$categorie->name}}</option>
 
-                                    @endforeach
-                                </select></td></tr>
+                                        @endforeach
+                                    </select></td>
+                            </tr>
+                            <tr><td><hr></td><td><hr></td></tr>
                             <tr>
                                 <td colspan="1">
                                     <label for="products_list" class="form-label">Disponibles</label>
-                                    <select class="custom-select" size="8" multiple="multiple" name="products_list" id="products_list">
+
+                                    <select   name="products_list" class="custom-select"
+                                            id="products_list">
 
 
                                     </select>
@@ -130,17 +147,19 @@
                                 </td>
                                 <td colspan="1">
                                     <label for="addon_products_list" class="form-label">Selecionados</label>
-                                    <select class="custom-select" size="8" name="addon_products_list" id="addon_products_list">
+                                    <select  name="addon_products_list" class="custom-select"
+                                            id="addon_products_list">
+                                        <option value=""></option>
                                         @foreach($all_adons as $all_adon)
 
                                             <option value="{{$all_adon->id}}">{{$all_adon->name}}</option>
-                                            @endforeach
+                                        @endforeach
 
                                     </select>
 
                                 </td>
                             </tr>
-                            <!--tr>
+                        <!--tr>
                                 <td colspan="2">
                                     <label for="description" class="form-label"><b>Dicripcion</b></label>
                                     <textarea name="description" class="form-control"
@@ -178,15 +197,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function () {
-            $('#products_list').on('change',function(){
+            $('#products_list').on('change', function () {
                 var selected_product = $(this).val();
-                var price = prompt("Precio?", "0");
+                var price = prompt("Price ?", "0");
                 var productID = $(this).find(":selected").val();
                 var addOnProductID = $(this).find(":selected").text();
                 $("#addon_products_list").append($('<option>', {value: productID, text: addOnProductID}));
-                addOnProduct(productID,price)
+                addOnProduct(productID, price)
             })
-            $('#addon_products_list').on('change',function(){
+            $('#addon_products_list').on('change', function () {
                 var selected_product = $(this).val();
                 var productID = $(this).find(":selected").val();
                 var addOnProductID = $(this).find(":selected").text();
@@ -194,10 +213,10 @@
                 removeaddOnProduct(productID)
             })
 
-            $('#category_addon').on('change',function(){
-                var categoryid=$(this).find(":selected").val();
+            $('#category_addon').on('change', function () {
+                var categoryid = $(this).find(":selected").val();
                 jQuery.ajax({
-                    url: '/products/list/'+categoryid,
+                    url: '/products/list/' + categoryid,
                     type: "GET",
 
                     dataType: "json",
@@ -205,7 +224,7 @@
 
                         var $el = $("#products_list");
                         $el.empty(); // remove old options
-                        $.each(data,function(id,name){
+                        $.each(data, function (id, name) {
 
                             $el.append($("<option></option>")
                                 .attr("value", name.id).text(name.name));
@@ -220,11 +239,11 @@
 
         })
 
-        function addOnProduct(addOnProductID,price){
+        function addOnProduct(addOnProductID, price) {
             jQuery.ajax({
                 url: '/addOnProduct/add',
                 type: "POST",
-                data: { product_id:'{{$product->id}}', adon_product_id:addOnProductID ,price:price},
+                data: {product_id: '{{$product->id}}', adon_product_id: addOnProductID, price: price},
                 dataType: "json",
                 success: function (data) {
 
@@ -233,11 +252,11 @@
             });
         }
 
-        function removeaddOnProduct(addOnProductID){
+        function removeaddOnProduct(addOnProductID) {
             jQuery.ajax({
                 url: '/addOnProduct/remove',
                 type: "POST",
-                data: { product_id:'{{$product->id}}', adon_product_id:addOnProductID },
+                data: {product_id: '{{$product->id}}', adon_product_id: addOnProductID},
                 dataType: "json",
                 success: function (data) {
 
