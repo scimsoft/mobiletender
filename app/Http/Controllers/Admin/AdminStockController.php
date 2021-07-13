@@ -16,7 +16,7 @@ class AdminStockController extends Controller
     //
 
     public function currentStockIndex($cat = null){
-        $categories = Category::all();
+        $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
         if(!is_null($cat)){
             $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on stockcurrent.product = products.id where products.category='$cat'";
         }else{
