@@ -41,17 +41,17 @@
                         <th>Product</th>
                         <th>Count</th>
                         <th>Add</th>
-                        <th>Total</th>
+                        <th></th>
                         <th>Acción</th>
                     </tr>
                     @foreach ($stocks as $stock)
 
-                        <tr id="{{$stock->product}}">
+                        <tr id="{{$stock->id}}">
                             <td>{{$stock->name}}</td>
                             <td><input type="text" size="3" name="currentunits" value="{{$stock->units}}" style="border:none" readonly></td>
                             <td><input type="text" size="3" name="newunits"></td>
                             <td></td>
-                            <td><button class="btn btn-primary">Add</button> </td>
+                            <td><button class="btn btn-primary" name="addbutton">Add</button> </td>
                         </tr>
                     @endforeach
                 </table>
@@ -66,7 +66,7 @@
     <script>
         jQuery(document).ready(function () {
 
-            $("button").click(function () {
+            $("button[name=addbutton]").click(function () {
 
                 jQuery('#overlay').show();
                 var product_id = $(this).closest('tr').attr('id');

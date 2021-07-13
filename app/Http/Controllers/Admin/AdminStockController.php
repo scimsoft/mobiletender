@@ -18,9 +18,9 @@ class AdminStockController extends Controller
     public function currentStockIndex($cat = null){
         $categories = Category::all();
         if(!is_null($cat)){
-            $currentStockQuery="SELECT product,name, units FROM stockcurrent, products where stockcurrent.product = products.id AND products.category='$cat'";
+            $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on stockcurrent.product = products.id where products.category='$cat'";
         }else{
-            $currentStockQuery="SELECT product,name, units FROM stockcurrent, products where stockcurrent.product = products.id";
+            $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on stockcurrent.product = products.id;";
         }
             $stocks= DB::select($currentStockQuery);
         return view('admin.stock.index',compact('stocks','categories'));
