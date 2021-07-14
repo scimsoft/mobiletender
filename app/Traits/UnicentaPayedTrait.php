@@ -7,7 +7,6 @@
  */
 namespace App\Traits;
 
-use App\Models\UnicentaModels\Product;
 use App\Models\UnicentaModels\SharedTicketLines;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
@@ -79,25 +78,17 @@ trait UnicentaPayedTrait
 
         $ticketLines = $this->getTicketLines($tableNumber);
         $linenumber= 0;
-        foreach ($ticketLines as $ticketLine) {
-            //$select = DB::select("SELECT stockunits from products where id = '$ticketLine->productid'");
-            $stockUnit = Product::find($ticketLine->productid)->stockunits;
+        foreach ($ticketLines as $ticketLine){
 
-            $insertTicketLineSQL = "INSERT INTO ticketlines (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES ('$id', $linenumber, '$ticketLine->productid', null, $stockUnit, $ticketLine->price, '001',null)";
-
+            $insertTicketLineSQL="INSERT INTO ticketlines (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES ('$id', $linenumber, '$ticketLine->productid', null, 1.0, $ticketLine->price, '001',null)";
             DB::insert($insertTicketLineSQL);
-            $updateStockSQL = ("UPDATE stockcurrent SET UNITS = (UNITS + -$stockUnit) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid' AND ATTRIBUTESETINSTANCE_ID IS NULL");
-            $control = DB::update($updateStockSQL);
-
-
-            if (!$control) {
-
-            $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -$stockUnit)";
+            $updateStockSQL =( "UPDATE stockcurrent SET UNITS = (UNITS + -1.0) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid' AND ATTRIBUTESETINSTANCE_ID IS NULL");
+            DB::update($updateStockSQL);
+            $insertStockCurrent="INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -1.0)";
             DB::insert($insertStockCurrent);
-            }
             $stockDiaryID=Str::uuid();
 
-            $insertStockDairy = "INSERT INTO stockdiary (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES ('$stockDiaryID', '$datenew', -1, '0', '$ticketLine->productid', null, -$stockUnit, $ticketLine->price, '$person')";
+            $insertStockDairy = "INSERT INTO stockdiary (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES ('$stockDiaryID', '$datenew', -1, '0', '$ticketLine->productid', null, -1.0, $ticketLine->price, '$person')";
            // dd($insertStockDairy);
             DB::insert($insertStockDairy);
             $linenumber++;
