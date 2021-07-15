@@ -35,7 +35,7 @@ trait UnicentaPayedTrait
         DB::update('UPDATE ticketsnum SET ID = LAST_INSERT_ID(ID + 1)');
         //$ticketid = DB::select("SELECT LAST_INSERT_ID()");
         $ticketid = DB::getPdo()->lastInsertId();
-        //dd($ticketid);
+
         /*
          *
          *
@@ -89,10 +89,10 @@ trait UnicentaPayedTrait
             $updateStockSQL = ("UPDATE stockcurrent SET UNITS = (UNITS + -$stockUnit) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid' AND ATTRIBUTESETINSTANCE_ID IS NULL");
             $control = DB::update($updateStockSQL);
 
-
-            if (!$control) {
+            if ($control<1) {
 
             $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -$stockUnit)";
+
             DB::insert($insertStockCurrent);
             }
             $stockDiaryID=Str::uuid();
