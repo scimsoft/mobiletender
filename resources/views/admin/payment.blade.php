@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <br>
-                <div class="card-header col-centered"><h1 class="display-3 text-center"> CAJA</h1></div>
+                <div class="card-header col-centered"></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,14 +14,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <table class="table table-borderless m-0 p-0">
-                            <tr class="text-center"><td>
+
                         <a href="paypanel" class="btn btn-primary">Refrescar</a>
-                                </td>
-                            <td>
-                                <!--a href="opendrawer" class="btn btn-primary">Abrir Caja</a-->
-                            </td></tr>
-                        </table>
+                        <br>
+
 
 
 
