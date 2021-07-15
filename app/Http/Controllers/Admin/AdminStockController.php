@@ -18,9 +18,9 @@ class AdminStockController extends Controller
     public function currentStockIndex($cat = null){
         $categories = Category::orderByRaw('CONVERT(catorder, SIGNED)')->get();
         if(!is_null($cat)){
-            $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on products.id = stockcurrent.product where products.category='$cat'";
+            $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on products.id = stockcurrent.product where products.category='$cat' order by name";
         }else{
-            $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on products.id = stockcurrent.product";
+            $currentStockQuery="SELECT id ,name, units FROM  products left join stockcurrent  on products.id = stockcurrent.product order by name";
         }
             $stocks= DB::select($currentStockQuery);
         return view('admin.stock.index',compact('stocks','categories'));
