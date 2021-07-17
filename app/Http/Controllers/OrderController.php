@@ -103,6 +103,7 @@ class OrderController extends Controller
     }
 
     public function cancelProduct($ticketLine){
+
         $this->removeTicketLine(Session::get('ticketID'),$ticketLine);
         return redirect()->route('basket');
     }

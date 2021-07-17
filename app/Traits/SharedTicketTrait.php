@@ -9,12 +9,14 @@
 namespace App\Traits;
 
 
+use App\Models\UnicentaModels\Product;
 use App\Models\UnicentaModels\SharedTicket;
 use App\Models\UnicentaModels\SharedTicketLines;
 use App\Models\UnicentaModels\SharedTicketProduct;
 use App\Models\UnicentaModels\SharedTicketUser;
 use Carbon\Carbon;
 use function count;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use function json_encode;
@@ -136,8 +138,12 @@ trait SharedTicketTrait
         $sharedTicket = ($this->getTicket($table_number));
 
         if ($sharedTicket->m_aLines[$ticketLineNumber]->updated) {
+            $this->addLineRemoved($sharedTicket,$ticketLineNumber);
+
+
             array_splice($sharedTicket->m_aLines, $ticketLineNumber, 1);
             $this->updateOpenTable($sharedTicket, $table_number);
+
             return true;
         } else {
             return false;
@@ -221,5 +227,12 @@ trait SharedTicketTrait
         return false;
     }
 
+    private function addLineRemoved(SharedTicket $ticket,int $ticketLineNumber){
+        $now = Carbon::now();
+        $user = auth()->user()->name;
+        $product= $ticket->m_aLines[$ticketLineNumber]->attributes->product;
+        DB::insert("INSERT INTO lineremoved VALUES ('$now','$user','$ticket->m_sId','$product->id','$product->name',1)");
+
+    }
 
 }
