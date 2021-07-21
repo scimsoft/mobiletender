@@ -197,7 +197,7 @@ trait SharedTicketTrait
         $this->clearOpenTableTicket($ticketID);
 
     }
-    public function clearOpenTableTicket($table_number)
+    public function  clearOpenTableTicket($table_number)
     {
         $SQLString = "DELETE from sharedtickets WHERE id = '$table_number'";
         DB::delete($SQLString);

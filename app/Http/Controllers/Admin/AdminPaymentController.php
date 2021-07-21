@@ -60,6 +60,27 @@ class AdminPaymentController extends Controller
         $this->setTicketPayed($tableId,$mode);
         return redirect(route('paypanel'));
     }
+    public function payedpost(Request $request){
+        $tableId=$request->tableId;
+        $mode = $request->submit;
+        $lines =  $this->getTicketLines($tableId);
+        $checked = $request->input('toPay');
+
+        $linestoPrint=[];
+        foreach ($checked as $check) {
+            $linestoPrint[]=$lines[$check];
+
+        }
+
+        $header = "Chiringuito Playa Alta \n CIF: 29479010W \n +34 618065010 ";
+
+        $header .= "\n\n Mesa:  ". $tableId;
+
+        $this->printInvoice($header,$linestoPrint);
+
+        $this->setTicketPayed($tableId,$mode,$linestoPrint);
+        return redirect(route('paypanel'));
+    }
 
     public function closecash(){
         $totals = $this->getClosedCash();

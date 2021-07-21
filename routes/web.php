@@ -107,7 +107,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/categories/toggleactive',[CategoryController::class,'toggleActive'])->middleware('is_manager');
 
     Route::get('/payments/{id}',[AdminPaymentController::class,'pay'])->middleware('is_manager');
-    Route::get('/payed/{id}/{mode}',[AdminPaymentController::class,'payed'])->middleware('is_manager');
+    //Route::get('/payed/{id}/{mode}',[AdminPaymentController::class,'payed'])->middleware('is_manager');
+    Route::post('/payed/',[AdminPaymentController::class,'payedpost'])->middleware('is_manager')->name('cajapayed');
     Route::get('/paypanel',[AdminPaymentController::class,'paypanel'])->middleware('is_manager')->name('paypanel');
     Route::get('/moveto/{from}/{to}',[AdminPaymentController::class,'moveto'])->middleware('is_finance')->name('moveto');
     Route::get('/movefrom/{from}',[AdminPaymentController::class,'movefrom'])->middleware('is_finance')->name('movefrom');

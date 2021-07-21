@@ -5,6 +5,7 @@
  * Date: 08/11/2020
  * Time: 15:06
  */
+
 namespace App\Traits;
 
 use App\Models\UnicentaModels\Product;
@@ -15,13 +16,14 @@ use Dotenv\Store\File\Reader;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use function is_null;
 
 
 trait UnicentaPayedTrait
 {
     use SharedTicketTrait;
 
-    public function setTicketPayed( $tableNumber, $paymentType='cash')
+    public function setTicketPayed($tableNumber, $paymentType = 'cash', $linestoPrint = null)
     {
         /*
          *  UPDATE ticketsnum SET ID = LAST_INSERT_ID(ID + 1)
@@ -29,7 +31,6 @@ trait UnicentaPayedTrait
          */
         $ticket = $this->getTicket($tableNumber);
         DB::update("UPDATE ticketsnum SET ID = LAST_INSERT_ID(ID + 1)");
-
 
 
         DB::update('UPDATE ticketsnum SET ID = LAST_INSERT_ID(ID + 1)');
@@ -55,7 +56,7 @@ trait UnicentaPayedTrait
          * $insertSQL = "INSERT INTO receipts (ID, MONEY, DATENEW, ATTRIBUTES, PERSON) VALUES ('fa06f234-d749-4801-a122-75fe6e006689', 'bfd6b036-6250-4e64-b7eb-bb028bcef5f1', '2020-11-08 14:56:27.808', _binary'<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<comment>uniCenta oPOS</comment>\r\n</properties>\r\n', null)";
          * INSERT INTO tickets (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, STATUS) VALUES ('fa06f234-d749-4801-a122-75fe6e006689', 0, 8, '0', null, 0)
          */
-        $insertTicketSQL="INSERT INTO tickets (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, STATUS) VALUES ('$id', 0, '$ticketid', 0, null, 0)";
+        $insertTicketSQL = "INSERT INTO tickets (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, STATUS) VALUES ('$id', 0, '$ticketid', 0, null, 0)";
         DB::insert($insertTicketSQL);
         /*
          * UPDATE tickets SET STATUS = 8 WHERE TICKETTYPE = 0 AND TICKETID = 0
@@ -70,15 +71,19 @@ trait UnicentaPayedTrait
          */
 
 
-
         /*
         *  INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '0d5a6cdd-3a5e-4365-9975-0eb173108198', null, -1.0)
         *
         * INSERT INTO stockdiary (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES ('98c99c73-e90b-4549-bf11-04cfbb1c291f', '2020-11-08 14:56:27.808', -1, '0', '0d5a6cdd-3a5e-4365-9975-0eb173108198', null, -1.0, 2.2727272727272725, 'Administrator')
         */
 
-        $ticketLines = $this->getTicketLines($tableNumber);
-        $linenumber= 0;
+        if (is_null($linestoPrint)) {
+            $ticketLines = $this->getTicketLines($tableNumber);
+        } else {
+            $ticketLines = $linestoPrint;
+        }
+
+        $linenumber = 0;
         foreach ($ticketLines as $ticketLine) {
             //$select = DB::select("SELECT stockunits from products where id = '$ticketLine->productid'");
             $stockUnit = Product::find($ticketLine->productid)->stockunits;
@@ -89,55 +94,65 @@ trait UnicentaPayedTrait
             $updateStockSQL = ("UPDATE stockcurrent SET UNITS = (UNITS + -$stockUnit) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid' AND ATTRIBUTESETINSTANCE_ID IS NULL");
             $control = DB::update($updateStockSQL);
 
-            if ($control<1) {
+            if ($control < 1) {
 
-            $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -$stockUnit)";
+                $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -$stockUnit)";
 
-            DB::insert($insertStockCurrent);
+                DB::insert($insertStockCurrent);
             }
-            $stockDiaryID=Str::uuid();
+            $stockDiaryID = Str::uuid();
 
             $insertStockDairy = "INSERT INTO stockdiary (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES ('$stockDiaryID', '$datenew', -1, '0', '$ticketLine->productid', null, -$stockUnit, $ticketLine->price, '$person')";
-           // dd($insertStockDairy);
+            // dd($insertStockDairy);
             DB::insert($insertStockDairy);
             $linenumber++;
         }
 
 
+        /*
+        * INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, TRANSID, RETURNMSG, TENDERED, CARDNAME, VOUCHER) VALUES ('4f9b20f2-95ea-46e0-9ad2-974fef60a596', 'fa06f234-d749-4801-a122-75fe6e006689', 'bank', 2.4999999999999996, null, _binary'Aceptar', 0.0, null, null)
+        */
 
-         /*
-         * INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, TRANSID, RETURNMSG, TENDERED, CARDNAME, VOUCHER) VALUES ('4f9b20f2-95ea-46e0-9ad2-974fef60a596', 'fa06f234-d749-4801-a122-75fe6e006689', 'bank', 2.4999999999999996, null, _binary'Aceptar', 0.0, null, null)
-         */
+        $total = $this->getSumTicketLines($tableNumber) * 1.1;
 
-         $total = $this->getSumTicketLines($tableNumber)*1.1;
+        $paymentID = Str::uuid();
+        $insertPaymentSQL = "INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, TRANSID, RETURNMSG, TENDERED, CARDNAME, VOUCHER) VALUES ('$paymentID', '$id' , '$paymentType', '$total', 'no ID', null, '$total', null, null)";
+        DB::insert($insertPaymentSQL);
+        /*
+        * INSERT INTO taxlines (ID, RECEIPT, TAXID, BASE, AMOUNT)  VALUES ('9c5f2533-74a2-40ee-a499-0cc71a299f05', 'fa06f234-d749-4801-a122-75fe6e006689', '001', 2.2727272727272725, 0.22727272727272727)
+        */
+        $tax = 0.1 * $total;
+        $taxid = Str::uuid();
+        $insertTaxLineSQL = "INSERT INTO taxlines (ID, RECEIPT, TAXID, BASE, AMOUNT)  VALUES ('$taxid', '$id', '001', '$total', '$tax')";
+        DB::insert($insertTaxLineSQL);
 
-         $paymentID = Str::uuid();
-         $insertPaymentSQL ="INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, TRANSID, RETURNMSG, TENDERED, CARDNAME, VOUCHER) VALUES ('$paymentID', '$id' , '$paymentType', '$total', 'no ID', null, '$total', null, null)";
-         DB::insert($insertPaymentSQL);
-         /*
-         * INSERT INTO taxlines (ID, RECEIPT, TAXID, BASE, AMOUNT)  VALUES ('9c5f2533-74a2-40ee-a499-0cc71a299f05', 'fa06f234-d749-4801-a122-75fe6e006689', '001', 2.2727272727272725, 0.22727272727272727)
-         */
-         $tax=0.1*$total;
-         $taxid = Str::uuid();
-         $insertTaxLineSQL = "INSERT INTO taxlines (ID, RECEIPT, TAXID, BASE, AMOUNT)  VALUES ('$taxid', '$id', '001', '$total', '$tax')";
-         DB::insert($insertTaxLineSQL);
+        /*
+        * DELETE FROM sharedtickets WHERE ID = '1'
+        */
 
-         /*
-         * DELETE FROM sharedtickets WHERE ID = '1'
-         */
-
-         $deleteSharedTicket = "DELETE FROM sharedtickets WHERE id = '$tableNumber'";
+        $deleteSharedTicket = "DELETE FROM sharedtickets WHERE id = '$tableNumber'";
         // DB::delete($deleteSharedTicket);
 
-        $this->clearOpenTableTicket($tableNumber);
+        if (is_null($linestoPrint)) {
+            $this->clearOpenTableTicket($tableNumber);
+        } else {
+            foreach ($ticketLines as $ticketLine) {
+                $this->removeTicketLine($tableNumber, $ticketLine->m_iLine);
 
-         //$this->saveEmptyTicket($this->createEmptyTicket(),$tableNumber);
-         /* INSERT INTO lineremoved (NAME, TICKETID, PRODUCTNAME, UNITS) VALUES ('Administrator', 'Void', 'Ticket Deleted', 0.0)
-         * */
+            }
+
+        }
+
+
+        //$this->saveEmptyTicket($this->createEmptyTicket(),$tableNumber);
+        /* INSERT INTO lineremoved (NAME, TICKETID, PRODUCTNAME, UNITS) VALUES ('Administrator', 'Void', 'Ticket Deleted', 0.0)
+        * */
 
     }
-    public function setLineRemoved(SharedTicketLines $lines){
-        $person = !empty($person = auth()->user()->name)?$person = auth()->user()->name:'Guest';
+
+    public function setLineRemoved(SharedTicketLines $lines)
+    {
+        $person = !empty($person = auth()->user()->name) ? $person = auth()->user()->name : 'Guest';
         foreach ($lines as $line) {
             $lineremovedSQL = "INSERT INTO lineremoved (NAME, TICKETID, PRODUCTNAME, UNITS) VALUES($person, $line->m_sTicket, $line->product->name, $line->multiply)";
             DB::insert($lineremovedSQL);
@@ -146,7 +161,8 @@ trait UnicentaPayedTrait
 
     }
 
-    public function getClosedCash(){
+    public function getClosedCash()
+    {
         $money = $this->getActiveClosedCashID();
 
         $totals = DB::select("SELECT payment, sum(total)as total,notes  FROM payments where receipt in (select id from receipts where money = '$money') group by payment,notes order by payment");
@@ -154,13 +170,14 @@ trait UnicentaPayedTrait
         return $totals;
     }
 
-    public function closeCashDB(){
+    public function closeCashDB()
+    {
         $now = Carbon::now();
         $closedcash = DB::Select('SELECT money,hostsequence,datestart FROM closedcash where dateend is null')[0];
         $money = $closedcash->money;
-        $sequence =$closedcash->hostsequence + 1;
+        $sequence = $closedcash->hostsequence + 1;
         $startdate = $closedcash->datestart;
-        $this->footer = "From: ".$startdate."\n To:" . Carbon::now();
+        $this->footer = "From: " . $startdate . "\n To:" . Carbon::now();
 
         DB::update("UPDATE closedcash SET DATEEND = '$now', NOSALES = 0 WHERE MONEY = '$money'");
         $money = Str::uuid();
@@ -168,7 +185,8 @@ trait UnicentaPayedTrait
         DB::insert("INSERT INTO closedcash(MONEY, HOST, HOSTSEQUENCE, DATESTART, DATEEND) VALUES ('$money', 'HORECALO', $sequence, '$now', NULL)");
     }
 
-    public function getMovementsLines(){
+    public function getMovementsLines()
+    {
         $closedcash = DB::Select('SELECT money,hostsequence,datestart FROM closedcash where dateend is null')[0];
         $money = $closedcash->money;
         $movements = DB::select("SELECT * FROM payments where receipt in (select id from receipts where money='$money') AND (payment = 'cashin' OR payment = 'cashout')");
@@ -184,10 +202,11 @@ trait UnicentaPayedTrait
         return $money;
     }
 
-    public function addMovementFromForm($payment,$total,$notes){
+    public function addMovementFromForm($payment, $total, $notes)
+    {
         $money = $this->getActiveClosedCashID();
         $receiptsID = Str::uuid();
-        $now=Carbon::now();
+        $now = Carbon::now();
         DB::insert("INSERT INTO receipts (ID, MONEY, DATENEW) VALUES ('$receiptsID', '$money', '$now')");
         $paymentsID = Str::uuid();
         DB::insert("INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, NOTES) VALUES ('$paymentsID', '$receiptsID', '$payment', $total, '$notes')");
