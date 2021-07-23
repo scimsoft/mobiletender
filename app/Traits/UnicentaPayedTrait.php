@@ -9,6 +9,7 @@
 namespace App\Traits;
 
 use App\Models\UnicentaModels\Product;
+use App\Models\UnicentaModels\SharedTicket;
 use App\Models\UnicentaModels\SharedTicketLines;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
@@ -29,6 +30,8 @@ trait UnicentaPayedTrait
          *  UPDATE ticketsnum SET ID = LAST_INSERT_ID(ID + 1)
          *
          */
+
+
         $ticket = $this->getTicket($tableNumber);
         DB::update("UPDATE ticketsnum SET ID = LAST_INSERT_ID(ID + 1)");
 
@@ -113,7 +116,7 @@ trait UnicentaPayedTrait
         * INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, TRANSID, RETURNMSG, TENDERED, CARDNAME, VOUCHER) VALUES ('4f9b20f2-95ea-46e0-9ad2-974fef60a596', 'fa06f234-d749-4801-a122-75fe6e006689', 'bank', 2.4999999999999996, null, _binary'Aceptar', 0.0, null, null)
         */
 
-        $total = $this->getSumTicketLines($tableNumber) * 1.1;
+        $total = $this->getSumTicketPartialLines($ticketLines) * 1.1;
 
         $paymentID = Str::uuid();
         $insertPaymentSQL = "INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, TRANSID, RETURNMSG, TENDERED, CARDNAME, VOUCHER) VALUES ('$paymentID', '$id' , '$paymentType', '$total', 'no ID', null, '$total', null, null)";
@@ -136,10 +139,8 @@ trait UnicentaPayedTrait
         if (is_null($linestoPrint)) {
             $this->clearOpenTableTicket($tableNumber);
         } else {
-            foreach ($ticketLines as $ticketLine) {
-                $this->removeTicketLine($tableNumber, $ticketLine->m_iLine);
 
-            }
+                $this->removeTicketLines($tableNumber, $ticketLines);
 
         }
 

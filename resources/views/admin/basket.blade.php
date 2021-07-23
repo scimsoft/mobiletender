@@ -124,21 +124,21 @@
 
                                 <tr>
                                     <td colspan="6">
-                                        <button type="submit" name="submit" class="btn btn-success btn-block" value="pagarEfectivo">
+                                        <button type="submit" name="submit" class="btn btn-success btn-block" value="cash">
                                             Cobrar en efectivo
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="6">
-                                        <button type="submit" name="submit"  class="btn btn-success btn-block" value="pagarTarjeta">
+                                        <button type="submit" name="submit"  class="btn btn-success btn-block" value="tarjeta">
                                             Cobrar con tarjeta
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="6">
-                                        <button type="submit" name="submit" class="btn btn-success btn-block" value="pagarOnline">
+                                        <button type="submit" name="submit" class="btn btn-success btn-block" value="online">
                                             Cobrar online
                                         </button>
                                     </td>

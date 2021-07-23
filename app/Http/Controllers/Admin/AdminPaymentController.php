@@ -66,11 +66,13 @@ class AdminPaymentController extends Controller
         $lines =  $this->getTicketLines($tableId);
         $checked = $request->input('toPay');
 
-        $linestoPrint=[];
-        foreach ($checked as $check) {
-            $linestoPrint[]=$lines[$check];
 
-        }
+            $linestoPrint = [];
+            foreach ($checked as $check) {
+                $linestoPrint[] = $lines[$check];
+
+            }
+
 
         $header = "Chiringuito Playa Alta \n CIF: 29479010W \n +34 618065010 ";
 

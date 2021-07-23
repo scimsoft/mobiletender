@@ -103,6 +103,16 @@ trait SharedTicketTrait
 
         return $sum;
     }
+    public function getSumTicketPartialLines($sharedTicketLines){
+
+        //dd($sharedTicket);
+        $sum = 0;
+        foreach ($sharedTicketLines as $line){
+            $sum+=$line->price;
+        }
+
+        return $sum;
+    }
 
     public function getSumNewTicketLines($sharedTicketID){
         $sharedTicket = $this->getTicket($sharedTicketID);
@@ -149,6 +159,16 @@ trait SharedTicketTrait
             return false;
         }
 
+    }
+
+    public function removeTicketLines($table_number, $ticketLineNumbers)
+    {
+        $sharedTicket = ($this->getTicket($table_number));
+//dd(count($ticketLineNumbers));
+        for($i=0;$i<=count($ticketLineNumbers)-1;$i++){
+            array_splice($sharedTicket->m_aLines, ($ticketLineNumbers[$i]->m_iLine)-$i, 1);
+        }
+        $this->updateOpenTable($sharedTicket, $table_number);
     }
 
     public function  getTicketLines($table_number)
