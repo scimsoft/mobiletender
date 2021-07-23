@@ -76,9 +76,7 @@ trait PrinterTrait
 
                 $this->printTwoColumnLine($line);
             }
-            $totalLine = new stdClass();
-            $totalLine->total = $totalCash;
-            $totalLine->payment='TOTAL CASH';
+
             if(!str_contains($line->payment,'cash')) {
                 $total  += $line->total;
                 $this->printTwoColumnLine($line);
@@ -86,7 +84,12 @@ trait PrinterTrait
 
 
         }
+        $totalLine = new stdClass();
+        $totalLine->total = $totalCash;
+        $totalLine->payment='TOTAL CASH';
+
         $this->printTwoClumnFooter($total);
+        $this->printTwoColumnLine($totalLine);
         $this->printFooter();
     }
 

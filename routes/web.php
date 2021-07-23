@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminOrderController;
 
 use App\Http\Controllers\Admin\AdminPaymentController;
+use App\Http\Controllers\Admin\AdminStatsController;
 use App\Http\Controllers\Admin\AdminStockController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BasketController;
@@ -122,6 +123,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/stockindex/{cat?}',[AdminStockController::class,'currentStockIndex'])->middleware('is_admin')->name('stockIndex');
     Route::post('/stock/add',[AdminStockController::class,'addStock'])->middleware('is_admin');
+
+    Route::get ('/stats',[AdminStatsController::class,'index'])->middleware('is_admin');
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

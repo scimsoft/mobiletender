@@ -87,8 +87,18 @@
 
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td>Habilitar y editar Categorias</td>
+                                    <td>Stats</td>
                                 </tr>
+                                    <tr>
+                                        <td>
+
+
+                                            <a href="/stats" class="btn btn-primary"> Stats</a> <br>
+
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>Ver las estadisticas</td>
+                                    </tr>
 
 
                                 <tr>
