@@ -54,6 +54,7 @@ trait PrinterTrait
     }
 
     public function printClosedCash( $lines){
+
         $this->connectToPrinter(1);
 
         $this->printLogo('app.logo');
@@ -64,9 +65,15 @@ trait PrinterTrait
         $total = 0;
 
         foreach ($lines as $line) {
+
             if(str_contains($line->payment,'cash')) {
                 $totalCash += $line->total;
                 $total  += $line->total;
+                if(!is_null($line->notes)){
+                    $line->payment=$line->payment."-".$line->notes;
+
+                }
+
                 $this->printTwoColumnLine($line);
             }
             $totalLine = new stdClass();
