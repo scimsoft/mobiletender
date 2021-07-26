@@ -34,7 +34,7 @@
                             <tr><td colspan="2" class="">&nbsp;</td></tr>
                             <tr><td colspan="2" class="text-center"><h4>Venta por dia</h4></td></tr>
                             @foreach($ventaPorDias as $ventaPorDia)
-                                <tr><td>{{$ventaPorDia->dayname}}</td><td>@money($ventaPorDia->TOTAL)</td></tr>
+                                <tr><td>{{Carbon\Carbon::parse($ventaPorDia->daynumber)->format('l')}}&nbsp;- &nbsp;{{$ventaPorDia->daynumber}}</td><td>@money($ventaPorDia->TOTAL)</td></tr>
 
                             @endforeach
 

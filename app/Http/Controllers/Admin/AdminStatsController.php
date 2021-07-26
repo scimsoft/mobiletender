@@ -39,12 +39,12 @@ AND ticketlines.PRODUCT = products.ID
 AND products.CATEGORY = categories.ID
 AND date(receipts.DATENEW) >= (curdate())
 GROUP BY NAME');
-        $ventaPorDias = DB::select('SELECT dayname( receipts.Datenew) as dayname,date ( receipts.Datenew) AS mdate, COUNT(DISTINCT(receipts.ID)) AS CHECKS, SUM(ticketlines.UNITS*ticketlines.PRiCE*1.1) AS TOTAL
+        $ventaPorDias = DB::select('SELECT date(receipts.Datenew) as daynumber, COUNT(DISTINCT(receipts.ID)) AS CHECKS, SUM(ticketlines.UNITS*ticketlines.PRiCE*1.1) AS TOTAL
  FROM tickets, ticketlines, receipts, closedcash WHERE ticketlines.TICKET = receipts.ID
 AND closedcash.MONEY = receipts.MONEY
 AND ticketlines.TICKET = tickets.Id
 AND receipts.DATENEW >= CURDATE()-13
-GROUP BY mdate');
+GROUP BY daynumber');
 
 
         $total= 0;
