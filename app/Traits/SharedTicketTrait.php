@@ -146,18 +146,17 @@ trait SharedTicketTrait
     {
 
         $sharedTicket = ($this->getTicket($table_number));
+//dd($sharedTicket->m_aLines[$ticketLineNumber]->attributes->updated);
+        if ($sharedTicket->m_aLines[$ticketLineNumber]->attributes->updated != "true") {
 
-        if ($sharedTicket->m_aLines[$ticketLineNumber]->updated) {
-            $this->addLineRemoved($sharedTicket,$ticketLineNumber);
+            $this->addLineRemoved($sharedTicket, $ticketLineNumber);
+        }
 
 
             array_splice($sharedTicket->m_aLines, $ticketLineNumber, 1);
             $this->updateOpenTable($sharedTicket, $table_number);
 
-            return true;
-        } else {
-            return false;
-        }
+
 
     }
 
@@ -249,7 +248,7 @@ trait SharedTicketTrait
 
     private function addLineRemoved(SharedTicket $ticket,int $ticketLineNumber){
         $now = Carbon::now();
-        $user = auth()->user()->name;
+        $user = (auth()->user())?auth()->user()->name:"Guest";
         $product= $ticket->m_aLines[$ticketLineNumber]->attributes->product;
         DB::insert("INSERT INTO lineremoved VALUES ('$now','$user','$ticket->m_sId','$product->id','$product->name',1)");
 
