@@ -117,7 +117,7 @@ trait PrinterTrait
 
         $this->printProductLinesAndPrices($lines);
 
-        $this->footer = "Gracias por la visita y no olvides seguirnos en @PlayaAlta. \n\n Servicio de mesa digital por: horecalo.com";
+        $this->footer = "Gracias por la visita y no olvides seguirnos en @PlayaAlta. \n\n Servicio de mesa digital ofrecido por: horecalo.com";
         $this->printFooter();
     }
 
