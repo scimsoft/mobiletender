@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Traits\PrinterTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Traits\UnicentaPayedTrait;
 use Illuminate\Support\Facades\DB;
@@ -51,9 +52,11 @@ class AdminPaymentController extends Controller
 
         $lines =  $this->getTicketLines($tableId);
 
-        $header = "Chiringuito Playa Alta \n CIF: 29479010W \n +34 618065010 ";
+        $header = config('app.invoice_header');
+
 
         $header .= "\n\n Mesa:  ". $tableId;
+        $header .= "\n Fecha: ".Carbon::now();
 
         $this->printInvoice($header,$lines);
 
@@ -74,9 +77,10 @@ class AdminPaymentController extends Controller
             }
 
 
-        $header = "Chiringuito Playa Alta \n CIF: 29479010W \n +34 618065010 ";
+        $header = config('app.invoice_header');
 
         $header .= "\n\n Mesa:  ". $tableId;
+        $header .= "\n Fecha: ".Carbon::now();
 
         $this->printInvoice($header,$linestoPrint);
 
@@ -113,7 +117,7 @@ class AdminPaymentController extends Controller
 
     public function addmovement(Request $request){
         $payment = $request->payment;
-        $total = $request->total;
+        $total = str_replace(',','.',$request->total);
         if($payment != 'cashin'){
             $total = 0 - $total;
         }

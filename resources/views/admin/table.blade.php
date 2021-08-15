@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <br>
-                <div class="card-header col-centered"><h1 class="display-3 text-center"> Cobrar</h1></div>
+                <div class="card-header col-centered"><h1 class="display-3 text-center"></h1></div>
 
                 <div class="card-body">
                     @if (session('status'))

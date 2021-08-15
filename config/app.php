@@ -19,6 +19,10 @@ return [
 
     'ticketlogo' => env('TICKET_LOGO', '/img/logo.png'),
 
+    'redes_sociales' => env('REDES_SOCIALES','redes sociales'),
+
+    'invoice_header' => env('INVOICE_HEADER',""),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

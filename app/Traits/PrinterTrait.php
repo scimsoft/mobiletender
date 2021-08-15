@@ -117,7 +117,7 @@ trait PrinterTrait
 
         $this->printProductLinesAndPrices($lines);
 
-        $this->footer = "Gracias por la visita y no olvides seguirnos en @PlayaAlta. \n\n Servicio de mesa digital ofrecido por: horecalo.com";
+        $this->footer = "Gracias por la visita y no olvides seguirnos en ". config('app.redes_sociales')."  \n\n Servicio de mesa digital ofrecido por: horecalo.com";
         $this->printFooter();
     }
 
@@ -249,7 +249,7 @@ trait PrinterTrait
     private function printTwoClumnFooter($totalPrice): void
     {
         $this->printer->text("==========================================================\n");
-        $this->printer->text($this->columnify('IVA', number_format($totalPrice * 0.1, 2, ",", ".") . '', 40, 12, 4));
+        $this->printer->text($this->columnify('IVA 10%', number_format($totalPrice * 0.1, 2, ",", ".") . '', 40, 12, 4));
         $this->printer->setTextSize(2, 2);
         $printtext = $this->columnify("TOTAL", number_format($totalPrice, 2, ",", ".") . "", 18, 12, 4);
         $this->printer->setEmphasis();
