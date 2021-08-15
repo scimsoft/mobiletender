@@ -100,8 +100,8 @@ class BasketController extends Controller
     {
         $this->footer = 'Se pide pagar con EFECTIVO';
         $this->printOrderAndReceipt($ticketID);
-        Session::flash('status', 'Su cuenta esta pedida');
-        return redirect()->route('order');
+        Session::flash('status', 'Su cuenta esta pedida. ');
+        return view('order.final');
     }
 
     public function printOrderPagado($ticketID){
@@ -135,7 +135,7 @@ class BasketController extends Controller
         $this->footer = 'Se pide pagar con TARJETA';
         $this->printOrderAndReceipt($ticketID);
         Session::flash('status', 'Su cuenta esta pedida');
-        return redirect()->route('order');
+        return view('order.final');
     }
 
     public function printOrderOnline($ticketID)
