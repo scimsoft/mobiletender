@@ -51,7 +51,7 @@
 
                         </thead>
                         <tbody class="">
-                        <form method="POST" action="/payed/">
+                        <form method="POST" action="/payed">
                             @csrf
                             <input type="hidden" name="tableId" value="{{$tableId}}">
                             @foreach($lines as $line)
