@@ -100,8 +100,9 @@ class BasketController extends Controller
     {
         $this->footer = 'Se pide pagar con EFECTIVO';
         $this->printOrderAndReceipt($ticketID);
+        $totalBasketPrice = $this->getTotalBasketValue();
         Session::flash('status', 'Su cuenta esta pedida. ');
-        return view('order.final');
+        return view('order.final',compact('totalBasketPrice'));
     }
 
     public function printOrderPagado($ticketID){
@@ -134,8 +135,9 @@ class BasketController extends Controller
     {
         $this->footer = 'Se pide pagar con TARJETA';
         $this->printOrderAndReceipt($ticketID);
+        $totalBasketPrice = $this->getTotalBasketValue();
         Session::flash('status', 'Su cuenta esta pedida');
-        return view('order.final');
+        return view('order.final',compact('totalBasketPrice'));
     }
 
     public function printOrderOnline($ticketID)
@@ -191,6 +193,12 @@ class BasketController extends Controller
             Session::forget('ticketID');
             Session::forget('tableNumber');
         }
+    }
+
+    private function getTotalBasketValue()
+    {
+        $totalBasket = $this->getSumTicketLines(Session::get('ticketID'));
+        return $totalBasket;
     }
 
 

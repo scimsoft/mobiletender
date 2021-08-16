@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -13,17 +13,26 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <img src="/img/logo.png" class="img-fluid">
+                        <br><br>
                     <H2>Gracias por su confianza</H2>
 <br>
-                    <H4>Ayudanos y deja su opinion <a href="https://g.page/r/CXvfi6vXp5UmEAg/review">Aqui</a></H4>
-
+                    <H4>Ayudanos y deje su opinion en <a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank">Google</a></H4>
                     <br>
+                        Sigeunos en:
+                        <a href="https://www.instagram.com/playaalta/" class="bi bi-instagram"><span class="label">Instagram</span></a>
+
+                            <a href="https://twitter.com/playaalta" class="bi bi-twitter"><span class="label">Twitter</span></a>
+                            <a href="https://www.facebook.com/chiringuito.playa.alta" class="bi bi-facebook"><span class="label">Facebook</span></a>
+
+
+                    <br><br>
 
                         <H4>Pulsa <a href="javascript:set_notificacion();">aqui</a> para recibir nuestras ofertas.</H4>
 
                     <br>
                     <br>
-                       <h4> <a href="/order">Volver</a></h4>
+
 
 
 
