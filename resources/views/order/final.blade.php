@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
 
             <div class="card">
-
+<br><br>
 
                 <div class="card-body text-center">
                     @if (session('status'))
@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <img src="/img/logo.png" class="img-fluid">
+                    <img src="/img/logo.jpg" class="img-fluid">
                         <br><br>
                     <H2>Gracias por su confianza</H2>
 <br>
