@@ -126,7 +126,7 @@ trait UnicentaPayedTrait
         */
         $tax = 0.1 * $total;
         $taxid = Str::uuid();
-        $insertTaxLineSQL = "INSERT INTO taxlines (ID, RECEIPT, TAXID, BASE, AMOUNT)  VALUES ('$taxid', '$id', '001', '$total', '$tax')";
+        $insertTaxLineSQL = "d (ID, RECEIPT, TAXID, BASE, AMOUNT)  VALUES ('$taxid', '$id', '001', '$total', '$tax')";
         DB::insert($insertTaxLineSQL);
 
         /*

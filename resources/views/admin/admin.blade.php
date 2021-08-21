@@ -80,6 +80,16 @@
                             @if(Auth::user()->isAdmin())
                                     <tr><td colspan="3">ADMIN</td></tr>
                                 <tr>
+                                        <td>
+
+
+                                            <a href="/receipts" class="btn btn-primary"> Tickets cobrados</a> <br>
+
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>Lista de las ultimas 50 tickets cobrados</td>
+                                    </tr>
+                                <tr>
                                     <td>
 
 

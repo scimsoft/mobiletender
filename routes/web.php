@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminOrderController;
 
 use App\Http\Controllers\Admin\AdminPaymentController;
+use App\Http\Controllers\Admin\AdminReceiptController;
 use App\Http\Controllers\Admin\AdminStatsController;
 use App\Http\Controllers\Admin\AdminStockController;
 use App\Http\Controllers\CategoryController;
@@ -115,6 +116,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/movefrom/{from}',[AdminPaymentController::class,'movefrom'])->middleware('is_finance')->name('movefrom');
 
     Route::get('/opendrawer',[AdminPaymentController::class,'openDrawer']) ->middleware('is_finance');
+
+    Route::get('/receipts',[AdminReceiptController::class,'index']) ->middleware('is_finance');
+    Route::get('/deletereceipt/{id}',[AdminReceiptController::class,'delete'])->middleware('is_admin');
+
     Route::get('/closecash',[AdminPaymentController::class,'closecash'])->middleware('is_manager')->name('closecash');
     Route::get('/printmoney',[AdminPaymentController::class,'printmoney'])->middleware('is_manager')->name('printmoney');
     Route::get('/closemoney',[AdminPaymentController::class,'closemoney'])->middleware('is_manager')->name('closemoney');
