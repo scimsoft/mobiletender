@@ -31,7 +31,7 @@
                 <td>{{$receipt->datenew}}</td>
                 <td>{{$receipt->person}}</td>
                 <td>{{ $receipt->payment }}</td>
-                <td>@money($receipt->total *1.1)</td>
+                <td>@money($receipt->total)</td>
                 <td><a href="/deletereceipt/{{$receipt->id}}" class="btn btn-danger">Borrar</a>
                     <a href="/editreceipt/{{$receipt->id}}" class="btn btn-tab">Edit</a></td>
             </tr>
