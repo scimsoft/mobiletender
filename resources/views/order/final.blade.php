@@ -19,11 +19,11 @@
 <br>
                     <H4>Ayudanos y deje su opinion en <a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank">Google</a></H4>
                     <br>
-                        Sigeunos en:
-                        <a href="https://www.instagram.com/playaalta/" class="bi bi-instagram"><span class="label">Instagram</span></a>
+                        Siguenos en:
+                        <a href="https://www.instagram.com/playaalta/" class="bi bi-instagram" target="_blank"><span class="label">Instagram</span></a>
 
-                            <a href="https://twitter.com/playaalta" class="bi bi-twitter"><span class="label">Twitter</span></a>
-                            <a href="https://www.facebook.com/chiringuito.playa.alta" class="bi bi-facebook"><span class="label">Facebook</span></a>
+                            <a href="https://twitter.com/playaalta" class="bi bi-twitter" target="_blank"><span class="label">Twitter</span></a>
+                            <a href="https://www.facebook.com/chiringuito.playa.alta" class="bi bi-facebook" target="_blank"><span class="label">Facebook</span></a>
 
 
                     <br><br>
