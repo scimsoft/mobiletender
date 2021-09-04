@@ -30,10 +30,18 @@
             <tr id="{{$receipt->id}}">
                 <td>{{$receipt->datenew}}</td>
                 <td>{{$receipt->person}}</td>
-                <td>{{ $receipt->payment }}</td>
+                <td><select name="category" class="form-control">
+                        <option value="cash" {{ ( $receipt->payment == "cash") ? 'selected' : '' }}>cash</option>
+                        <option value="tarjeta" {{ ( $receipt->payment == "tarjeta") ? 'selected' : '' }}>tarjeta</option>
+                        <option value="online" {{ ( $receipt->payment == "online") ? 'selected' : '' }}>online</option>
+
+                    </select>
+
                 <td>@money($receipt->total)</td>
-                <td><a href="/deletereceipt/{{$receipt->id}}" class="btn btn-danger">Borrar</a>
-                    <a href="/editreceipt/{{$receipt->id}}" class="btn btn-tab">Edit</a></td>
+                <td>
+                    <a href="/editreceipt/{{$receipt->id}}" class="btn btn-primary">Edit</a>
+                <a href="/deletereceipt/{{$receipt->id}}" class="btn btn-danger">Borrar</a>
+                </td>
             </tr>
         @endforeach
     </table>
@@ -56,6 +64,24 @@
                     url:'/products/catalog',
                     data: { "product_id" : product_id },
                     success: function(data){
+                        jQuery('#overlay').fadeOut();
+
+                    }
+                });
+            });
+            $('select').on('change', function() {
+                jQuery('#overlay').show();
+                var paymenttype = this.value;
+                var receipt = $(this).closest('tr').attr('id');
+                $.ajax({
+                    type:'POST',
+                    url:'/changereceiptpaymenttype',
+                    data: {
+                        "ticket_id" :  receipt,
+                        "paymenttype" : this.value
+                    },
+                    success: function(data){
+
                         jQuery('#overlay').fadeOut();
 
                     }

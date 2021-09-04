@@ -94,6 +94,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/adminvertable/{id}', [AdminOrderController::class, 'admintable'])->middleware('is_manager');
     Route::get('/printbill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');
     Route::get('/selecttable',[AdminHomeController::class, 'selectTableNr'])->middleware('is_waiter');
+
     Route::resource('/products', ProductController::class)->middleware('is_manager');;
     Route::get('/products/list/{id}',[ProductController::class,'getProductList'])->middleware('is_manager');
     Route::get('/products/index/{id?}', [ProductController::class, 'index'])->middleware('is_manager');;
@@ -103,6 +104,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/addOnProduct/add', [ProductController::class, 'addOnProductAdd'])->middleware('is_manager');;
     Route::post('/addOnProduct/remove', [ProductController::class, 'removeAddOnProductAdd'])->middleware('is_manager');;
     Route::get('/dbimage/{id}', [ProductImageController::class, 'getImage']);
+
     Route::resource('categories', App\Http\Controllers\CategoryController::class)->middleware('is_manager');
 
     Route::post('/categories/setparent',[CategoryController::class,'setParentId'])->middleware('is_manager');
@@ -119,8 +121,11 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/receipts',[AdminReceiptController::class,'index']) ->middleware('is_finance');
     Route::get('/deletereceipt/{id}',[AdminReceiptController::class,'delete'])->middleware('is_admin');
+    Route::get('/editreceipt/{id}',[AdminReceiptController::class,'edit'])->middleware('is_admin');
+    Route::get('/deletereceiptline/{id}/{line}',[AdminReceiptController::class,'deletereceiptline'])->middleware('is_admin');
+    Route::post('/changereceiptpaymenttype',[AdminReceiptController::class,'changepaymenttype'])->middleware('is_admin');
 
-    Route::get('/closecash',[AdminPaymentController::class,'closecash'])->middleware('is_manager')->name('closecash');
+     Route::get('/closecash',[AdminPaymentController::class,'closecash'])->middleware('is_manager')->name('closecash');
     Route::get('/printmoney',[AdminPaymentController::class,'printmoney'])->middleware('is_manager')->name('printmoney');
     Route::get('/closemoney',[AdminPaymentController::class,'closemoney'])->middleware('is_manager')->name('closemoney');
     Route::get('/movements',[AdminPaymentController::class,'movementsIndex'])->middleware('is_manager')->name('movementsIndex');

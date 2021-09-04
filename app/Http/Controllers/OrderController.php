@@ -116,7 +116,7 @@ class OrderController extends Controller
         $unprintedlines = false;
         $ticketLines=$this->getTicket(Session::get('ticketID'))->m_aLines;
         foreach ($ticketLines as $ticketLine){
-            $products[]=Product::all()->find($ticketLine->productid);
+           // $products[]=Product::all()->find($ticketLine->productid);
             if($ticketLine->attributes->updated == "true"){
                 $unprintedlines = true;
             }
