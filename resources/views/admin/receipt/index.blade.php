@@ -20,6 +20,7 @@
     <table class="table table-bordered">
         <tr>
             <th>Fecha</th>
+            <th>Nr:</th>
             <th>Persona</th>
             <th>Tipo</th>
             <th>Cantidad</th>
@@ -29,6 +30,7 @@
 
             <tr id="{{$receipt->id}}">
                 <td>{{$receipt->datenew}}</td>
+                <td>{{$receipt->ticketid}}</td>
                 <td>{{$receipt->person}}</td>
                 <td><select name="category" class="form-control">
                         <option value="cash" {{ ( $receipt->payment == "cash") ? 'selected' : '' }}>cash</option>

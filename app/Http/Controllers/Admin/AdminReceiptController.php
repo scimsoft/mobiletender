@@ -35,9 +35,10 @@ class AdminReceiptController extends Controller
      */
     public function index()
     {
-        $receipts = DB::select("SELECT receipts.id,receipts.datenew, receipts.person, payments.payment, payments.total 
-                    FROM receipts, payments
+        $receipts = DB::select("SELECT receipts.id,receipts.datenew, receipts.person, payments.payment, payments.total,tickets.ticketid 
+                    FROM receipts, payments, tickets
                     where receipts.id = payments.receipt
+                    and receipts.id = tickets.id
                     and payments.payment in('cash','tarjeta','online')
                     order by receipts.datenew desc
                     limit 100;");
@@ -61,6 +62,7 @@ class AdminReceiptController extends Controller
 
     public function edit($id){
         $ticketlines = DB::select("Select * from ticketlines where ticket = '$id'");
+        $ticketNumber = DB::select("SELECT ticketid from tickets where id ='$id'")[0]->ticketid;
 
         $receiptlines = [];
         foreach ($ticketlines as $ticketline){
@@ -75,7 +77,7 @@ class AdminReceiptController extends Controller
 
         }
 
-        return view ('admin.receipt.edit',compact('receiptlines'));
+        return view ('admin.receipt.edit',compact('receiptlines','ticketNumber'));
 
     }
 

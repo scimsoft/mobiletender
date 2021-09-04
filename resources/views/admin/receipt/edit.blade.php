@@ -8,7 +8,7 @@
             <div class="card">
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
-                <div class="card-header text-center"><h4>Ticket ID :</h4></div>
+                <div class="card-header text-center"><h4>Ticket NR: {{$ticketNumber}}</h4></div>
 
                 <div class="card-body text-center">
                     @if (session('status'))
@@ -63,9 +63,10 @@
                                         <td class="">{{$receiptline->productname }}</td>
                                         <td class="nowrapcol amount"><b>@money($receiptline->price *1.1)</b></td>
 
-                                        <td>
+                                        <td>@if(count($receiptlines)>1)
                                                 <a href="/deletereceiptline/{{$receiptline->id}}/{{$receiptline->line}}"
                                                    class="btn btn-tab add-to-cart btn-add" type="submit">Borrar</a>
+                                                @endif
 
                                         </td>
                                     </tr>
