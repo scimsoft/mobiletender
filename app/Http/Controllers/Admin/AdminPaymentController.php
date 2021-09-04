@@ -58,9 +58,11 @@ class AdminPaymentController extends Controller
         $header .= "\n\n Mesa:  ". $tableId;
         $header .= "\n Fecha: ".Carbon::now();
 
-        $this->printInvoice($header,$lines);
 
-        $this->setTicketPayed($tableId,$mode);
+
+        $ticketNr = $this->setTicketPayed($tableId,$mode);
+        $header .= "\n Ticket Nr: ".$ticketNr;
+        $this->printInvoice($header,$lines);
         return redirect(route('paypanel'));
     }
     public function payedpost(Request $request){
@@ -82,9 +84,12 @@ class AdminPaymentController extends Controller
         $header .= "\n\n Mesa:  ". $tableId;
         $header .= "\n Fecha: ".Carbon::now();
 
-        $this->printInvoice($header,$linestoPrint);
 
-        $this->setTicketPayed($tableId,$mode,$linestoPrint);
+
+        $ticketNr = $this->setTicketPayed($tableId,$mode,$linestoPrint);
+        $header .= "\n Ticket Nr: ".$ticketNr;
+
+        $this->printInvoice($header,$linestoPrint);
         return redirect(route('paypanel'));
     }
 

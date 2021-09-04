@@ -61,6 +61,7 @@ trait UnicentaPayedTrait
          */
         $insertTicketSQL = "INSERT INTO tickets (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, STATUS) VALUES ('$id', 0, '$ticketid', 0, null, 0)";
         DB::insert($insertTicketSQL);
+        $ticketNr = DB::select("SELECT ticketid FROM tickets WHERE ID = '$id'")[0]->ticketid;
         /*
          * UPDATE tickets SET STATUS = 8 WHERE TICKETTYPE = 0 AND TICKETID = 0
          *
@@ -149,6 +150,7 @@ trait UnicentaPayedTrait
         /* INSERT INTO lineremoved (NAME, TICKETID, PRODUCTNAME, UNITS) VALUES ('Administrator', 'Void', 'Ticket Deleted', 0.0)
         * */
 
+        return $ticketNr;
     }
 
     public function setLineRemoved(SharedTicketLines $lines)
