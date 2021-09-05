@@ -19,7 +19,12 @@ class TimeReportController extends Controller
      */
     public function index(){
         //
-       $timereports= TimeReport::get();
+        if(Auth::user()->isAdmin()){
+            $timereports= TimeReport::get();
+        }else{
+            $timereports= TimeReport::where('userId',Auth::user()->id)->get();
+        }
+
        $lastChecking= TimeReport::where('userId',Auth::user()->id)->where('endtime',null)->first();
        $isChecking = count(TimeReport::where('userId',Auth::user()->id)->where('endtime',null)->get())>0;
 //dd($isChecking);
