@@ -31,11 +31,46 @@
 
             </tr>
             <tbody id="reportTable">
+            <tr>
+                <form action="{{ route('categories.store') }}" method="POST">
+                    <td>{{Auth::user()->name}}</td>
+                    @csrf
+                    @if(!$isChecking)
+                        <td>{{ \Carbon\Carbon::now()->format('H:i' ) }}</td>
 
-            @foreach($timereports as $timereport)
+                        <td>
+
+                            <a href="/timereport/enter" class="btn btn-primary">Entrada</a>
+
+                        </td>
+                        <td></td>
+                    @else
+                        <td>{{date('D d-M-y',strtotime($lastChecking->starttime))}}</td>
+                        <td>
+                            {{date('H:i',strtotime($lastChecking->starttime))}}
+                        </td>
+
+                        <td>{{ \Carbon\Carbon::parse( $lastChecking->starttime )->diffForHumans( \Carbon\Carbon::now(),['parts'=> 2,'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE] ) }}</td>
+
+                    @endif
+
+
+                    <td>@if($isChecking)
+                            <a href="/timereport/exit" class="btn btn-primary">Salida</a>
+                        @endif</td>
+
+
+                </form>
+                <td>
+
+                    &nbsp;
+                </td>
+            </tr>
+
+            @foreach($timereports->reverse() as $timereport)
                 @if($loop->index >= count($timereports)-1 AND $isChecking)
                     @break
-                @endif;
+                @endif
                 <tr>
                     <td>{{$timereport->user->name}}</td>
                     <td>{{date('D d-M-y',strtotime($timereport->starttime))}}</td>
@@ -54,41 +89,7 @@
 
             @endforeach
 
-            <tr>
-                <form action="{{ route('categories.store') }}" method="POST">
-                    <td>{{Auth::user()->name}}</td>
-                    @csrf
-                    @if(!$isChecking)
-                    <td>{{ \Carbon\Carbon::now() }}</td>
 
-                    <td>
-
-                        <a href="/timereport/enter" class="btn btn-primary">Entrada</a>
-
-                    </td>
-                        <td></td>
-                    @else
-                        <td>{{date('D d-M-y',strtotime($lastChecking->starttime))}}</td>
-                        <td>
-                            {{date('H:i',strtotime($lastChecking->starttime))}}
-                        </td>
-
-                        <td>{{ \Carbon\Carbon::parse( $lastChecking->starttime )->diffForHumans( \Carbon\Carbon::now(),['parts'=> 2,'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE] ) }}</td>
-
-                    @endif
-
-
-                    <td>@if($isChecking)
-                        <a href="/timereport/exit" class="btn btn-primary">Salida</a>
-                    @endif</td>
-
-
-                </form>
-                <td>
-
-                    &nbsp;
-                </td>
-            </tr>
 
             </tbody>
         </table>

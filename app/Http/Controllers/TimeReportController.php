@@ -47,7 +47,7 @@ class TimeReportController extends Controller
             ->first();
         $timereport->endtime = Carbon::now('GMT+2');
         $timereport->save();
-        return redirect(route('admin'));
+        return $this->index();
 
     }
 
