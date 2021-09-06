@@ -49,6 +49,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/basket/', [OrderController::class, 'showBasket'])->name('basket');
 
     Route::get('/order/table/{id}', [OrderController::class, 'orderForTableNr']);
+    //TODO temporary route for misprinted QR codes
+    Route::get('/order/table/order/table/{id}', [OrderController::class, 'orderForTableNr']);
+    // TODO END
     Route::get('/order/', [OrderController::class, 'order'])->name('order');
     Route::get('/order/category/{id}', [OrderController::class, 'showProductsFromCategory']);
     Route::get('/menu/category/{id}', [OrderController::class, 'showProductsFromCategoryForMenu']);
