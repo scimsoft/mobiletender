@@ -163,6 +163,12 @@ alergenicos:
                                                 @if($product->product_detail->alerg_sesame)<img
                                                         src="/img/allergens/SesameGrains.png" class="img-fluid"
                                                         width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Sesamo">@endif
+                                                @if($product->product_detail->alerg_soy)<img
+                                                        src="/img/allergens/Soy.png" class="img-fluid"
+                                                        width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Soja">@endif
+                                                @if($product->product_detail->alerg_fish)<img
+                                                        src="/img/allergens/Fish.png" class="img-fluid"
+                                                        width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Pescado">@endif
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary"

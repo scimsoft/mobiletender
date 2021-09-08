@@ -224,6 +224,12 @@
                                     <img
                                             src="/img/allergens/SesameGrains.png" class="img-fluid toggleAlergen"
                                             width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Sesamo"id='alerg_sesame'  style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_sesame) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Soy.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Soy"id='alerg_soy'  style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_soy) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Fish.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Fish"id='alerg_fish'  style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_fish) 1 @else 0.3 @endif;">
 
                                 </td>
 

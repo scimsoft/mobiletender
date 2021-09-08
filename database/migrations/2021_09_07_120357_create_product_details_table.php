@@ -33,6 +33,8 @@ class CreateProductDetailsTable extends Migration
             $table->boolean('alerg_peanuts')->default(false);
             $table->boolean('alerg_peelfruits')->default(false);
             $table->boolean('alerg_sesame')->default(false);
+            $table->boolean('alerg_soy')->default(false);
+            $table->boolean('alerg_fish')->default(false);
 
 
         });
