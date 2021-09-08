@@ -60,7 +60,7 @@
                                 <td colspan="3">
                                     <label for="description" class="form-label"><b>Dicripcion</b></label>
                                     <textarea name="description" class="form-control"
-                                              rows="3" size="12" style="min-width: 100%">{{$product->description}}</textarea>
+                                              rows="3" size="12" style="min-width: 100%">{{$product->product_detail->description ?? ''}}</textarea>
 
                                 </td>
                             </tr>
@@ -88,27 +88,28 @@
                                 </td>
                                 <td>
                                     <label for="taxcat" class="form-label"><b>Tipo de IVA</b></label>
-                                    <input name="taxcat" class="form-control" type="text" value="001" size="2" disabled>
+                                    <input name="taxcat" class="form-control" type="text" value="001" size="2" readonly>
 
                                 </td>
                             </tr>
                             <tr>
 
                             </tr>
-                        <!--tr>
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">System data</h6></td><td><hr></td><td><hr></td></tr>
+                        <tr>
 
-                                <td>
+                                <td colspan="2">
                                     <label for="reference" class="label label-default"><b>Referencia</b> </label>
                                     <input name="reference" class="form-control" type="text"
-                                           value="{{$product->reference}}">
+                                           value="{{$product->reference}}" readonly>
                                 </td>
                                 <td>
                                     <label for="code" class="form-label"><b>Codigo</b></label>
                                     <input name="code" class="form-control" type="text"
-                                           value="{{$product->code}}">
+                                           value="{{$product->code}}" readonly>
 
                                 </td>
-                            </tr-->
+                            </tr>
 
 
                             <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Compra y Venta</h6></td><td><hr></td><td><hr></td></tr>
@@ -232,17 +233,17 @@
                             <tr>
                                 <td colspan="3">
                                     <label for="lang1" class="form-label"><b>Language 1</b></label>
-                                    <input type="text" name="lang1" class="form-control" style="min-width: 100%">
+                                    <input type="text" name="lang1" class="form-control" style="min-width: 100%"  value="{{$product->product_detail->lang1 ?? ''}}">
                                 </td>
                             </tr><tr>
                                 <td colspan="3">
                                     <label for="lang2" class="form-label"><b>Language 2</b></label>
-                                    <input type="text" name="lang2" class="form-control" style="min-width: 100%">
+                                    <input type="text" name="lang2" class="form-control" style="min-width: 100%" value="{{$product->product_detail->lang2 ?? ''}}">
                                 </td>
                             </tr><tr>
                                 <td colspan="3">
                                     <label for="lang3" class="form-label" ><b>Language 3</b></label>
-                                    <input type="text" name="lang3" class="form-control" style="min-width: 100%">
+                                    <input type="text" name="lang3" class="form-control" style="min-width: 100%"  value="{{$product->product_detail->lang3 ?? ''}}">
                                 </td>
                             </tr>
                             <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Save</h6></td><td><hr></td><td><hr></td></tr>

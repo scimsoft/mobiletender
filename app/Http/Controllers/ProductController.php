@@ -135,6 +135,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $request->validate([
             'code'=> 'required',
             'taxcat'=> 'required',
@@ -146,6 +147,7 @@ class ProductController extends Controller
 
         ]);
         Log::debug('product update id:'.$id);
+
 
         $product=Product::find($id);
         $request->validate([
@@ -160,11 +162,29 @@ class ProductController extends Controller
         $product->pricesell = ($pricesell/1.1);
         $product->stockunits = $stockunits;
         $product->save();
+        $this->updateProductDetail($request,$id);
 
         $url = $request->only('redirects_to');
 
         return redirect()->to($url['redirects_to']);
         //return redirect()->route('products.index')->with('success','Product updated successfully');
+    }
+
+    private function updateProductDetail(Request $request,$id){
+
+        $productDetail = ProductDetail::where('product_id',$id)->first();
+        if(empty($productDetail)){
+            $productDetail = new ProductDetail();
+            $productDetail->product_id = $id;
+        }
+        $productDetail->description = $request->description;
+        $productDetail->lang1=$request->lang1;
+        $productDetail->lang2=$request->lang2;
+        $productDetail->lang3=$request->lang3;
+        $productDetail->save();
+
+
+
     }
 
     /**
