@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductDetail;
 use App\Models\UnicentaModels\Category;
 use App\Models\ProductAdOn;
 use App\Traits\ProductTrait;
@@ -245,6 +246,23 @@ class ProductController extends Controller
 
     public function getProductList($id){
         return Product::select('id','name')->where('category',$id)->get();
+    }
+
+    public function toggleAlergen(Request $request){
+        $productID = request()->get('product_id');
+        $productDetail = ProductDetail::where('product_id',$productID)->first();
+        if(empty($productDetail)){
+            $productDetail = new ProductDetail();
+            $productDetail->product_id = $productID;
+        }
+        if($productDetail->{$request->alergen_id}){
+            $productDetail->{$request->alergen_id} = false;
+        }else{
+            $productDetail->{$request->alergen_id} = true;
+        }
+        $productDetail->save();
+        return $productDetail->{$request->alergen_id};
+
     }
 
 

@@ -98,14 +98,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/printbill/{id}', [AdminOrderController::class, 'send_bill'])->middleware('is_manager');
     Route::get('/selecttable',[AdminHomeController::class, 'selectTableNr'])->middleware('is_waiter');
 
-    Route::resource('/products', ProductController::class)->middleware('is_manager');;
+    Route::resource('/products', ProductController::class)->middleware('is_manager');
     Route::get('/products/list/{id}',[ProductController::class,'getProductList'])->middleware('is_manager');
-    Route::get('/products/index/{id?}', [ProductController::class, 'index'])->middleware('is_manager');;
-    Route::get('/crop-image/{id}', [ProductController::class, 'editImage'])->middleware('is_manager');;
-    Route::post('crop-image', [ProductController::class, 'imageCrop'])->middleware('is_manager');;
-    Route::post('/products/catalog', [ProductController::class, 'toggleCatalog'])->middleware('is_manager');;
-    Route::post('/addOnProduct/add', [ProductController::class, 'addOnProductAdd'])->middleware('is_manager');;
-    Route::post('/addOnProduct/remove', [ProductController::class, 'removeAddOnProductAdd'])->middleware('is_manager');;
+    Route::get('/products/index/{id?}', [ProductController::class, 'index'])->middleware('is_manager');
+    Route::get('/crop-image/{id}', [ProductController::class, 'editImage'])->middleware('is_manager');
+    Route::post('crop-image', [ProductController::class, 'imageCrop'])->middleware('is_manager');
+    Route::post('/products/catalog', [ProductController::class, 'toggleCatalog'])->middleware('is_manager');
+    Route::post('/addOnProduct/add', [ProductController::class, 'addOnProductAdd'])->middleware('is_manager');
+    Route::post('/product/alergen', [ProductController::class, 'toggleAlergen'])->middleware('is_manager');
+    Route::post('/addOnProduct/remove', [ProductController::class, 'removeAddOnProductAdd'])->middleware('is_manager');
     Route::get('/dbimage/{id}', [ProductImageController::class, 'getImage']);
 
     Route::resource('categories', App\Http\Controllers\CategoryController::class)->middleware('is_manager');

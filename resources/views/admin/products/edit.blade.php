@@ -37,14 +37,16 @@
 
                         <table class="table-borderless">
                             <tr>
-                                <td colspan="2">
+                                <td colspan="3">
                                     <label for="name" class="form-label"><b>Nombre</b></label>
-                                    <input name="name" class="form-control" type="text" value="{{$product->name}}">
+                                    <input name="name" class="form-control" type="text" value="{{$product->name}}" style="min-width: 100%">
 
                                 </td>
                             </tr>
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Image</h6></td><td><hr></td><td><hr></td></tr>
+
                             <tr>
-                                <td colspan="1">
+                                <td colspan="2">
                                     <img src="data:image/png;base64,{{$product->image}}">
                                 </td>
                                 <td>
@@ -53,10 +55,21 @@
                                     </a>
                                 </td>
                             </tr>
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Descripcion</h6></td><td><hr></td><td><hr></td></tr>
+                            <tr>
+                                <td colspan="3">
+                                    <label for="description" class="form-label"><b>Dicripcion</b></label>
+                                    <textarea name="description" class="form-control"
+                                              rows="3" size="12" style="min-width: 100%">{{$product->description}}</textarea>
+
+                                </td>
+                            </tr>
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Categoria</h6></td><td><hr></td><td><hr></td></tr>
+
 
                             <tr>
 
-                                <td colspan="1">
+                                <td colspan="1 ">
                                     <label for="category" class="label label-default"><b>Categoria</b> </label>
                                     <select name="category" class="form-control">
                                         @foreach($categories as $category)
@@ -74,71 +87,83 @@
 
                                 </td>
                                 <td>
-                                    <!--label for="taxcat" class="form-label"><b>Tipo de IVA</b></label-->
-                                    <input name="taxcat" class="form-control" type="hidden" value="001">
+                                    <label for="taxcat" class="form-label"><b>Tipo de IVA</b></label>
+                                    <input name="taxcat" class="form-control" type="text" value="001" size="2" disabled>
 
                                 </td>
                             </tr>
                             <tr>
 
                             </tr>
-                            <tr>
+                        <!--tr>
 
                                 <td>
-                                    <!--label for="reference" class="label label-default"><b>Referencia</b> </label-->
-                                    <input name="reference" class="form-control" type="hidden"
+                                    <label for="reference" class="label label-default"><b>Referencia</b> </label>
+                                    <input name="reference" class="form-control" type="text"
                                            value="{{$product->reference}}">
                                 </td>
                                 <td>
-                                    <!--label for="code" class="form-label"><b>Codigo</b></label-->
-                                    <input name="code" class="form-control" type="hidden"
+                                    <label for="code" class="form-label"><b>Codigo</b></label>
+                                    <input name="code" class="form-control" type="text"
                                            value="{{$product->code}}">
 
                                 </td>
-                            </tr>
+                            </tr-->
+
+
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Compra y Venta</h6></td><td><hr></td><td><hr></td></tr>
+
                             <tr>
 
-                                <td colspan="2">
-                                    <label for="stockunits" class="label label-default"><b>Unidades de stock</b> </label>
-                                    <input name="stockunits" class="form-control" type="text" size="2"
+                                <td colspan="1">
+                                    <label for="stockunits" class="label label-default"><b>Unidades de stock</b>
+                                    </label>
+                                    <input name="stockunits" class="form-control" type="text" size="3"
                                            value="{{$product->stockunits}}">
                                 </td>
 
-                            </tr>
-                            <tr>
 
                                 <td>
-                                    <label for="pricebuy" class="form-label"><b>Precio de Compra (sin IVA)</b> </label>
+                                    <label for="pricebuy" class="form-label"><b>Compra (sin IVA)</b> </label>
                                     <input name="pricebuy" class="form-control" type="text" size="3"
                                            value="{{$product->pricebuy}}">€
 
                                 </td>
                                 <td>
-                                    <label for="pricesell" class="form-label"><b>Precio de Venta (con IVA)</b></label>
-                                    <input name="pricesell" class="form-control" type="text"  size="3"
+                                    <label for="pricesell" class="form-label"><b>Venta (con IVA)</b></label>
+                                    <input name="pricesell" class="form-control" type="text" size="3"
                                            value="{{($product->pricesell *1.1)}}">€
 
                                 </td>
                             </tr>
-                            <tr><td><hr></td><td><hr></td></tr>
+                            <tr>
+                                <td><h6 class="inline-flex bg-dark text-white mt-4">Extras a Añadir</h6></td>
+                                <td>
+                                    <hr>
+                                </td>
+                                <td>
+                                    <hr>
+                                </td>
+                            </tr>
+
 
                             <tr>
-                                <td colspan="">
-                                    <b>Seleccion de sub-productos</b>
-                                </td>
-                                <td><select class="custom-select" name="category_addon" id="category_addon">
+                                <td colspan="3" class="text-left">
+                                    <label for="category_addon" class="form-label"><b>Seleccion de añadidos</b></label>
+                                    <select class="custom-select" name="category_addon" id="category_addon">
                                         @foreach($categories as $categorie)
                                             <option value="{{$categorie->id}}">{{$categorie->name}}</option>
 
                                         @endforeach
                                     </select></td>
                             </tr>
-                            <tr><td><hr></td><td><hr></td></tr>
+
                             <tr>
-                                <td colspan="1">
+
+                                <td colspan="2">
                                     <label for="products_list" class="form-label">Disponibles</label>
 
-                                    <select   name="products_list" class="custom-select"
+                                    <select name="products_list" class="custom-select"
                                             id="products_list">
 
 
@@ -147,7 +172,7 @@
                                 </td>
                                 <td colspan="1">
                                     <label for="addon_products_list" class="form-label">Selecionados</label>
-                                    <select  name="addon_products_list" class="custom-select"
+                                    <select name="addon_products_list" class="custom-select"
                                             id="addon_products_list">
                                         <option value=""></option>
                                         @foreach($all_adons as $all_adon)
@@ -159,18 +184,71 @@
 
                                 </td>
                             </tr>
-                        <!--tr>
-                                <td colspan="2">
-                                    <label for="description" class="form-label"><b>Dicripcion</b></label>
-                                    <textarea name="description" class="form-control"
-                                              rows="3">{{$product->description}}</textarea>
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Alergenicos</h6></td><td><hr></td><td><hr></td></tr>
+                            <tr>
+                                <td colspan="3">
+                                    <img
+                                            src="/img/allergens/Apio.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Apio" id='alerg_apio' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_apio) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Crustaceans.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Marisco" id='alerg_crustaceans' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_crustaceans) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/DairyProducts.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Lacteo" id='alerg_dairy' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_dairy) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/DioxideSulphites.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Sulphite" id='alerg_sulphites' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_sulphites) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Gluten.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Gluten" id='alerg_gluten' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_gluten) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Lupins.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Altramuces" id='alerg_lupins' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_lupins) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Mollusks.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Moluscos" id='alerg_mollusks' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_mollusks) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Egg.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Huevo" id='alerg_egg' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_egg) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Mustard.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Mostaza" id='alerg_mustard' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_mustard) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/Peanuts.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Cacahuete" id='alerg_peanuts' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_peanuts) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/PeelFruits.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Frutos Secos" id='alerg_peelfruits' style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_peelfruits) 1 @else 0.3 @endif;">
+                                    <img
+                                            src="/img/allergens/SesameGrains.png" class="img-fluid toggleAlergen"
+                                            width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Sesamo"id='alerg_sesame'  style=" opacity:@if($product->product_detail AND $product->product_detail->alerg_sesame) 1 @else 0.3 @endif;">
 
                                 </td>
-                            </tr-->
 
+                            </tr>
+
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Traduciones</h6></td><td><hr></td><td><hr></td></tr>
+                            <tr>
+                                <td colspan="3">
+                                    <label for="lang1" class="form-label"><b>Language 1</b></label>
+                                    <input type="text" name="lang1" class="form-control" style="min-width: 100%">
+                                </td>
+                            </tr><tr>
+                                <td colspan="3">
+                                    <label for="lang2" class="form-label"><b>Language 2</b></label>
+                                    <input type="text" name="lang2" class="form-control" style="min-width: 100%">
+                                </td>
+                            </tr><tr>
+                                <td colspan="3">
+                                    <label for="lang3" class="form-label" ><b>Language 3</b></label>
+                                    <input type="text" name="lang3" class="form-control" style="min-width: 100%">
+                                </td>
+                            </tr>
+                            <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Save</h6></td><td><hr></td><td><hr></td></tr>
 
                             <tr>
-                                <td colspan="2">
+                                <td colspan="3">
                                     <button type="submit" class="btn btn-tab btn-block">SAVE</button>
                                 </td>
                             </tr>
@@ -179,7 +257,7 @@
 
 
                         <div>
-                            <div class="" id="ProductPrice">
+                            <div class="" id="ProductPrice" >
                             </div>
                         </div>
 
@@ -236,7 +314,32 @@
                 });
 
             })
+            $('.toggleAlergen').click(function(e){
+                var alergid =  this.id;
+                var opacity = this.style;
+                jQuery.ajax({
+                    url: '/product/alergen',
+                    type: "POST",
+                    data: {product_id: '{{$product->id}}', alergen_id: alergid},
+                    dataType: "json",
+                    success: function (data) {
 
+
+
+                    }
+                });
+                if(opacity.opacity == "1"){
+                    opacity.opacity = "0.3"
+                }else{
+                    opacity.opacity = "1"
+                }
+
+
+            })
+
+        })
+        $(function () {
+            $('[data-toggle="popover"]').popover()
         })
 
         function addOnProduct(addOnProductID, price) {

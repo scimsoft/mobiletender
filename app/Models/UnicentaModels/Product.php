@@ -6,6 +6,7 @@ namespace App\Models\UnicentaModels;
 use App\Models\ProductAdOn;
 
 
+use App\Models\ProductDetail;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,6 +45,11 @@ class Product extends Model
 
     public function product_addons(){
         return $this->hasMany(ProductAdOn::class,'product_id','id');
+    }
+
+    public function product_detail()
+    {
+        return $this->hasOne(ProductDetail::class, 'product_id', 'id');
     }
 
 }
