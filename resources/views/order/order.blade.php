@@ -123,7 +123,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <img src="/dbimage/{{$product->id}}.png" class="img-fluid "><br>
-                                                <h4>{{$product->product_detail->description}}</h4>
+                                                <textarea  style="height: 150px;border: none;background-color: transparent;overflow: auto;resize: none;outline: none;min-width: 100%">{{$product->product_detail->description}}</textarea>
                                                 <br>
 
 alergenicos:
