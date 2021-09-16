@@ -104,33 +104,6 @@ class BasketController extends Controller
         Session::flash('status', 'Su cuenta esta pedida. ');
         return view('order.final',compact('totalBasketPrice'));
     }
-
-    public function printOrderPagado($ticketID){
-        $this->footer = 'La cuenta esta PAGADO Online';
-        $this->printOrder($ticketID);
-        Session::flash('status', 'Su numero de pedido es el: '. $ticketID );
-        return redirect()->route('order');
-    }
-
-    public function printOrderAndReceipt($ticketID)
-    {
-        $ticket = $this->getTicket($ticketID);
-        $header = "Mesa: " . $ticketID;
-        try {
-            $this->printTicket($header, $this->getTicketLines($ticketID));
-
-        } catch (\Exception $e) {
-            Session::flash('error', 'No se ha podido imprimir el ticket. Por favor avisa a nuestro personal.');
-            Log::error("Error Printing printerbridge error msg:" . $e);
-        }
-
-        if(config('customoptions.clean_table_after_order') OR config( 'customoptions.clean_table_after_bill')) {
-            $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
-
-        }
-
-    }
-
     public function printOrderTarjeta($ticketID)
     {
         $this->footer = 'Se pide pagar con TARJETA';
@@ -147,6 +120,31 @@ class BasketController extends Controller
         Session::flash('status', 'Su cuenta esta pagado');
         return redirect()->route('order');
     }
+
+    public function printOrderPagado($ticketID){
+        $this->footer = 'La cuenta esta PAGADO Online';
+        $this->printOrder($ticketID);
+        Session::flash('status', 'Su numero de pedido es el: '. $ticketID );
+        return redirect()->route('order');
+    }
+
+    public function printOrderAndReceipt($ticketID)
+    {
+        $ticket = $this->getTicket($ticketID);
+        $header = "Mesa: " . $ticketID;
+
+            $this->printTicket($header, $this->getTicketLines($ticketID));
+
+
+
+        if(config('customoptions.clean_table_after_order') OR config( 'customoptions.clean_table_after_bill')) {
+            $this->updateOpenTable($this->createEmptyTicket(), Session::get('ticketID'));
+
+        }
+
+    }
+
+
     public function printTicketfromPayment($ticketID)
     {
         $this->printOrderAndReceipt($ticketID);

@@ -203,9 +203,10 @@ trait PrinterTrait
 
 
         } catch (Throwable $e) {
-
+            Log::debug('coonect error' . config('app.printer-ip'));
             Session('status', 'No se puede imprimir el pedido, avisa a la camarera por favor');
-            return abort('503', 'No se puede imprimir el pedido, avisa a la camarera por favor');
+            //return response()->view('errors.printer', [], 503);
+            return abort('503', 'No se puede conectar a la impresora, avisa a nuestro personal por favor');
         }
     }
 

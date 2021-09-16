@@ -28,13 +28,15 @@
                     <thead class="position-sticky">
                     <tr>
                     <td colspan="2"><a href="/order/" class="btn btn-tab m-1">Mas cosas</a></td>
+                        <td colspan="2">
                         @if(Session::get('tableNumber') && Session::get('tableNumber')<100 && $unprintedlines)
-                            <td colspan="2">
+
                                 <a href="/checkout/printOrder/{{Session::get('ticketID')}}" class="btn btn-tab m-1" >
                                     Pedir
                                 </a>
-                            </td>
+
                         @endif
+                        </td>
                     </tr>
 
 

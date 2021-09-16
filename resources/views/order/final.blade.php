@@ -13,6 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
                     <img src="/img/logo.jpg" class="img-fluid">
                         <br><br>
                     <H2>Gracias por su confianza</H2>
