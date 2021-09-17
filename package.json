@@ -13,7 +13,7 @@
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
-        "jquery": "^3.2",
+        "jquery": "^3.6.0",
         "jquery-ui": "^1.12.1",
         "laravel-mix": "^5.0.1",
         "laravel-mix-workbox": "^0.1.2",
