@@ -238,17 +238,20 @@
                             <tr><td><h6 class="inline-flex bg-dark text-white mt-4">Traduciones</h6></td><td><hr></td><td><hr></td></tr>
                             <tr>
                                 <td colspan="3">
-                                    <label for="lang1" class="form-label"><b>Language 1</b></label>
+
+                                    <label for="lang1" class="form-label"><img src="/img/{{array_keys(Config::get('languages'))[1]}}.svg" width="16"><b>Language 1</b></label>
                                     <input type="text" name="lang1" class="form-control" style="min-width: 100%"  value="{{$product->product_detail->lang1 ?? ''}}">
                                 </td>
                             </tr><tr>
                                 <td colspan="3">
-                                    <label for="lang2" class="form-label"><b>Language 2</b></label>
+
+                                    <label for="lang2" class="form-label"><img src="/img/{{array_keys(Config::get('languages'))[2]}}.svg" width="16"><b>Language 2</b></label>
                                     <input type="text" name="lang2" class="form-control" style="min-width: 100%" value="{{$product->product_detail->lang2 ?? ''}}">
                                 </td>
                             </tr><tr>
                                 <td colspan="3">
-                                    <label for="lang3" class="form-label" ><b>Language 3</b></label>
+
+                                    <label for="lang3" class="form-label" ><img src="/img/{{array_keys(Config::get('languages'))[3]}}.svg" width="16"><b>Language 3</b></label>
                                     <input type="text" name="lang3" class="form-control" style="min-width: 100%"  value="{{$product->product_detail->lang3 ?? ''}}">
                                 </td>
                             </tr>

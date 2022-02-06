@@ -29,6 +29,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     @include('layouts.analytics');
 </head>
 <body>
@@ -53,10 +54,11 @@
 
                     @endif
                 <a id="basketLink" href="/basket" class="" >
-                    <button type="button" class="btn btn-labeled btn-tab r" id="ordertotal">
+                    <button type="button" class="btn btn-labeled btn-tab r" id="ordertotal" data-bs-toggle="tooltip" data-bs-html="true" data-bs-html="true" title="{{__('Pulsa aqui para tramitar tu pedido')}}">
                         <span class="btn-label"><i class="fa fa-shopping-cart"></i></span>
                         </svg> @money($totalBasketPrice*1.1)
                     </button>
+
                 </a>
                     @if(Auth::user() and Auth::user()->isWaiter())
                       <a href="/selecttable"  class="btn btn-labeled btn-tab r"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
@@ -76,20 +78,45 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item ">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Area Privada') }}</a>
+
                             </li>
-                            {{--@if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif--}}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Config::get('languages')[App::getLocale()] }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+
+
+                                @foreach (Config::get('languages') as $lang => $language)
+                                    @if ($lang != App::getLocale())
+                                        <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><img src="/img/{{$lang}}.svg" height="16"> {{$language}}</a>
+                                    @endif
+                                @endforeach
+
+
+
+
+                            </div>
+                        </li>
+
+
+                        {{--@if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif--}}
                         @else
 
                             <li class="nav-item dropdown">
@@ -106,6 +133,20 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                   &nbsp;&nbsp;&nbsp; --------------------
+                                    <a class="dropdown-item" href="#"><b>
+                                        {{ Config::get('languages')[App::getLocale()] }}
+                                        </b>
+                                    </a>
+
+                                        @foreach (Config::get('languages') as $lang => $language)
+                                            @if ($lang != App::getLocale())
+                                                <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"> {{$language}}</a>
+                                            @endif
+                                        @endforeach
+
+
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -115,6 +156,7 @@
                             </li>
 
                         @endguest
+
                     </ul>
                 </div>
             </div>
@@ -128,6 +170,14 @@
 @yield('scripts');
 <script>
 jQuery(document).ready(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip(
+        {
+            delay: 100
+
+
+
+        }
+    );
     jQuery('#overlay').fadeOut();
 
     $.ajaxSetup({

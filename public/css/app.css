@@ -10929,7 +10929,7 @@ body {
 }
 
 .btn-mobilepos {
-  color: #ffffff;
+  color: #000000;
   background-color: #e9c062;
   border-color: #d39e00;
 }
@@ -11065,5 +11065,31 @@ body {
 
 .disabled-image {
   opacity: 0.5;
+}
+
+.tooltip-inner {
+  background-color: #e9c46a !important;
+  /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
+  color: #000;
+}
+
+.tooltip.arrow {
+  background-color: #e9c46a !important;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: #e9c46a;
+}
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #e9c46a;
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #e9c46a;
+}
+
+.tooltip.left .tooltip-arrow {
+  border-left-color: #e9c46a;
 }
 

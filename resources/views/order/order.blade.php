@@ -26,19 +26,19 @@
 
                         @if(is_null($categories[$i]->parentid))
                             <a href="/order/category/{{$categories[$i]->id}}"
-                               class="btn btn-secondary m-1">{{$categories[$i]->name}}</a>
+                               class="btn btn-secondary m-1">{{__($categories[$i]->name)}}</a>
                         @endif
                     @endfor
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary dropdown-toggle m-1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                            Otros
+                            {{__('Otros')}}
                         </button>
 
                         <div class="dropdown-menu">
                             @for ($i = config('customoptions.buttons_on_page'); $i < count($categories); $i++)
                                 <a href="/order/category/{{$categories[$i]->id}}" class="dropdown-item"
-                                   href="#">{{$categories[$i]->name}}</a>
+                                   href="#">{{__($categories[$i]->name)}}</a>
                             @endfor
                         </div>
                     </div>
@@ -64,31 +64,31 @@
                                         <img src="/dbimage/{{$product->id}}.png" class="img-fluid img-drag" id="product_image"
                                              onclick="addProduct('{{$product->id}}')"></td>
 
-                                    <td class="align-middle" colspan="2"><h5>{{$product->name}}</h5></td>
+                                    <td class="align-middle" colspan="2">
+                                        <h5>{{$product->name}}</h5>
+                                        @if($product->product_detail)
+
+                                            <button type="button" class="btn  btn-outline-info " data-toggle="modal"
+                                                    data-target="#info{{$product->id}}">
+                                                <b><i>{{__('+info')}}</i></b>
+                                            </button>
+                                        @endif</td>
 
                                 <tr class="no-line">
 
 
 
                                     <td class="nowrapcol align-middle"><b>@money($product->pricesell *1.1)</b></td>
-                                    <td>
-                                        @if($product->product_detail)
 
-                                            <button type="button" class="btn  btn-outline-info " data-toggle="modal"
-                                                    data-target="#info{{$product->id}}">
-                                                <b><i>+info</i></b>
-                                            </button>
-                                        @endif
-                                    </td>
 
-                                    <td class="align-middle">
+                                    <td colspan="2" class="align-middle">
                                         <button class="btn btn-tab add-to-cart btn-add"
-                                                onclick="addProduct('{{$product->id}}')" type="submit">Añadir
+                                                onclick="addProduct('{{$product->id}}')" type="submit">{{__('Añadir')}}
                                         </button>
                                     </td>
                                 </tr>
 
-                                </tr>
+
 
                             @else
                                 <tr class="productrow">
@@ -107,8 +107,18 @@
                                     </td>
                                 </tr>
 
-                                </tr>
                             @endif
+                            @if(Auth::user()&&Auth::user()->isManager())
+                                <tr><td colspan="3" class="align-middle">
+                                        <a href="{{ route('products.edit',$product->id) }}" class="btn btn-tab add-to-cart btn-add"
+                                               >{{__('Editar')}}
+                                        </a>
+                                    </td>
+                                </tr>
+
+
+                                    @endif
+                            </tr>
                             @if($product->product_detail)
                                 <div class="modal fade" id="info{{$product->id}}" tabindex="-1" role="dialog"
                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -123,10 +133,27 @@
                                             </div>
                                             <div class="modal-body">
                                                 <img src="/dbimage/{{$product->id}}.png" class="img-fluid "><br>
-                                                <textarea  style="height: 150px;border: none;background-color: transparent;overflow: auto;resize: none;outline: none;min-width: 100%">{{$product->product_detail->description}}</textarea>
-                                                <br>
 
-alergenicos:
+                                                @if(isset($product->product_detail->lang1))
+                                                    <div>
+                                                        <img src="/img/{{array_keys(Config::get('languages'))[1]}}.svg" width="16" style=" margin-right: 15px;">{{$product->product_detail->lang1}}
+                                                    </div>
+                                                @endif
+                                                @if(isset($product->product_detail->lang2))
+                                                    <div>
+                                                        <img src="/img/{{array_keys(Config::get('languages'))[2]}}.svg" width="16" style=" margin-right: 15px;">{{$product->product_detail->lang2}}
+                                                    </div>
+                                                @endif
+                                                @if(isset($product->product_detail->lang3))
+                                                    <div>
+                                                        <img src="/img/{{array_keys(Config::get('languages'))[3]}}.svg" width="16" style=" margin-right: 15px;">{{$product->product_detail->lang3}}
+                                                    </div>
+                                                @endif
+                                                <br>
+                                                <textarea  style="height: 150px;border: none;background-color: transparent;overflow: auto;resize: none;outline: none;min-width: 100%">{{$product->product_detail->description}}</textarea>
+
+
+{{__('Alergenicos:')}}
                                                 @if($product->product_detail->alerg_apio)<img
                                                         src="/img/allergens/Apio.png" class="img-fluid"
                                                         width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Apio">@endif
@@ -229,7 +256,6 @@ alergenicos:
                 <script>
                     jQuery(document).ready(function () {
 
-
                         $('#addOnProductsTable').on('click', '.productAddonRow', function () {
                             var id = $(this).find('td:eq(0)').attr('id');
                             var price = $(this).find('td:eq(2)').attr('id');
@@ -245,6 +271,7 @@ alergenicos:
                             if (imgtodrag) {
                                 moveImage(imgtodrag, cart);
                                 jQuery('#overlay').fadeOut();
+                                $('#ordertotal').tooltip('show');
                             }
 
                         });
@@ -257,7 +284,9 @@ alergenicos:
                             if (imgtodrag) {
                                 moveImage(imgtodrag, cart);
                                 jQuery('#overlay').fadeOut();
+                                $('#ordertotal').tooltip('show');
                             }
+
 
                         });
 

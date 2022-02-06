@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', [OrderController::class, 'order']);
+    Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
     Route::get('/menu', [OrderController::class, 'menu']);
     Route::get('/basket/', [OrderController::class, 'showBasket'])->name('basket');
 
