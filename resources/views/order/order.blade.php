@@ -83,7 +83,7 @@
 
                                     <td colspan="2" class="align-middle">
                                         <button class="btn btn-tab add-to-cart btn-add"
-                                                onclick="addProduct('{{$product->id}}')" type="submit">{{__('Añadir')}}
+                                                onclick="addProduct('{{$product->id}}')" type="submit"> {{__('Añadir')}}&nbsp;<img src="/img/cart.svg" width="16">
                                         </button>
                                     </td>
                                 </tr>
@@ -94,7 +94,7 @@
                                 <tr class="productrow">
                                     <td rowspan="2">
                                         <img src="/dbimage/{{$product->id}}.png" class="img-fluid disabled-image"
-                                             id="disbled_product_image"
+                                             id="disbled_product_image"  data-toggle="modal"
                                         ></td>
 
                                     <td class="align-middle" colspan="2"><h5>{{$product->name}}</h5></td>
@@ -131,7 +131,8 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+
+                                            <div class="modal-body productrow">
                                                 <img src="/dbimage/{{$product->id}}.png" class="img-fluid "><br>
 
                                                 @if(isset($product->product_detail->lang1))
@@ -198,6 +199,10 @@
                                                         width="32" data-container="body" data-toggle="popover" data-placement="top" data-content="Pescado">@endif
 
                                                 <div class="modal-footer">
+
+                                                    <button class="btn btn-tab img-drag btn-add"  data-dismiss="modal"
+                                                            onclick="addProduct('{{$product->id}}')" type="submit">{{__('Añadir')}}
+                                                    </button>
                                                     <button type="button" class="btn btn-primary"
                                                             data-dismiss="modal">Close
                                                     </button>
@@ -256,6 +261,7 @@
                 <script>
                     jQuery(document).ready(function () {
 
+
                         $('#addOnProductsTable').on('click', '.productAddonRow', function () {
                             var id = $(this).find('td:eq(0)').attr('id');
                             var price = $(this).find('td:eq(2)').attr('id');
@@ -271,7 +277,10 @@
                             if (imgtodrag) {
                                 moveImage(imgtodrag, cart);
                                 jQuery('#overlay').fadeOut();
-                                $('#ordertotal').tooltip('show');
+
+                                $('#ordertotal').addClass( "glowbutton" );
+                                $('#ordertotal').bind("webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationEnd", function(){
+                                    $(this).removeClass('glowbutton');})
                             }
 
                         });
@@ -331,7 +340,7 @@
                                     });
                                 }
                                 orderTotalBasket = (data[0] * 1.1).toFixed(2) + "€";
-                                $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;' + orderTotalBasket);
+                                $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;' + orderTotalBasket +'&nbsp;<img src="/img/cart.svg" width="16">');
                             }
                         });
                     }

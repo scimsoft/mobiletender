@@ -45,7 +45,7 @@ window.cancelProduct=function(productID){
         success: function (data) {
 
             orderTotalBasket= (data * 1.1).toFixed(2) + "€";
-            $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span>&nbsp;'+ orderTotalBasket);
+            $('#ordertotal').html('<span class="btn-label"><i class="fa fa-shopping-cart"></i></span><img src="/img/cart.svg" width="16">&nbsp;'+ orderTotalBasket);
 
         }
     });
@@ -80,6 +80,8 @@ window.moveImage = function(imgtodrag,cart){
     }, function () {
         $(this).detach()
     });
+
+
 }
 
 

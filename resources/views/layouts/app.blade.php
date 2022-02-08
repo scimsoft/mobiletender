@@ -54,9 +54,9 @@
 
                     @endif
                 <a id="basketLink" href="/basket" class="" >
-                    <button type="button" class="btn btn-labeled btn-tab r" id="ordertotal" data-bs-toggle="tooltip" data-bs-html="true" data-bs-html="true" title="{{__('Pulsa aqui para tramitar tu pedido')}}">
-                        <span class="btn-label"><i class="fa fa-shopping-cart"></i></span>
-                        </svg> @money($totalBasketPrice*1.1)
+                    <button type="button" class="btn btn-labeled btn-tab r" id="ordertotal" >
+                        <span class="btn-label"><i class="fa fa-shopping-cart"></i>
+                        </svg>&nbsp; @money($totalBasketPrice*1.1) &nbsp;<img src="/img/cart.svg" width="16"></span>
                     </button>
 
                 </a>
@@ -166,18 +166,12 @@
             @yield('content')
         </main>
     </div>
+@include('layouts.footer')
 </body>
 @yield('scripts');
 <script>
 jQuery(document).ready(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip(
-        {
-            delay: 100
 
-
-
-        }
-    );
     jQuery('#overlay').fadeOut();
 
     $.ajaxSetup({
