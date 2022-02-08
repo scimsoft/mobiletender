@@ -33,7 +33,8 @@ host('bar')
 
 host('playaalta')
     ->hostname('comer.playaalta.com')
-    ->set('deploy_path', '/var/www/comer');
+    ->set('deploy_path', '/var/www/comer')
+    ->set('branch','master');
 
 host('copas')
     ->hostname('copas.playaalta.com')
