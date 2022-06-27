@@ -14,22 +14,19 @@
                         </div>
                     @endif
 
-                    <img src="/img/logo.jpg" class="img-fluid">
+                    <img src="/img/PLAYAALTA_30Years.png" class="img-fluid">
                         <br><br>
-                    <H2>Gracias por su confianza</H2>
+                    <H2>Gracias por 30 años eligiendo nos.</H2>
 <br>
-                    <H4>Ayudanos y deje su opinion en <a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank">Google</a></H4>
-                    <br>
-                        Siguenos en:
-                        <a href="https://www.instagram.com/playaalta/" class="bi bi-instagram" target="_blank"><span class="label">Instagram</span></a>
+                    <H4>No olvides dejar tu opinion en </H4><a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank"> <img src="/img/reviews.png" width="150px"></a>
+                    <br><br><br>
+                        Y siguenos en:<br>
+                        <a href="https://www.instagram.com/playaalta/" class="bi bi-instagram" target="_blank"><span class="label"><img src="/img/Instagram_icon.png" width="32px"></span></a>
 
-                            <a href="https://twitter.com/playaalta" class="bi bi-twitter" target="_blank"><span class="label">Twitter</span></a>
-                            <a href="https://www.facebook.com/chiringuito.playa.alta" class="bi bi-facebook" target="_blank"><span class="label">Facebook</span></a>
+                            <a href="https://twitter.com/playaalta" class="bi bi-twitter" target="_blank"><span class="label"><img src="/img/Twitter_icon.png" width="32px"></span></a>
+                            <a href="https://www.facebook.com/chiringuito.playa.alta" class="bi bi-facebook" target="_blank"><span class="label"><img src="/img/Facebook_icon.png" width="32px"></span></a>
 
 
-                    <br><br>
-
-                        <H4>Pulsa <a href="javascript:set_notificacion();">aqui</a> para recibir nuestras ofertas.</H4>
 
                     <br>
                     <br>
