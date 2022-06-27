@@ -136,8 +136,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/movements',[AdminPaymentController::class,'movementsIndex'])->middleware('is_manager')->name('movementsIndex');
     Route::post('/addmovement',[AdminPaymentController::class,'addmovement'])->middleware('is_manager')->name('addmovement');
 
-    Route::get('/stockindex/{cat?}',[AdminStockController::class,'currentStockIndex'])->middleware('is_admin')->name('stockIndex');
-    Route::post('/stock/add',[AdminStockController::class,'addStock'])->middleware('is_admin');
+    Route::get('/stockindex/{cat?}',[AdminStockController::class,'currentStockIndex'])->middleware('is_manager')->name('stockIndex');
+    Route::post('/stock/add',[AdminStockController::class,'addStock'])->middleware('is_manager');
 
     Route::get ('/stats',[AdminStatsController::class,'index'])->middleware('is_admin');
 
