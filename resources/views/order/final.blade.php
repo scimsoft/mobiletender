@@ -16,7 +16,7 @@
 
                     <img src="/img/PLAYAALTA_30Years.png" class="img-fluid">
                         <br><br>
-                    <H2>Gracias por 30 años eligiendo nos.</H2>
+                    <H2>Este año hacemos 30 años; aqui con vosotros</H2>
 <br>
                     <H4>No olvides dejar tu opinion en </H4><a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank"> <img src="/img/reviews.png" width="150px"></a>
                     <br><br><br>
