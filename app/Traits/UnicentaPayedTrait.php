@@ -90,7 +90,7 @@ trait UnicentaPayedTrait
         $linenumber = 0;
         foreach ($ticketLines as $ticketLine) {
             //$select = DB::select("SELECT stockunits from products where id = '$ticketLine->productid'");
-            $stockUnit = Product::find($ticketLine->productid)->stockunits;
+            $stockUnit = Product::find($ticketLine->productid)->stockunits ?? 1;
 
             $insertTicketLineSQL = "INSERT INTO ticketlines (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES ('$id', $linenumber, '$ticketLine->productid', null, 1.0 , $ticketLine->price, '001',null)";
 
@@ -98,9 +98,10 @@ trait UnicentaPayedTrait
             $updateStockSQL = ("UPDATE stockcurrent SET UNITS = (UNITS + -$stockUnit) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid' AND ATTRIBUTESETINSTANCE_ID IS NULL");
             $control = DB::update($updateStockSQL);
 
+
             if ($control < 1) {
 
-                $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -$stockUnit)";
+                $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -1)";
 
                 DB::insert($insertStockCurrent);
             }
