@@ -27,7 +27,7 @@ class TimeReportController extends Controller
 
        $lastChecking= TimeReport::where('userId',Auth::user()->id)->where('endtime',null)->first();
        $isChecking = count(TimeReport::where('userId',Auth::user()->id)->where('endtime',null)->get())>0;
-//dd($isChecking);
+      // dd($isChecking);
        return view('admin.timereport.index',compact('timereports','isChecking','lastChecking'));
     }
 
@@ -45,9 +45,11 @@ class TimeReportController extends Controller
 
         $timereport = TimeReport::whereNull('endtime')
             ->first();
+
         $timereport->endtime = Carbon::now('GMT+2');
         $timereport->save();
-        return $this->index();
+
+        return redirect(route('admin'));
 
     }
 
