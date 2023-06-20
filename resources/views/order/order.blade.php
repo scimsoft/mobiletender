@@ -85,39 +85,20 @@
                                         <button class="btn btn-tab add-to-cart btn-add"
                                                 onclick="addProduct('{{$product->id}}')" type="submit"> {{__('Añadir')}}&nbsp;<img src="/img/cart.svg" width="16">
                                         </button>
-                                    </td>
-                                </tr>
-
-
-
-                            @else
-                                <tr class="productrow">
-                                    <td rowspan="2">
-                                        <img src="/dbimage/{{$product->id}}.png" class="img-fluid disabled-image"
-                                             id="disbled_product_image"  data-toggle="modal"
-                                        ></td>
-
-                                    <td class="align-middle" colspan="2"><h5>{{$product->name}}</h5></td>
-
-                                <tr class="no-line">
-                                    <td class="nowrapcol align-middle"><b>@money($product->pricesell *1.1)</b></td>
-
-                                    <td class="align-middle">
-                                        No disponible
-                                    </td>
-                                </tr>
-
-                            @endif
-                            @if(Auth::user()&&Auth::user()->isManager())
-                                <tr><td colspan="3" class="align-middle">
+                                        @if(Auth::user()&&Auth::user()->isAdmin())
                                         <a href="{{ route('products.edit',$product->id) }}" class="btn btn-tab add-to-cart btn-add"
                                                >{{__('Editar')}}
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
 
 
-                                    @endif
+
+
+
+                            @endif
+
                             </tr>
                             @if($product->product_detail)
                                 <div class="modal fade" id="info{{$product->id}}" tabindex="-1" role="dialog"
