@@ -36,7 +36,7 @@
               <td>{{Auth::user()->name}}</td>
               @csrf
               @if(!$isChecking)
-              <td>{{ \Carbon\Carbon::now()->format('H:i' ) }}</td>
+              <td>{{ \Carbon\Carbon::now()->format('D d-M-y' ) }}</td>
 
               <td>
 
@@ -79,7 +79,7 @@
             <td>{{date('H:i',strtotime($timereport->starttime))}}</td>
 
             <td>{{date('H:i',strtotime($timereport->endtime))}}</td>
-            
+
             @if(!is_null($timereport->endtime) && Auth::user()->isAdmin())
             <td>{{ \Carbon\Carbon::parse( $timereport->starttime )->diffForHumans( $timereport->endtime,['parts'=> 2,'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE] ) }}</td>
 
