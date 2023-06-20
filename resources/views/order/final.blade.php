@@ -15,10 +15,11 @@
                     @endif
 
                     Gracias.
-<br>
-                    <H4>No olvides dejar tu opinion en </H4><a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank"> <img src="/img/reviews.png" width="150px"></a>
+<br><br><br><br>
+                    <H4>No olvides dejar tu <a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank">reseña. </H4> </a>
+                    <H4>Please leave us your <a href="https://g.page/r/CXvfi6vXp5UmEAg/review" target="_blank">review. </H4> </a>
                     <br><br><br>
-                        Y siguenos en:<br>
+                        @PlayaAlta:<br>
                         <a href="https://www.instagram.com/playaalta/" class="bi bi-instagram" target="_blank"><span class="label"><img src="/img/Instagram_icon.png" width="32px"></span></a>
 
                             <a href="https://twitter.com/playaalta" class="bi bi-twitter" target="_blank"><span class="label"><img src="/img/Twitter_icon.png" width="32px"></span></a>

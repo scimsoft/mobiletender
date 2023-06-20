@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Traits\PrinterTrait;
 use App\Traits\SharedTicketTrait;
 use App\Models\UnicentaModels\SharedTicket;
+use App\Traits\UnicentaPayedTrait;
+
 use function config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +20,7 @@ class BasketController extends Controller
 {
     use SharedTicketTrait;
     use PrinterTrait;
+    use UnicentaPayedTrait;
 // Checkout profess integrated in basket handling
 //    public function checkout()
 //    {
@@ -117,6 +121,8 @@ class BasketController extends Controller
     {
         $this->footer = 'PAGADO online';
         $this->printOrderAndReceipt($ticketID);
+
+        $this->setTicketPayed($ticketID, 'online');
         Session::flash('status', 'Su cuenta esta pagado');
         return redirect()->route('order');
     }
