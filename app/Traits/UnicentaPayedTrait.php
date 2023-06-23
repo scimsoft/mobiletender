@@ -50,7 +50,7 @@ trait UnicentaPayedTrait
         $money = DB::Select('SELECT money FROM closedcash where dateend is null;')[0]->money;
         $datenew = Carbon::now();
         $attributes = null;
-        $person = auth()->user()->name;
+        $person = auth()->user()->name ?? "Guest";
         //dd($money->money);
         $insertReceiptSQL = "INSERT INTO receipts (ID, MONEY, DATENEW, ATTRIBUTES, PERSON) VALUES ('$id', '$money', '$datenew', null, '$person')";
         DB::insert($insertReceiptSQL);
