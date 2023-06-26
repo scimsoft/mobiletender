@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Gerrit
@@ -90,25 +91,27 @@ trait UnicentaPayedTrait
         $linenumber = 0;
         foreach ($ticketLines as $ticketLine) {
             //$select = DB::select("SELECT stockunits from products where id = '$ticketLine->productid'");
+            $insertTicketLineSQL =
+                "INSERT INTO ticketlines (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES)
+        VALUES ('$id', $linenumber, '$ticketLine->productid', null, 1.0 , $ticketLine->price, '001',null)";
+            DB::insert($insertTicketLineSQL);
+
+            $checkIfStockExists = "SELECT * FROM stockcurrent WHERE PRODUCT = '$ticketLine->productid'";
+            $foundStock = DB::select($checkIfStockExists);
+
             $stockUnit = Product::find($ticketLine->productid)->stockunits ?? 1;
 
-            $insertTicketLineSQL = "INSERT INTO ticketlines (TICKET, LINE, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, TAXID, ATTRIBUTES) VALUES ('$id', $linenumber, '$ticketLine->productid', null, 1.0 , $ticketLine->price, '001',null)";
-
-            DB::insert($insertTicketLineSQL);
-            $updateStockSQL = ("UPDATE stockcurrent SET UNITS = (UNITS + -$stockUnit) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid' AND ATTRIBUTESETINSTANCE_ID IS NULL");
-            $control = DB::update($updateStockSQL);
-
-
-            if ($control < 1) {
-
+            if (count($foundStock) > 0) {
+                $stockUnit = $stockUnit > 0 ? $stockUnit : 1;
+                $updateStockSQL = ("UPDATE stockcurrent SET UNITS = (UNITS + -$stockUnit) WHERE LOCATION = '0' AND PRODUCT = '$ticketLine->productid'");
+                DB::update($updateStockSQL);
+            } else {
                 $insertStockCurrent = "INSERT INTO stockcurrent (LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS) VALUES ('0', '$ticketLine->productid', null, -1)";
-
                 DB::insert($insertStockCurrent);
             }
-            $stockDiaryID = Str::uuid();
 
+            $stockDiaryID = Str::uuid();
             $insertStockDairy = "INSERT INTO stockdiary (ID, DATENEW, REASON, LOCATION, PRODUCT, ATTRIBUTESETINSTANCE_ID, UNITS, PRICE, AppUser) VALUES ('$stockDiaryID', '$datenew', -1, '0', '$ticketLine->productid', null, -$stockUnit, $ticketLine->price, '$person')";
-            // dd($insertStockDairy);
             DB::insert($insertStockDairy);
             $linenumber++;
         }
@@ -142,8 +145,7 @@ trait UnicentaPayedTrait
             $this->clearOpenTableTicket($tableNumber);
         } else {
 
-                $this->removeTicketLines($tableNumber, $ticketLines);
-
+            $this->removeTicketLines($tableNumber, $ticketLines);
         }
 
 
@@ -161,8 +163,6 @@ trait UnicentaPayedTrait
             $lineremovedSQL = "INSERT INTO lineremoved (NAME, TICKETID, PRODUCTNAME, UNITS) VALUES($person, $line->m_sTicket, $line->product->name, $line->multiply)";
             DB::insert($lineremovedSQL);
         }
-
-
     }
 
     public function getClosedCash()
@@ -214,8 +214,5 @@ trait UnicentaPayedTrait
         DB::insert("INSERT INTO receipts (ID, MONEY, DATENEW) VALUES ('$receiptsID', '$money', '$now')");
         $paymentsID = Str::uuid();
         DB::insert("INSERT INTO payments (ID, RECEIPT, PAYMENT, TOTAL, NOTES) VALUES ('$paymentsID', '$receiptsID', '$payment', $total, '$notes')");
-
     }
-
-
 }
