@@ -1,0 +1,32 @@
+import:
+  - recipe/laravel.php
+
+config:
+  repository: "https://github.com/scimsoft/mobiletender.git"
+  remote_user: "vagrant"
+
+hosts:
+  demo.playaalta.com:
+    deploy_path: "/var/www/demo"
+
+
+  bar.playaalta.com:
+    deploy_path: "/var/www/sergio"
+
+
+  comer.playaalta.com:
+    deploy_path: "/var/www/comer"
+
+
+  copas.playaalta.com:
+    deploy_path: "/var/www/copas"
+
+
+  latertulia.horecalo.com:
+    deploy_path: "/var/www/latertulia"
+    branch: "tertulia"
+
+
+  demo.horecalo.com:
+    deploy_path: "/var/www/horecalo"
+    branch: "horecalo"

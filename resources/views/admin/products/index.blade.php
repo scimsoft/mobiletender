@@ -16,7 +16,7 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-        @for ($i = 0; $i < 6; $i++)
+        @for ($i = 0; $i < 3; $i++)
             <a href="/products/index/{{$categories[$i]->id}}" class="btn btn-secondary m1-2">{{$categories[$i]->name}}</a>
         @endfor
         <div class="btn-group">

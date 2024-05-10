@@ -1,5 +1,11 @@
 ## About Mobile Tender
 
+### Quick start
+cp .env.example .env
+sh ./install_clean_DB.sh
+sail up
+localhoat
+
 ###Instalation
 #### configure env:
 + db
